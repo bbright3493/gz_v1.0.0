@@ -1,0 +1,119 @@
+from django.db import models
+from django.utils import timezone
+
+from extra_apps.DjangoUeditor.models import UEditorField
+from apps.users.models import *
+from apps.major.models import *
+
+# Create your models here.
+
+
+class UserMajor(models.Model):
+    user = models.ForeignKey(UserProfile, verbose_name='学生名')
+    major = models.ForeignKey(Major, verbose_name='专业名')
+    create_time = models.DateTimeField(default=timezone.now, verbose_name='开通时间')
+    end_time = models.DateTimeField(default=timezone.now, verbose_name='结束时间')
+
+    class Meta:
+        verbose_name = '学生专业'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.major.name
+
+
+class UserCourse(models.Model):
+    user = models.ForeignKey(UserProfile, verbose_name='学生名')
+    course = models.ForeignKey(Major, verbose_name='课程名')
+    start_time = models.DateTimeField(default=timezone.now, verbose_name='开始学习时间')
+    end_time = models.DateTimeField(default=timezone.now, verbose_name='结束时间')
+    complete = models.BooleanField(default=False, verbose_name='是否学完')
+
+    class Meta:
+        verbose_name = '学生课程'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.course.name
+
+
+class UserChapter(models.Model):
+    user = models.ForeignKey(UserProfile, verbose_name='学生名', help_text='用户id')
+    chapter = models.ForeignKey(Chapter, verbose_name='章节名', help_text='章节id')
+    course = models.ForeignKey(Major, verbose_name='课程名', help_text='课程id')
+    course_end = models.BooleanField(default=False, verbose_name='课程是否完成', help_text='课程是否完成，True或False')
+    chapter_end = models.BooleanField(default=False, verbose_name='章节是否完成', help_text='章节是否完成，True或False')
+    end_time = models.DateTimeField(default=timezone.now, verbose_name='完成时间', help_text='完成时间')
+
+    class Meta:
+        verbose_name = '用户章节信息'
+        verbose_name_plural = verbose_name
+        unique_together = ('user', 'chapter')
+
+    def __str__(self):
+        return self.chapter.chapter_name
+
+
+class UserPractice(models.Model):
+    user = models.ForeignKey(UserProfile, verbose_name='学生名', help_text='用户id')
+    chapter = models.ForeignKey(Chapter, verbose_name='章节名', help_text='章节id')
+    practice = models.ForeignKey(Practice, verbose_name='练习名', help_text='练习题id')
+    start_time = models.DateTimeField(default=timezone.now, verbose_name='开始学习时间', help_text='开始时间')
+    end_time = models.DateTimeField(default=timezone.now, verbose_name='结束学习时间', help_text='结束时间')
+    practice_info = models.TextField(default='', verbose_name='练习内容', help_text='练习题提交答案')
+    # course_end = models.BooleanField(default=False, verbose_name='课程是否完成')
+    # chapter_end = models.BooleanField(default=False, verbose_name='章节是否完成')
+    count = models.IntegerField(default=0, verbose_name='作业提交次数', help_text='练习题提交次数')
+
+    class Meta:
+        verbose_name = '学生练习信息'
+        verbose_name_plural = verbose_name
+        unique_together = ("user", "practice")
+
+    def __str__(self):
+        return self.practice.practice_name
+
+
+class UserAchievement(models.Model):
+    user = models.ForeignKey(UserProfile, verbose_name='用户')
+    class_rankings = models.IntegerField(default=0, verbose_name='班级排名')
+    monthly_rankings = models.IntegerField(default=0, verbose_name='月排名')
+    total_ranking = models.IntegerField(default=0, verbose_name='总排名')
+    total_ranking_time = models.DateTimeField(default=timezone.now, verbose_name='排名时间')
+    estimated_time = models.DateTimeField(default=timezone.now, verbose_name='预计完成时间')
+
+    class Meta:
+        verbose_name = '学生成绩表'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.user.name
+
+
+class UserBlog(models.Model):
+    user = models.ForeignKey(UserProfile, verbose_name='用户名')
+    blog_name = models.CharField(max_length=255, verbose_name='博客名', help_text='博客名')
+    blog_body = UEditorField(verbose_name='博客正文', imagePath="goods/images/", width=1000, height=300,
+                              filePath="goods/files/", default='', help_text='博客正文')
+    blog_time = models.DateTimeField(default=timezone.now, verbose_name='创建时间', help_text='创建时间')
+
+    class Meta:
+        verbose_name = '用户博客'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.blog_name
+
+
+class UserTask(models.Model):
+    user = models.ForeignKey(UserProfile, verbose_name='用户名')
+    task_name = models.CharField(max_length=255, verbose_name='作业名字', help_text='作业名字')
+    download = models.FileField(null=True, blank=True, verbose_name='作业下载地址', help_text='作业下载地址')
+    complete_time = models.DateTimeField(default=timezone.now, verbose_name='提交时间', help_text='提交时间')
+
+    class Meta:
+        verbose_name = '学生作业'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.task_name
