@@ -18,8 +18,8 @@ class BaseSetting(object):
 
 
 class GlobalSetting(object):
-    site_title = "后台管理"
-    site_footer = "后台"
+    site_title = "格子网塾"
+    site_footer = "格子网塾后台管理系统"
     menu_style = "accordion"
 
 

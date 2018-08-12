@@ -128,7 +128,7 @@ urlpatterns = [
     url(r'^admin/', xadmin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls')),
     url(r'^', include(router.urls)),
-    url(r'docs/', include_docs_urls(title='测试')),
+    url(r'docs/', include_docs_urls(title='格子网塾数据api接口说明文档')),
     url(r'^index/', TemplateView.as_view(template_name="index.html"), name="index"),
     url(r'^login/', obtain_jwt_token),  # jwt认证
     url(r'logout/', LogoutView.as_view(), name='logout'),  # 退出登录
