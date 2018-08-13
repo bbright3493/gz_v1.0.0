@@ -1,0 +1,6 @@
+2018-08-13 11:00:40,370 [Dummy-1:123145414258688] [django.db.backends:91] [utils:execute] [DEBUG]- (0.198) SELECT @@SQL_AUTO_IS_NULL; args=None
+2018-08-13 11:00:40,573 [Dummy-1:123145414258688] [django.db.backends:91] [utils:execute] [DEBUG]- (0.202) SELECT VERSION(); args=None
+2018-08-13 11:00:44,758 [Dummy-1:123145414258688] [django.db.backends:91] [utils:execute] [DEBUG]- (2.140) SHOW FULL TABLES; args=None
+2018-08-13 11:00:45,070 [Dummy-1:123145414258688] [django.db.backends:91] [utils:execute] [DEBUG]- (0.307) SELECT `django_migrations`.`app`, `django_migrations`.`name` FROM `django_migrations`; args=()
+2018-08-13 11:01:19,676 [Thread-2:123145419513856] [django.server:124] [basehttp:log_message] [INFO]- "GET / HTTP/1.1" 200 8599
+2018-08-13 11:01:21,744 [Thread-3:123145424769024] [django.server:124] [basehttp:log_message] [WARNING]- "GET /course/ HTTP/1.1" 401 5158
