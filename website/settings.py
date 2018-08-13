@@ -160,7 +160,7 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = '/home/gz_v1.0.0/static/'
+STATIC_ROOT = '/home/gz_v1.0.0/static1/'
 # STATIC_ROOT = ''
 #
 # if DEBUG:
