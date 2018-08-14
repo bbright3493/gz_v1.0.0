@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from extra_apps.DjangoUeditor.models import UEditorField
+from DjangoUeditor.models import UEditorField
 
 
 # Create your models here.
@@ -41,8 +41,8 @@ class Chapter(models.Model):
     chapter_number = models.IntegerField(verbose_name='章节数')
     chapter_introduce = models.CharField(max_length=255, verbose_name='章节介绍')
     chapter_video = models.CharField(max_length=255, null=True, blank=True, verbose_name='视频')
-    chapter_task = UEditorField(verbose_name='章节任务说明', imagePath="goods/images/", width=1000, height=300,
-                              filePath="goods/files/", default='')
+    chapter_task = UEditorField(verbose_name='章节任务说明', imagePath="course/images/", width=1000, height=500,
+                              filePath="course/files/", default='')
     chapter_target = models.CharField(max_length=255, verbose_name='章节目标')
 
     class Meta:

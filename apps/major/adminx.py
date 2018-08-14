@@ -19,6 +19,7 @@ class ChapterAdmin(object):
     list_display = ['course_name', 'chapter_name', 'chapter_introduce', 'chapter_task', 'chapter_target']
     search_fields = ['course_name', 'chapter_name', 'chapter_introduce', 'chapter_task', 'chapter_target']
     list_filter = ['course_name', 'chapter_name', 'chapter_introduce', 'chapter_task', 'chapter_target']
+    style_fields = {"chapter_task": "ueditor"}
 
 
 class PracticeAdmin(object):
