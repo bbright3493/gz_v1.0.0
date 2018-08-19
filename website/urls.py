@@ -40,11 +40,9 @@ router.register(r'major', MajorListViewSet, base_name='major')
 # 课程章节列表api
 router.register(r'course', ChapterListViewSet, base_name='course')
 
-# 课程章节列表api
-router.register(r'chapter', ChapterListViewSet, base_name='chapter')
-
 # 章节详细信息页面api
-router.register(r'cp_info', ChapterInfoViewSet, base_name='cp_info')
+router.register(r'chapter', ChapterInfoViewSet, base_name='chapter')
+
 
 # 章节完成api
 router.register(r'complete', UserChapterEndViewSet, base_name='complete')
