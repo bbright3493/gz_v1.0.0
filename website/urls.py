@@ -63,6 +63,15 @@ router.register(r'task', UserTaskListViewSet, base_name='task')
 # 用户blog api
 router.register(r'blog', UserBlogViewSet, base_name='blog')
 
+# 用户个人信息、设置API
+
+router.register(r'userinfo', UserResumeViewSet, base_name='resume')
+
+# 用户教育背景api
+router.register(r'education', UserEducationViewSet, base_name='education')
+
+
+#bb
 # 总排行榜
 router.register(r'total_rank', TotalRankViewSet, base_name='total_rank')
 
@@ -126,10 +135,12 @@ urlpatterns = [
     url(r'^admin/', xadmin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls')),
     url(r'^', include(router.urls)),
-    url(r'docs/', include_docs_urls(title='格子网塾数据api接口说明文档')),
+    url(r'docs/', include_docs_urls(title='测试')),
     url(r'^index/', TemplateView.as_view(template_name="index.html"), name="index"),
+    url(r'^results/', UserResultsView.as_view(), name='results'),  # 用户成绩api
     url(r'^login/', obtain_jwt_token),  # jwt认证
     url(r'logout/', LogoutView.as_view(), name='logout'),  # 退出登录
+    url(r'^ueditor/', include('DjangoUeditor.urls')),
     url(r'^media/(?P<path>.*)/$', serve, {'document_root': MEDIA_ROOT}),  # 资源文件加载地址
 ]
 
