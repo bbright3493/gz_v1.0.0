@@ -21,7 +21,8 @@ from apps.utils.permissions import *
 class MajorListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
     list:
-        1级目录专业列表和2级目录课程类别3级目录课程列表
+        请求的url：http://xxx.xxx.xxx.xxx/major
+        返回的结果：1级目录专业列表和2级目录课程类别3级目录课程列表
     read:
         指定专业的详细信息
     """
