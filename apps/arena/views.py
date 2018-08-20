@@ -22,6 +22,7 @@ from .models import *
 from users.serializers import UserProfileSerializers
 
 
+
 #排行榜页面
 class TotalRankViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
@@ -29,6 +30,7 @@ class TotalRankViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewset
     """
     queryset = UserAchievement.objects.order_by('total_ranking')
     serializer_class = TotalRankSerializers
+
 
 
 class WeekRankViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):

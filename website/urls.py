@@ -87,6 +87,30 @@ router.register(r'pass', PassListViewSet, base_name='pass_list')
 #用户关卡信息
 router.register(r'user_pass', UserPassListViewSet, base_name='user_pass_list')
 
+
+#对战模式
+#挑战者信息-时间赛
+router.register(r'challenger_time', ChallengerTimeModList, base_name='challenger_time')
+
+#挑战者信息-速度赛
+router.register(r'challenger_speed', ChallengerSpeedModList, base_name='challenger_speed')
+
+#挑战者信息-编程赛
+router.register(r'challenger_program', ChallengerProgramModList, base_name='challenger_program')
+
+#被挑战者信息
+router.register(r'be_challengers', WantChallengeredList, base_name='be_challengers')
+
+#pk详情页面
+router.register(r'pk_detail', PkDetail, base_name='pk_detail')
+
+#团赛模式
+#团赛列表页
+router.register(r'team_comp', TeamCompList, base_name='team_comp')
+
+
+
+
 #图书馆首页信息
 router.register(r'library_index', KnowledgeListViewSet, base_name='konwledge_index_list')
 
@@ -135,7 +159,7 @@ urlpatterns = [
     url(r'^admin/', xadmin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls')),
     url(r'^', include(router.urls)),
-    url(r'docs/', include_docs_urls(title='测试')),
+    url(r'docs/', include_docs_urls(title='格子网塾api接口说明')),
     url(r'^index/', TemplateView.as_view(template_name="index.html"), name="index"),
     url(r'^results/', UserResultsView.as_view(), name='results'),  # 用户成绩api
     url(r'^login/', obtain_jwt_token),  # jwt认证

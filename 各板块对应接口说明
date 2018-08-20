@@ -1,0 +1,112 @@
+接口的具体说明请参考接口说明文档
+文档地址：
+http://155.94.148.87/docs
+
+本文档主要说明各板块及页面所对应的api接口
+api接口的前面部分是http://155.94.148.87/
+
+路线图板块
+1 路线图首页
+major
+查询专业 阶段 课程
+
+2 章节列表页
+course/?id=4
+查询指定课程的章节 后面的id是课程的id 不加后缀过滤将会查出所有的章节
+
+3 章节详情页
+chapter/{id}/
+查询某一个章节的详情 如果不加后缀id 将会查出所有的章节
+
+practice/?chapter=2
+查询指定章节的练习
+
+
+竞技场板块
+1 排行榜
+(1)总排行页面
+total_rank
+
+(2)周排行页面
+week_rank
+
+(3)日排行页面
+day_rank
+
+2 闯关模式
+(1)列表页
+pass 关卡列表
+user_pass 用户的关卡信息
+
+(2) 详情页
+pass/id
+
+3 对战模式
+（1）首页
+时间赛 挑战者信息
+challenger_time
+
+速度赛 挑战者信息
+challenger_speed
+
+编程赛 挑战者信息
+challenger_program
+
+候选被挑战者信息
+be_challengers
+
+（2）pk详情页面
+pk_detail
+
+4 团赛模式
+团赛列表页面
+team_comp
+
+图书馆板块
+1 图书馆首页
+library_index
+
+2 图书馆搜索页
+搜索结果列表页
+library_search/?search=关键字
+
+搜索结果详情页 id为搜索到的某个知识点的id
+library_search/id
+
+知识点音频
+know_audio/id
+
+知识点图片
+know_image
+
+知识点视频
+know_video
+
+知识点导图
+know_mind
+
+咖啡厅板块
+1 老师学生交流页面
+
+老师 学生交流数据
+teacher_msg
+
+班级数据
+user_class
+
+最新消息数据
+class_blog
+
+2 同班同学交流页面
+同班同学数据
+classmate
+
+同学消息
+student_msg
+
+3 论坛页面
+论坛数据
+discuss_msg
+
+
+

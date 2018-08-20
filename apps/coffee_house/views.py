@@ -30,6 +30,8 @@ class TeacherMsgListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mi
                             viewsets.GenericViewSet):
     """
     老师的留言信息列表
+    url请求 http://127.0.0.1:8000/teacher_msg/tutor
+    其中的后缀代表不同老师的类型 tutor：导师  lector：讲师 head：班主任
     """
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
