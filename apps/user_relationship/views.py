@@ -1,6 +1,8 @@
-from rest_framework import viewsets
+from django.shortcuts import redirect
+from rest_framework import viewsets, generics
 from rest_framework import mixins
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.authentication import SessionAuthentication
 from rest_framework import filters
@@ -19,11 +21,14 @@ from apps.utils.results import *
 class UserChapterEndViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
     """
     list:
-        用户学完章节列表展示、任务线页面接口
+        需登录
+        请求：http://xxx.xxx.xx.xx:xx/complete/ 返回用户章节完成信息展示，也是个人中心任务线API
+
     create:
-        添加用户章节完成信息接口
+        post请求：http://xxx.xxx.xx.xx:xx/complete/ 为添加用户章节完成信息API
+
     update:
-        更新用户章节完成信息接口
+        put请求：http://xxx.xxx.xx.xx:xx/complete/{id}/ 为更新指定的章节完成信息API
 
 
     """
@@ -46,13 +51,14 @@ class UserChapterEndViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixi
 class UserPracticeViewSet(viewsets.ModelViewSet):
     """
     list:
-        用户完成练习题展示接口
+        需登录
+        请求： http://xx.xx.xx.xx:xx/user_practice/ 返回用户完成练习题信息
     create:
-        用户练习题完成时添加信息接口
+        post请求： http://xx.xx.xx.xx:xx/user_practice/ 用户练习题完成时添加信息接口
     update:
-        更新用户完成练习题接口
+       put请求： http://xx.xx.xx.xx:xx/user_practice/{id}/  更新指定的完成练习题接口
     delete：
-        删除用户完成练习题接口
+       put请求： http://xx.xx.xx.xx:xx/user_practice/{id}/ 删除指定的完成练习题接口
     """
     serializer_class = UserPracticeSerializer
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
@@ -62,23 +68,49 @@ class UserPracticeViewSet(viewsets.ModelViewSet):
         return UserPractice.objects.filter(user_id=self.request.user)
 
 
+
+# class UserPracticeViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
+#     queryset = A(value=2, user=None)
+#     serializer_class = Test
+#     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+#     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+#
+#     def list(self, request):
+#         # Note the use of `get_queryset()` instead of `self.queryset`
+#         queryset = A(value=2, user=self.request.user)
+#         serializer = Test(queryset)
+#         print(serializer.data)
+#         return Response(serializer.data)
+
+
 class UserResultsView(View):
+    """
+    需登录
+    请求：http://xxx.xx.xx.xx:xx/results/ 返回用户成绩信息
+
+    """
 
     def get(self, request):
         info_dict =dict()
-        results = UserAchievement.objects.filter(user=self.request.user)
-        chapter = UserChapter.objects.filter(user=self.request.user).order_by('-end_time')[0]
-        chapter = Chapter.objects.filter(id=chapter.chapter_id)
-        json_data = serializers.serialize('json', results)
-        json_data2 = serializers.serialize('json', chapter)
-        # json_data = json_data.replace(']', '').replace('[', '')
-        # json_data2 = json_data2.replace(']', '').replace('[', '')
-        print(json_data2)
-        info_dict['results'] = json.loads(json_data)
-        info_dict['chapter'] = json.loads(json_data2)
-        return JsonResponse(info_dict, safe=False)
+        if request.user.is_authenticated:
+            results = UserAchievement.objects.filter(user=self.request.user)
+            chapter = UserChapter.objects.filter(user=self.request.user).order_by('-end_time')[0]
+            chapter = Chapter.objects.filter(id=chapter.chapter_id)
+            json_data = serializers.serialize('json', results)
+            json_data2 = serializers.serialize('json', chapter)
+            # json_data = json_data.replace(']', '').replace('[', '')
+            # json_data2 = json_data2.replace(']', '').replace('[', '')
+            print(json_data2)
+            info_dict['results'] = json.loads(json_data)
+            info_dict['chapter'] = json.loads(json_data2)
+            return JsonResponse(info_dict, safe=False)
+
+        else:
+            return redirect('login')
 
 
+# ----------------------------------------------------------------------------------------------------
+# 未使用
 class UserResultsViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
     """
     用户成绩信息
@@ -90,15 +122,17 @@ class UserResultsViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewset
     def get_queryset(self):
 
         return UserAchievement.objects.filter(user=self.request.user)
+# ----------------------------------------------------------------------------------------------------
 
 
 class UserTaskListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
     """
     list:
-        用户作业信息列表展示
-        搜索 api http://127.0.0.1:8000/task/?search= （模糊搜索）
+        需登录
+        请求： http://xxx.xx.xx.xx:xx/task/ 返回用户作业信息列表
+        请求： http://xxx.xx.xx.xx:xx/task/?search= （模糊搜索）
     create:
-        用户作业上传，创建
+        psot请求：http://xxx.xx.xx.xx:xx/task/ 用户作业上传，创建
 
     """
     serializer_class = UserTaskSerializers
@@ -115,10 +149,11 @@ class UserTaskListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewse
 class UserBlogViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
     """
     list:
-        用户blog信息列表展示
-        搜索 api http://127.0.0.1:8000/blog/?search= （模糊搜索）
+        需登录
+        请求： http://xxx.xx.xx.xx:xx/blog/ 返回用户blog信息列表
+        请求： http://xxx.xx.xx.xx:xx/blog/?search= （模糊搜索）
     create:
-        用户blog 创建
+        psot请求：http://xxx.xx.xx.xx:xx/blog/ 用户blog 创建
 
     """
     serializer_class = UserBlogSerializers
@@ -158,7 +193,54 @@ class UserClassBlogViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
             user_blogs = UserBlog.objects.filter(user=student)
             class_blogs = class_blogs | user_blogs
 
-
         return class_blogs.order_by('blog_time')
 
 
+class UserMissionViewSite(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
+    """
+    list:
+        需登录
+        请求： http://xxx.xx.xx.xx:xx/user_mission/ 返回用户所有任务完成情况
+    create:
+        psot请求：http://xxx.xx.xx.xx:xx/user_mission/ 用户任务完成 创建
+    """
+
+    # serializer_class = UserMissionSerializers
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return UserMissionListSerializers
+        elif self.action == "create":
+            return UserMissionSerializers
+
+        return UserMissionListSerializers
+
+    def get_queryset(self):
+        return UserMission.objects.filter(user=self.request.user)
+
+
+class TeacherEvaluationViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
+    """
+        list:
+            需登录
+            请求： http://xxx.xx.xx.xx:xx/user_mission/ 返回老师评价列表
+        create:
+            psot请求：http://xxx.xx.xx.xx:xx/user_mission/ 老师评价 创建
+        """
+
+    # serializer_class = UserMissionSerializers
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return TeacherEvaluationListSerializers
+        elif self.action == "create":
+            return TeacherEvaluationSerializers
+
+        return TeacherEvaluationSerializers
+
+    def get_queryset(self):
+        return UserMission.objects.filter(user=self.request.user)

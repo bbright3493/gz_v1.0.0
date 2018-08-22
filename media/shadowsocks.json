@@ -1,0 +1,12 @@
+{ 
+    "server": "23.105.216.9", 
+    "server_port": 19943, 
+    "local_address": "127.0.0.1", 
+    "local_port": 1080, 
+    "password": "zhang21.", 
+    "method": "aes-256-cfb", 
+    "fast_open": true, 
+    "timeout":300 
+}
+
+

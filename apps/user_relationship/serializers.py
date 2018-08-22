@@ -11,7 +11,8 @@ from rest_framework.validators import UniqueTogetherValidator
 
 from apps.user_relationship.models import *
 from apps.major.models import Practice, Chapter
-from apps.major.serializers import ChapterSerializers, MajorSerializers3
+from apps.major.serializers import ChapterSerializers, CourseSerializers, ChapterTaskSerializers
+from apps.users.serializers import TeacherSerializers
 
 
 class UserChapterEndSerializer(serializers.ModelSerializer):
@@ -22,6 +23,42 @@ class UserChapterEndSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(
         default=serializers.CurrentUserDefault()  # 自动填充user
     )
+    chapter = serializers.PrimaryKeyRelatedField(required=True, queryset=Chapter.objects.all(), label='章节',
+                                                 help_text='章节id')
+
+    course = serializers.PrimaryKeyRelatedField(required=True, queryset=Course.objects.all(), label='课程',
+                                                  help_text='课程id')
+    course_end = serializers.BooleanField(default=False, label='课程是否完成', help_text='课程是否完成')
+
+    chapter_end = serializers.BooleanField(default=True, label='章节是否完成', help_text='章节是否完成')
+
+    end_time = serializers.DateTimeField(default=timezone.now, label='完成时间', help_text='结束时间')
+
+    def create(self, validated_data):
+        user = self.context["request"].user
+        chapter = validated_data["chapter"]
+        course = validated_data["course"]
+        course_end = validated_data["course_end"]
+        chapter_end = validated_data["course_end"]
+        end_time = validated_data["end_time"] if "end_time" in validated_data.keys() else timezone.now()
+
+        course = Course.objects.get(name=course)
+        userchapter = Chapter.objects.get(chapter_name=chapter)
+        chapters = Chapter.objects.filter(course_name_id=course.id).reverse()[0]
+        if chapters.id == chapter.id:
+            userchapter = UserChapter()
+            userchapter.user = user
+            userchapter.chapter = chapter
+            userchapter.course = course
+            userchapter.course_end = True
+            userchapter.chapter_end = True
+            userchapter.end_time = end_time
+            userchapter.save()
+
+        else:
+            userchapter = UserChapter.objects.create(**validated_data)
+
+        return userchapter
 
     class Meta:
         model = UserChapter
@@ -40,7 +77,7 @@ class UserChapterEndInfoSerializer(serializers.ModelSerializer):
     任务线序列化
     """
     chapter = ChapterSerializers()
-    course = MajorSerializers3()
+    # course = CourseSerializers()
 
     class Meta:
         model = UserChapter
@@ -52,40 +89,52 @@ class UserPracticeSerializer(serializers.Serializer):
     用户练习序列化
     """
     user = serializers.HiddenField(
-        default=serializers.CurrentUserDefault() # 自动填充user
-    , help_text='用户id')
+        default=serializers.CurrentUserDefault()
+        , help_text='用户id')
 
     chapter = serializers.PrimaryKeyRelatedField(required=True, queryset=Chapter.objects.all(), label='章节', help_text='章节id')
 
     practice = serializers.PrimaryKeyRelatedField(required=True, queryset=Practice.objects.all(), label='练习', help_text='练习题id')
 
-    start_time = serializers.DateTimeField(default=timezone.now, label='开始时间', help_text='开始时间')
+    types = serializers.IntegerField(label='类别', help_text='类别')
 
     end_time = serializers.DateTimeField(default=timezone.now, label='完成时间', help_text='结束时间')
 
     practice_info = serializers.CharField(allow_blank=True, label='练习答案', help_text='练习题提交答案')
 
-    def create(self, validated_data):
-        user = self.context["request"].user
-        chapter = validated_data["chapter"]
-        practice = validated_data["practice"]
-        practice_info = validated_data["practice_info"]
-        # count = validated_data["count"]
-
-        existed = UserPractice.objects.filter(user=user, practice=practice)
-
-        if existed:
-            existed = existed[0]
-            existed.count += 1
-            existed.save()
-        else:
-            existed = UserPractice.objects.create(**validated_data)
-
-        return existed
+#  需要修改
+    # def create(self, validated_data):
+    #     user = self.context["request"].user
+    #     chapter = validated_data["chapter"]
+    #     practice = validated_data["practice"]
+    #     types = validated_data["types"]
+    #     practice_info = validated_data["practice_info"]
+    #     # count = validated_data["count"]
+    #
+    #     existed = UserPractice.objects.filter(user=user, practice=practice)
+    #
+    #     if existed:
+    #         existed = existed[0]
+    #         existed.count += 1
+    #         existed.save()
+    #     else:
+    #         existed = UserPractice.objects.create(**validated_data)
+    #
+    #     return existed
 
     class Meta:
         model = UserPractice
         fields = ('user', 'chapter', 'practice', 'practice_info', 'count')
+
+
+class A(object):
+    def __init__(self, value, user):
+        self.num = value
+        self.user = user
+
+
+class Test(serializers.Serializer):
+    num = serializers.IntegerField()
 
 
 class UserResultsSerializers(serializers.ModelSerializer):
@@ -126,3 +175,50 @@ class UserBlogSerializers(serializers.ModelSerializer):
         model = UserBlog
         fields = "__all__"
 
+
+class UserMissionSerializers(serializers.ModelSerializer):
+    """
+    用户任务完成信息序创建列化
+    """
+    user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()  # 自动填充user
+    )
+
+    class Meta:
+        model = UserMission
+        fields = "__all__"
+
+
+class UserMissionListSerializers(serializers.ModelSerializer):
+    """
+    用户任务完成列表序列化
+    """
+
+    chapter = ChapterSerializers()
+    mission = ChapterTaskSerializers()
+
+    class Meta:
+        model = UserMission
+        fields = "__all__"
+
+
+class TeacherEvaluationListSerializers(serializers.ModelSerializer):
+    """
+    老师评价列表序列化
+    """
+    teache_name = TeacherSerializers()
+    user_mission_name = UserMissionSerializers()
+
+    class Meta:
+        model = TeacherEvaluation
+        fields = "__all__"
+
+
+class TeacherEvaluationSerializers(serializers.ModelSerializer):
+    """
+    老师评价创建序列化
+    """
+
+    class Meta:
+        model = TeacherEvaluation
+        fields = "__all__"

@@ -36,9 +36,11 @@ class LogoutView(View):
 class UserResumeViewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
     list:
-        用户个人信息展示
+        需登录
+        请求： http://xxx.xxx.xxx.xx:xx/userinfo/  返回用户个人信息
+
     update:
-        用户个人信息修改
+        put请求： http://xxx.xxx.xxx.xx:xx/userinfo/{id}/  用户个人信息修改 id为用户id
     """
     # queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializers
@@ -61,9 +63,11 @@ class UserResumeViewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, mixins.R
 class UserEducationViewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
     """
     list:
-        用户教育背景
+        需登录
+        请求： http://xxx.xxx.xxx.xx:xx/education/  返回用户教育背景信息
+
     update:
-        用户教育背景修改
+        put请求： http://xxx.xxx.xxx.xx:xx/education/{id}/ 用户教育背景修改
     """
     serializer_class = UserResumeSerializers
     permission_classes = (IsAuthenticated,)
@@ -77,9 +81,11 @@ class UserEducationViewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, views
 class UserProjectViewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
     """
     list:
-        用户项目经验
+        需登录
+        请求： http://xxx.xxx.xxx.xx:xx/project/  返回用户项目经验信息
+
     update：
-        用户项目信息修改
+        put请求： http://xxx.xxx.xxx.xx:xx/project/{id}/ 用户项目信息修改
     """
 
     serializer_class = UserProjectSerializers
@@ -93,9 +99,11 @@ class UserProjectViewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, viewset
 class UserSkillViewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
     """
     list:
-        用户专业技能
+        需登录
+        请求： http://xxx.xxx.xxx.xx:xx/skillvi/  返回用户专业技能信息
+
     update：
-        用户专业技能信息修改
+        put请求： http://xxx.xxx.xxx.xx:xx/skillvi/{id}/ 用户专业技能信息修改
     """
 
     serializer_class = UserSkillSerializers

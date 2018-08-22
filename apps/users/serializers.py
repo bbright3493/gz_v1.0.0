@@ -82,3 +82,13 @@ class UserSkillSerializers(serializers.ModelSerializer):
     class Meta:
         model = UserSkill
         fields = "__all__"
+
+
+class TeacherSerializers(serializers.ModelSerializer):
+    """
+    老师列表序列化
+    """
+
+    class Meta:
+        model = Teacher
+        fields = "__all__"
