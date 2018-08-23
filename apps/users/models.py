@@ -19,7 +19,7 @@ class Teacher(models.Model):
         (3, '班主任')
     )
 
-    name = models.CharField(max_length=255, null=True, blank=True, verbose_name='名字', help_text='名字')
+    name = models.CharField(max_length=255, verbose_name='名字', help_text='名字')
     types = models.IntegerField(choices=TYPE_CHOICES, default=0, verbose_name='老师类型')
     intr = models.CharField(max_length=800, verbose_name='老师介绍')
     img = models.ImageField(upload_to='users/image/%Y/%m', default=None, max_length=255,
@@ -152,7 +152,3 @@ class UserSkill(models.Model):
 
     def __str__(self):
         return self.user.name
-
-
-
-

@@ -23,6 +23,7 @@ from rest_framework_jwt.views import obtain_jwt_token
 from django.views.generic import TemplateView
 
 
+
 from apps.major.views import *
 from apps.user_relationship.views import *
 from apps.users.views import *
@@ -35,29 +36,42 @@ router = DefaultRouter()
 router.register(r'major', MajorListViewSet, base_name='major')
 
 # 课程列表api
-#router.register(r'course', CourseListViewSet, base_name='course')
+router.register(r'course', CourseListViewSet, base_name='course')
 
 # 课程章节列表api
-router.register(r'course', ChapterListViewSet, base_name='course')
+router.register(r'chapter', ChapterListViewSet, base_name='chapter')
 
 # 章节详细信息页面api
-router.register(r'chapter', ChapterInfoViewSet, base_name='chapter')
+# router.register(r'chapter_info', ChapterInfoViewSet, base_name='chapter_info')
 
-
-# 章节完成api
+# 章节完成 和 任务线api
 router.register(r'complete', UserChapterEndViewSet, base_name='complete')
 
-# 章节练习列表api
+# 章节限时练习列表api
 router.register(r'practice', PracticeListViewSet, base_name='practice')
+
+# # 章节速度练习列表api
+# router.register(r'speed_practice', SpeedPracticeViewSet, base_name='speed_practice')
+#
+# # 章节编程练习列表api
+# router.register(r'Programming_practice', ProgrammingPracticeViewSet, base_name='Programming_practice')
+
+# 章节任务列表api
+router.register(r'chaptertask', ChapterTaskViewSet, base_name='chaptertask')
 
 # 用户练习提交api
 router.register(r'user_practice', UserPracticeViewSet, base_name='user_practice')
 
-# 用户成绩信息api
-#router.register(r'results', UserResultsViewSet, base_name='results')
+# 用户任务提交api
+router.register(r'user_mission', UserMissionViewSite, base_name='user_mission')
 
+# 老师评价api
+router.register(r'evaluation', TeacherEvaluationViewSet, base_name='evaluation')
 
-# 用户作业信息api
+# 用户成绩信息api  未用到此api
+# router.register(r'results', UserResultsViewSet, base_name='results')
+
+# # 用户作业信息api
 router.register(r'task', UserTaskListViewSet, base_name='task')
 
 # 用户blog api
@@ -69,6 +83,13 @@ router.register(r'userinfo', UserResumeViewSet, base_name='resume')
 
 # 用户教育背景api
 router.register(r'education', UserEducationViewSet, base_name='education')
+
+# 用户项目经验api
+router.register(r'project', UserProjectViewSet, base_name='project')
+
+# 用户专业技能api
+router.register(r'skillvi', UserSkillViewSet, base_name='skillvi')
+
 
 
 #bb

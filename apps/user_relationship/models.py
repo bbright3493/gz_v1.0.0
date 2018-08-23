@@ -5,8 +5,6 @@ from extra_apps.DjangoUeditor.models import UEditorField
 from apps.users.models import *
 from apps.major.models import *
 
-# Create your models here.
-
 
 class UserMajor(models.Model):
     user = models.ForeignKey(UserProfile, verbose_name='学生名')
@@ -58,17 +56,18 @@ class UserPractice(models.Model):
     user = models.ForeignKey(UserProfile, verbose_name='学生名', help_text='用户id')
     chapter = models.ForeignKey(Chapter, verbose_name='章节名', help_text='章节id')
     practice = models.ForeignKey(Practice, verbose_name='练习名', help_text='练习题id')
-    start_time = models.DateTimeField(default=timezone.now, verbose_name='开始学习时间', help_text='开始时间')
-    end_time = models.DateTimeField(default=timezone.now, verbose_name='结束学习时间', help_text='结束时间')
+    types = models.IntegerField(verbose_name='类别', help_text='类别')
+    # start_time = models.DateTimeField(default=timezone.now, verbose_name='开始学习时间', help_text='开始时间')
+    end_time = models.DateTimeField(default=timezone.now, verbose_name='结束时间', help_text='结束时间')
     practice_info = models.TextField(default='', verbose_name='练习内容', help_text='练习题提交答案')
     # course_end = models.BooleanField(default=False, verbose_name='课程是否完成')
     # chapter_end = models.BooleanField(default=False, verbose_name='章节是否完成')
-    count = models.IntegerField(default=0, verbose_name='作业提交次数', help_text='练习题提交次数')
+    # count = models.IntegerField(default=0, verbose_name='作业提交次数', help_text='练习题提交次数')
 
     class Meta:
         verbose_name = '学生练习信息'
         verbose_name_plural = verbose_name
-        unique_together = ("user", "practice")
+        # unique_together = ("user", "practice")
 
     def __str__(self):
         return self.practice.practice_name
@@ -94,7 +93,7 @@ class UserBlog(models.Model):
     user = models.ForeignKey(UserProfile, verbose_name='用户名')
     blog_name = models.CharField(max_length=255, verbose_name='博客名', help_text='博客名')
     blog_body = UEditorField(verbose_name='博客正文', imagePath="goods/images/", width=1000, height=300,
-                              filePath="goods/files/", default='', help_text='博客正文')
+                             filePath="goods/files/", default='', help_text='博客正文')
     blog_time = models.DateTimeField(default=timezone.now, verbose_name='创建时间', help_text='创建时间')
 
     class Meta:
@@ -108,7 +107,7 @@ class UserBlog(models.Model):
 class UserTask(models.Model):
     user = models.ForeignKey(UserProfile, verbose_name='用户名')
     task_name = models.CharField(max_length=255, verbose_name='作业名字', help_text='作业名字')
-    download = models.FileField(null=True, blank=True, verbose_name='作业下载地址', help_text='作业下载地址')
+    download = models.FileField(upload_to='task/%Y/%m/%d/', null=True, blank=True, verbose_name='作业下载地址', help_text='作业下载地址')
     complete_time = models.DateTimeField(default=timezone.now, verbose_name='提交时间', help_text='提交时间')
 
     class Meta:
@@ -117,3 +116,35 @@ class UserTask(models.Model):
 
     def __str__(self):
         return self.task_name
+
+
+class UserMission(models.Model):
+    user = models.ForeignKey(UserProfile, verbose_name='用户名')
+    chapter = models.ForeignKey(Chapter, verbose_name='章节id')
+    mission = models.ForeignKey(ChapterTask, verbose_name='任务id')
+    data_info = models.TextField(verbose_name='任务完成说明')
+    task_end = models.BooleanField(default=False, verbose_name='任务是否完成')
+    file = models.FileField(upload_to='mission/%Y/%m/%d/', max_length=1000, null=True, blank=True, verbose_name='上传文件')
+    submit_time = models.DateTimeField(default=timezone.now, verbose_name='提交时间')
+    complete_time = models.DateTimeField(null=True, blank=True, verbose_name='完成时间')
+
+    class Meta:
+        verbose_name = '用户任务'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.user.name
+
+
+class TeacherEvaluation(models.Model):
+    teacher_name = models.ForeignKey(Teacher, verbose_name='老师id')
+    user_mission_name = models.ForeignKey(UserMission, verbose_name='用户提交任务')
+    data = models.TextField(verbose_name='评价内容')
+    evaluation_time = models.DateTimeField(default=timezone.now, verbose_name='评价时间')
+
+    class Meta:
+        verbose_name = '老师评价'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.teacher_name.name

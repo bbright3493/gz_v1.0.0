@@ -11,7 +11,6 @@ register = template.Library()
 from apps.major.models import *
 
 
-
 @register.filter
 def claen_value(value, types):
     print(type(value))
