@@ -2,6 +2,7 @@ from rest_framework import mixins
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import viewsets
 from rest_framework import filters
+from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from apps.utils.tools import format_time
 from django.db.models import F, Q
@@ -17,6 +18,7 @@ from apps.user_relationship.models import UserMajor
 
 
 # Create your views here.
+from utils.serializers_format import value_format
 
 
 class MajorListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
@@ -186,10 +188,46 @@ class ChapterTaskViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, views
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
 
+    def list(self, request, *args, **kwargs):
+        """
+        获取所有章节任务列表
+        :param request: 内置全局属性
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        info = []
+        for queryset in self.queryset:
+            serializers = MyChapterTaskSerializers(value_format(queryset))
+            info.append(serializers.data)
+        return Response(info)
+
+    def retrieve(self, request, *args, **kwargs):
+        """
+        获取某个任务的详细信息
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        instance = self.get_object()
+        print(instance)
+        serializer = MyChapterTaskSerializers(value_format(instance))
+        return Response(serializer.data)
+
     def get_queryset(self):
+        """
+        获取指定章节的任务列表
+        :return:
+        """
         chapter = self.request.query_params.get('chapter', None)
         if chapter is not None:
             queryset = self.queryset.filter(chapter_name__id=str(chapter))
-            return queryset
+            info = []
+            for queryset in self.queryset:
+                serializers = MyChapterTaskSerializers(value_format(queryset))
+                info.append(serializers.data)
+            return Response(info)
+
         return self.queryset
 

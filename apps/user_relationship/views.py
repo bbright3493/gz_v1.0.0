@@ -240,7 +240,9 @@ class TeacherEvaluationViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, v
         elif self.action == "create":
             return TeacherEvaluationSerializers
 
-        return TeacherEvaluationSerializers
+        return TeacherEvaluationListSerializers
 
     def get_queryset(self):
-        return UserMission.objects.filter(user=self.request.user)
+        return TeacherEvaluation.objects.all()
+
+

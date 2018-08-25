@@ -207,7 +207,7 @@ class TeacherEvaluationListSerializers(serializers.ModelSerializer):
     老师评价列表序列化
     """
     teache_name = TeacherSerializers()
-    user_mission_name = UserMissionSerializers()
+    user_mission_name = UserMissionListSerializers()
 
     class Meta:
         model = TeacherEvaluation
@@ -218,6 +218,9 @@ class TeacherEvaluationSerializers(serializers.ModelSerializer):
     """
     老师评价创建序列化
     """
+    # teacher_name = serializers.HiddenField(
+    #     default=serializers.CurrentUserDefault()
+    # )
 
     class Meta:
         model = TeacherEvaluation

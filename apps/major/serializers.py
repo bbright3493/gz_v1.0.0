@@ -125,3 +125,27 @@ class ChapterTaskSerializers(serializers.ModelSerializer):
         model = ChapterTask
         fields = "__all__"
 
+
+class MyChapterTaskSerializers(serializers.Serializer):
+    id = serializers.IntegerField()
+    chapter_name = serializers.PrimaryKeyRelatedField(required=True, queryset=Chapter.objects.all(), label='章节', help_text='章节id')
+    name = serializers.CharField()
+    info = serializers.CharField()
+    image = serializers.ListField()
+    add_time = serializers.DateTimeField()
+
+
+class ChapterTaskImageSerializers(serializers.ModelSerializer):
+    """
+    任务图片序列化
+    """
+    ChapterTask_name = ChapterTaskSerializers()
+
+    class Meta:
+        model = Image
+        fields = "__all__"
+
+
+
+
+
