@@ -68,6 +68,9 @@ router.register(r'user_mission', UserMissionViewSite, base_name='user_mission')
 # 老师评价api
 router.register(r'evaluation', TeacherEvaluationViewSet, base_name='evaluation')
 
+# 查看老师评价api
+router.register(r'read_evaluation', ReadTeacherEvaluationViewSet, base_name='read_evaluation')
+
 # 用户成绩信息api  未用到此api
 # router.register(r'results', UserResultsViewSet, base_name='results')
 

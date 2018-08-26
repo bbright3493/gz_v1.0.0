@@ -119,32 +119,34 @@ class UserTask(models.Model):
 
 
 class UserMission(models.Model):
-    user = models.ForeignKey(UserProfile, verbose_name='用户名')
-    chapter = models.ForeignKey(Chapter, verbose_name='章节id')
-    mission = models.ForeignKey(ChapterTask, verbose_name='任务id')
-    data_info = models.TextField(verbose_name='任务完成说明')
-    task_end = models.BooleanField(default=False, verbose_name='任务是否完成')
-    file = models.FileField(upload_to='mission/%Y/%m/%d/', max_length=1000, null=True, blank=True, verbose_name='上传文件')
-    submit_time = models.DateTimeField(default=timezone.now, verbose_name='提交时间')
-    complete_time = models.DateTimeField(null=True, blank=True, verbose_name='完成时间')
+    user = models.ForeignKey(UserProfile, verbose_name='用户名', help_text='用户名')
+    chapter = models.ForeignKey(Chapter, verbose_name='章节id', help_text='章节id')
+    mission = models.ForeignKey(ChapterTask, verbose_name='任务id', help_text='任务id')
+    data_info = models.TextField(verbose_name='任务完成说明', help_text='任务完成说明')
+    task_end = models.BooleanField(default=False, verbose_name='任务是否完成', help_text='任务是否完成')
+    file = models.FileField(upload_to='mission/%Y/%m/%d/', max_length=1000, null=True, blank=True, verbose_name='上传文件',
+                            help_text='上传文件')
+    submit_time = models.DateTimeField(default=timezone.now, verbose_name='提交时间', help_text='提交时间')
+    complete_time = models.DateTimeField(null=True, blank=True, verbose_name='完成时间', help_text='完成时间')
 
     class Meta:
         verbose_name = '用户任务'
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.user.name
+        return self.mission.name
 
 
 class TeacherEvaluation(models.Model):
-    teacher_name = models.ForeignKey(Teacher, verbose_name='老师id')
-    user_mission_name = models.ForeignKey(UserMission, verbose_name='用户提交任务')
-    data = models.TextField(verbose_name='评价内容')
-    evaluation_time = models.DateTimeField(default=timezone.now, verbose_name='评价时间')
+    teacher = models.ForeignKey(Teacher, verbose_name='老师id', help_text='老师id')
+    mission = models.ForeignKey(ChapterTask, verbose_name='任务id', help_text='任务id')
+    user = models.ForeignKey(UserProfile, verbose_name='用户名', help_text='用户名')
+    data = models.TextField(verbose_name='评价内容', help_text='评价内容')
+    evaluation_time = models.DateTimeField(default=timezone.now, verbose_name='评价时间', help_text='评价时间')
 
     class Meta:
         verbose_name = '老师评价'
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.teacher_name.name
+        return self.teacher.name
