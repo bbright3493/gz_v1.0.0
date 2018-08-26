@@ -30,7 +30,10 @@ class Major(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.name
+        if self.parent_category:
+            return "%s-%s"%(self.name, self.parent_category.name) #bb
+        else:
+            return self.name
 
 
 class Course(models.Model):
