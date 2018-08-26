@@ -60,14 +60,23 @@ class ChallengerSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class UserPkExerciseSerializers(serializers.ModelSerializer):
+    """
+    pk题目信息序列化
+    """
+    class Meta:
+        model = UserPkExercise
+        fields = "__all__"
+
+
 class PkDetailSerializers(serializers.ModelSerializer):
     """
-    挑战者信息序列化
+    pk详情信息序列化
     """
+    user_pk_exec = UserPkExerciseSerializers(many=True)
     class Meta:
         model = UserPkDetail
         fields = "__all__"
-
 
 
 class TeamCompSerializers(serializers.ModelSerializer):

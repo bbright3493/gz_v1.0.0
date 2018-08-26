@@ -16,9 +16,9 @@ class PassAdmin(object):
 
 
 class UserPassAdmin(object):
-    list_display = ['user_id', 'user_pass', 'pass_score', 'user_submit', 'submit_time', 'complete_time', 'submit_num']
-    search_fields = ['user_id', 'user_pass', 'pass_score']
-    list_filter = ['user_id', 'user_pass', 'pass_score']
+    list_display = ['user', 'user_pass', 'pass_score', 'user_submit', 'submit_time', 'complete_time', 'submit_num']
+    search_fields = ['user', 'user_pass', 'pass_score']
+    list_filter = ['user', 'user_pass', 'pass_score']
 
 
 class PkQuestionAdmin(object):
