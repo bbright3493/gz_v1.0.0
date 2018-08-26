@@ -38,6 +38,7 @@ class ChapterAdmin(object):
     list_display = ['course_name', 'chapter_name', 'chapter_introduce', 'chapter_task', 'chapter_target']
     search_fields = ['course_name', 'chapter_name', 'chapter_introduce', 'chapter_task', 'chapter_target']
     list_filter = ['course_name', 'chapter_name', 'chapter_introduce', 'chapter_task', 'chapter_target']
+    style_fields = {"chapter_task": "ueditor"}
 
     style_fields = {"chapter_task": "ueditor"}  #bb
 
@@ -57,13 +58,19 @@ class PracticeAdmin(object):
 #
 #
 # class ProgrammingPracticeAdminn(PracticeAdmin):
-    pass
+#     pass
 
 
 class ChapterTaskAdmin(object):
-    list_display = ['chapter_name', 'name', 'info', 'image', 'add_time']
-    search_fields = ['chapter_name', 'name', 'info', 'image']
-    list_filter = ['chapter_name', 'name', 'info', 'image', 'add_time']
+    list_display = ['chapter_name', 'name', 'info', 'add_time']
+    search_fields = ['chapter_name', 'name', 'info']
+    list_filter = ['chapter_name', 'name', 'info', 'add_time']
+
+
+class TaskImageAdmin(object):
+    list_display = ['ChapterTask_name', 'name', 'image', 'add_time']
+    search_fields = ['ChapterTask_name', 'name', 'image']
+    list_filter = ['ChapterTask_name', 'name', 'image', 'add_time']
 
 
 xadmin.site.register(Major, MajorAdmin)
@@ -76,3 +83,4 @@ xadmin.site.register(Chapter, ChapterAdmin)
 # xadmin.site.register(ProgrammingPractice, ProgrammingPracticeAdminn)
 xadmin.site.register(Practice, PracticeAdmin)
 xadmin.site.register(ChapterTask, ChapterTaskAdmin)
+xadmin.site.register(TaskImage, TaskImageAdmin)

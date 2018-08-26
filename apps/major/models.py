@@ -150,7 +150,7 @@ class ChapterTask(models.Model):
     name = models.CharField(max_length=255, verbose_name='任务名')
     info = models.TextField(verbose_name='任务介绍')
     # file_data = models.FileField(upload_to='/task/file/', max_length=1000, null=True, blank=True, verbose_name='上传文件')
-    image = models.ImageField(upload_to="task/images/", null=True, blank=True, verbose_name="任务截图")
+    # image = models.ImageField(upload_to="task/images/", null=True, blank=True, verbose_name="任务截图")
     # hostip = models.URLField(verbose_name='主机地址')
     add_time = models.DateTimeField(default=timezone.now, verbose_name="添加时间")
 
@@ -160,3 +160,18 @@ class ChapterTask(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class TaskImage(models.Model):
+    ChapterTask_name = models.ForeignKey(ChapterTask, verbose_name='任务')
+    name = models.CharField(max_length=100, verbose_name='截图名')
+    image = models.ImageField(upload_to="task/images/", null=True, blank=True, verbose_name="任务截图")
+    add_time = models.DateTimeField(null=True, blank=True, verbose_name='上传时间')
+
+    class Meta:
+        verbose_name = '任务截图'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
+
