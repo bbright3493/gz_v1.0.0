@@ -197,8 +197,9 @@ class ChapterTaskViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, views
         :return:
         """
         info = []
+        print(self.request.META['HTTP_HOST'])
         for queryset in self.queryset:
-            serializers = MyChapterTaskSerializers(value_format(queryset))
+            serializers = MyChapterTaskSerializers(value_format(queryset, self.request.META['HTTP_HOST']))
             info.append(serializers.data)
         return Response(info)
 
@@ -212,7 +213,7 @@ class ChapterTaskViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, views
         """
         instance = self.get_object()
         print(instance)
-        serializer = MyChapterTaskSerializers(value_format(instance))
+        serializer = MyChapterTaskSerializers(value_format(queryset, self.request.META['HTTP_HOST']))
         return Response(serializer.data)
 
     def get_queryset(self):
@@ -225,7 +226,7 @@ class ChapterTaskViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, views
             queryset = self.queryset.filter(chapter_name__id=str(chapter))
             info = []
             for queryset in self.queryset:
-                serializers = MyChapterTaskSerializers(value_format(queryset))
+                serializers = MyChapterTaskSerializers(value_format(queryset, self.request.META['HTTP_HOST']))
                 info.append(serializers.data)
             return Response(info)
 

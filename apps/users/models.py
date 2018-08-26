@@ -124,12 +124,12 @@ class UserResume(models.Model):
 
 
 class UserProject(models.Model):
-    user = models.ForeignKey(UserProfile, verbose_name='用户名')
-    project_name = models.CharField(max_length=255, verbose_name='项目名')
-    technology = models.TextField(verbose_name='使用技术')
-    project_function = models.TextField(verbose_name='项目功能')
-    create = models.TextField(verbose_name='个人负责板块')
-    time_slot = models.CharField(max_length=255, verbose_name='项目时间段')
+    user = models.ForeignKey(UserProfile, verbose_name='用户名', help_text='用户名')
+    project_name = models.CharField(max_length=255, verbose_name='项目名', help_text='项目名')
+    technology = models.TextField(verbose_name='使用技术', help_text='使用技术')
+    project_function = models.TextField(verbose_name='项目功能', help_text='项目功能')
+    create = models.TextField(verbose_name='个人负责板块', help_text='个人负责板块')
+    time_slot = models.CharField(max_length=255, verbose_name='项目时间段', help_text='项目时间段')
 
     class Meta:
         verbose_name = '项目经验'
@@ -140,11 +140,11 @@ class UserProject(models.Model):
 
 
 class UserSkill(models.Model):
-    user = models.ForeignKey(UserProfile, verbose_name='用户名')
-    skill_name = models.CharField(max_length=255, verbose_name='技能名')
+    user = models.ForeignKey(UserProfile, verbose_name='用户名', help_text='用户名')
+    skill_name = models.CharField(max_length=255, verbose_name='技能名', help_text='技能名')
     skill_level = models.CharField(max_length=255, choices=(('know', '了解'), ('shuxi', '熟悉'), ('skilled', '熟练'),
-                                   ('master', '精通')), default='shuxi', verbose_name='技能等级')
-    skill_introduce = models.CharField(max_length=255, verbose_name='技能介绍')
+                                   ('master', '精通')), default='shuxi', verbose_name='技能等级', help_text='技能等级')
+    skill_introduce = models.CharField(max_length=255, verbose_name='技能介绍', help_text='技能介绍')
 
     class Meta:
         verbose_name = '掌握技能'

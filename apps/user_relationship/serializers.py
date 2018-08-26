@@ -12,7 +12,7 @@ from rest_framework.validators import UniqueTogetherValidator
 from apps.user_relationship.models import *
 from apps.major.models import Practice, Chapter
 from apps.major.serializers import ChapterSerializers, CourseSerializers, ChapterTaskSerializers
-from apps.users.serializers import TeacherSerializers
+from apps.users.serializers import TeacherSerializers, UserProfileSerializers
 
 
 class UserChapterEndSerializer(serializers.ModelSerializer):
@@ -193,7 +193,7 @@ class UserMissionListSerializers(serializers.ModelSerializer):
     """
     用户任务完成列表序列化
     """
-
+    user = UserProfileSerializers()
     chapter = ChapterSerializers()
     mission = ChapterTaskSerializers()
 
@@ -206,8 +206,7 @@ class TeacherEvaluationListSerializers(serializers.ModelSerializer):
     """
     老师评价列表序列化
     """
-    teache_name = TeacherSerializers()
-    user_mission_name = UserMissionListSerializers()
+    teacher = TeacherSerializers()
 
     class Meta:
         model = TeacherEvaluation
@@ -218,9 +217,6 @@ class TeacherEvaluationSerializers(serializers.ModelSerializer):
     """
     老师评价创建序列化
     """
-    # teacher_name = serializers.HiddenField(
-    #     default=serializers.CurrentUserDefault()
-    # )
 
     class Meta:
         model = TeacherEvaluation

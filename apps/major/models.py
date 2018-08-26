@@ -162,7 +162,7 @@ class ChapterTask(models.Model):
         return self.name
 
 
-class Image(models.Model):
+class TaskImage(models.Model):
     ChapterTask_name = models.ForeignKey(ChapterTask, verbose_name='任务')
     name = models.CharField(max_length=100, verbose_name='截图名')
     image = models.ImageField(upload_to="task/images/", null=True, blank=True, verbose_name="任务截图")

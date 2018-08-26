@@ -6,12 +6,12 @@
 # @Software: PyCharm
 
 
-def value_format(queryset):
-    from apps.major.models import Image
-    img = Image.objects.filter(ChapterTask_name=queryset.chapter_name.id).all()
+def value_format(queryset, url):
+    from apps.major.models import TaskImage
+    img = TaskImage.objects.filter(ChapterTask_name=queryset.chapter_name.id).all()
     image = []
     for i in img:
-        image.append(i.image.url if i.image else None)
+        image.append(url + i.image.url if i.image else None)
 
     return {
                 'id': queryset.id,

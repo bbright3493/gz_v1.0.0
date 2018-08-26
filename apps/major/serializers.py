@@ -142,7 +142,7 @@ class ChapterTaskImageSerializers(serializers.ModelSerializer):
     ChapterTask_name = ChapterTaskSerializers()
 
     class Meta:
-        model = Image
+        model = TaskImage
         fields = "__all__"
 
 
