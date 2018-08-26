@@ -105,7 +105,7 @@ if use_local_db:
                 'ENGINE': 'django.db.backends.mysql',
                 'NAME': 'web3',
                 'USER': 'root',
-                'PASSWORD': 'root',
+                'PASSWORD': 'bb12345',
                 'HOST': 'localhost',
                 'PORT': 3306,
             }

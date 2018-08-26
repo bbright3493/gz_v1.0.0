@@ -37,10 +37,10 @@ class UserPass(models.Model):
     """
     用户-关卡表
     """
-    user_id = models.ForeignKey(UserProfile, verbose_name='学生名')
+    user = models.ForeignKey(UserProfile, verbose_name='学生名')
     user_pass = models.ForeignKey(Pass, verbose_name='关卡')
     pass_score = models.IntegerField(default=0, verbose_name='关卡评分')
-    user_submit = models.CharField(max_length=2000, verbose_name='用户提交代码')
+    user_submit = models.CharField(max_length=2000, verbose_name='用户提交代码', blank=True, null=True)
     submit_time = models.DateTimeField(default=timezone.now(), verbose_name='用户提交时间')
     complete_time = models.IntegerField(default=0, verbose_name='完成用时')
     submit_num = models.IntegerField(default=0, verbose_name='用户提交次数')
@@ -53,9 +53,16 @@ class UserPass(models.Model):
         return self.user_pass.name
 
 
+"""
+pk页面 前端查询逻辑如下：
+pk首页 首先按照各种挑战模式 查询挑战者表 相关信息显示在首页上部
+如果挑战者表中的挑战状态为 发起挑战 按钮显示迎战 否则显示继续挑战
+再查询被挑战者信息 显示可以接受挑战的人员
+点击迎战按钮后 向后端发起请求 生成pk信息  生成后 查询利用返回的pk信息构建pk详情页面
+点击继续挑战按钮后  直接获取当前进行的pk信息 并显示pk详情页
+"""
 
 
-#pk页面
 class PkQuestion(models.Model):
     """
     pk题库
@@ -82,10 +89,15 @@ class Challenger(models.Model):
         (2, "速度赛"),
         (3, "编程赛"),
     )
+    PK_STATUS = (
+        (1, "发起挑战"),
+        (2, "挑战进行中"),
+        (3, "挑战完成"),
+    )
     be_challenged = models.ForeignKey(UserProfile, verbose_name='被挑战者', related_name="be_chg")
     challenger = models.ForeignKey(UserProfile, verbose_name='挑战者', related_name='chg')
     pk_mode = models.IntegerField(default=1, choices=PK_TYPE, verbose_name="挑战类别")
-    status = models.CharField(max_length=10, verbose_name='挑战状态')
+    status = models.IntegerField(default=1, choices=PK_STATUS, verbose_name='挑战状态')
 
     class Meta:
         verbose_name = '挑战者表'
@@ -121,7 +133,7 @@ class UserPkExercise(models.Model):
     用户pk题目
     """
     question = models.ForeignKey(PkQuestion, verbose_name='pk题目')
-    user_pk_info = models.ForeignKey(UserPkDetail, verbose_name='当前用户pk详情')
+    user_pk_info = models.ForeignKey(UserPkDetail, verbose_name='当前用户pk详情', related_name='user_pk_exec')
     user_answer = models.CharField(max_length=500, verbose_name='用户答案')
     challenger_answer = models.CharField(max_length=500, verbose_name='挑战者答案')
 

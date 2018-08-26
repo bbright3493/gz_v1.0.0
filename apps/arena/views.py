@@ -87,7 +87,8 @@ class PassListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets
 
 
 
-class UserPassListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class UserPassListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
+                          mixins.UpdateModelMixin, viewsets.GenericViewSet):
     """
     获取用户关卡信息
     http://127.0.0.1:8000/pass/访问用户所有关卡 内含分页信息
@@ -103,6 +104,53 @@ class UserPassListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, view
 
     def get_queryset(self):
         return UserPass.objects.filter(user_id=self.request.user)
+
+
+    def update(self, request, *args, **kwargs):
+        import os
+        from django.utils import timezone
+        #获取用户的代码
+        #保存代码为xxx.java文件
+        #编译代码 os.popen("javac test.java")
+        #执行代码 os.popen("java mypack.test").read()
+        #将执行结果和答案比较
+
+
+        cur_user_pass = UserPass.objects.get(id=kwargs['pk'])
+
+        cur_user_pass.submit_num += 1 #提交次数加1
+
+        request.data['submit_num'] = cur_user_pass.submit_num
+
+        request.data['submit_time'] = timezone.now()
+
+        code = request.data['user_submit']
+
+
+        print(code)
+        with open('test.java', 'w+') as f:
+            f.write(code)
+        ret = os.popen("javac test.java")
+        print(ret)
+        result = os.popen("java test").read()
+        print(result)
+
+        if result and result[0:5] in cur_user_pass.user_pass.pass_answer:
+            request.data['pass_score'] = 100
+            #cur_user_pass.pass_score = 100
+        else:
+            request.data['pass_score'] = 0
+
+        return mixins.UpdateModelMixin.update(self, request, args, kwargs)
+
+
+
+
+
+
+
+
+
 
 
 

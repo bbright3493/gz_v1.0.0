@@ -15,6 +15,7 @@ class MajorAdmin(object):
     list_filter = ['name', 'category_type', 'parent_category', 'add_time']
 
 
+
 # class CategoryAdmin(object):
 #     list_display = ['name', 'major_name', 'add_time']
 #     search_fields = ['name', 'major_name']
@@ -37,6 +38,8 @@ class ChapterAdmin(object):
     list_display = ['course_name', 'chapter_name', 'chapter_introduce', 'chapter_task', 'chapter_target']
     search_fields = ['course_name', 'chapter_name', 'chapter_introduce', 'chapter_task', 'chapter_target']
     list_filter = ['course_name', 'chapter_name', 'chapter_introduce', 'chapter_task', 'chapter_target']
+
+    style_fields = {"chapter_task": "ueditor"}  #bb
 
 
 class PracticeAdmin(object):
