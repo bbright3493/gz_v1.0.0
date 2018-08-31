@@ -56,7 +56,41 @@ class SearchKnowledgeListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixi
     serializer_class = KnowledgeSerializers
 
     filter_backends = (DjangoFilterBackend, filters.SearchFilter)
-    search_fields = ('name', 'intr', 'tag')
+    search_fields = ('name', 'intr')
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+
+class SearchKnowledgeByTagListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
+                           viewsets.GenericViewSet):
+    """
+    知识点标签搜索  通过标签搜索知识点 实现路线图中课程章节页面中 相关知识点的搜索
+    """
+    queryset = Knowledge.objects.all()
+    serializer_class = KnowledgeSerializers
+
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
+    search_fields = ('tag', )
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+
+class SearchKnowledgeByTagListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
+                           viewsets.GenericViewSet):
+    """
+    知识点父标签搜索  通过父标签搜索知识点
+    """
+    queryset = Knowledge.objects.all()
+    serializer_class = KnowledgeSerializers
+
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
+    search_fields = ('father_tag', )
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()

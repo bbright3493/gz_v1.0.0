@@ -44,4 +44,5 @@ xadmin.site.register(UserPass, UserPassAdmin)
 xadmin.site.register(PkQuestion, PkQuestionAdmin)
 xadmin.site.register(Challenger, ChallengerAdmin)
 xadmin.site.register(TeamComp, TeamCompAdmin)
+xadmin.site.register(UserTeamComp)
 

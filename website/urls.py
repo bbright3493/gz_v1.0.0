@@ -128,10 +128,15 @@ router.register(r'be_challengers', WantChallengeredList, base_name='be_challenge
 #pk详情页面
 router.register(r'pk_detail', PkDetail, base_name='pk_detail')
 
+#发起挑战 LaunchChallenge
+router.register(r'launch_challenge', LaunchChallenge, base_name='launch_challenge')
+
 #团赛模式
 #团赛列表页
 router.register(r'team_comp', TeamCompList, base_name='team_comp')
 
+#加入团赛接口
+router.register(r'join_team_comp', JoinTeamComp, base_name='join_team_comp')
 
 
 
@@ -139,7 +144,10 @@ router.register(r'team_comp', TeamCompList, base_name='team_comp')
 router.register(r'library_index', KnowledgeListViewSet, base_name='konwledge_index_list')
 
 #图书馆搜索信息页
-router.register(r'library_search', SearchKnowledgeListViewSet, base_name='knowledge_seerch_list')
+router.register(r'library_search', SearchKnowledgeListViewSet, base_name='library_search')
+
+#图书馆通过标签搜索信息页
+router.register(r'library_search_tag', SearchKnowledgeByTagListViewSet, base_name='library_search_tag')
 
 #知识点图片页
 router.register(r'know_image', KnowledgeImageViewSet, base_name='knowledge_image')
