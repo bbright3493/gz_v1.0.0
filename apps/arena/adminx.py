@@ -22,9 +22,9 @@ class UserPassAdmin(object):
 
 
 class PkQuestionAdmin(object):
-    list_display = ['name', 'content', 'answer', 'complete_time']
-    search_fields = ['name', 'content', 'answer', 'complete_time']
-    list_filter = ['name', 'content', 'answer', 'complete_time']
+    list_display = ['name', 'content', 'answer', 'complete_time', 'question_refer']
+    search_fields = ['name', 'content', 'answer', 'complete_time', 'question_refer']
+    list_filter = ['name', 'content', 'answer', 'complete_time', 'question_refer']
 
 
 class ChallengerAdmin(object):

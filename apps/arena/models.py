@@ -55,10 +55,12 @@ class UserPass(models.Model):
 
 class PkQuestion(models.Model):
     """
-    pk题库
+    pk题目
     """
     name = models.CharField(max_length=50, verbose_name='题目名称')
-    content = models.CharField(max_length=500, verbose_name='题目内容')
+    content = models.CharField(max_length=1000, verbose_name='题目内容')
+    # bb
+    question_refer = models.CharField(max_length=2000, verbose_name='题目参考', default='')
     answer = models.CharField(max_length=500, verbose_name='题目答案')
     complete_time = models.CharField(max_length=30, verbose_name='完成时间')
 
@@ -108,6 +110,8 @@ class UserPkDetail(models.Model):
     challenger_comp_status = models.IntegerField(default=0, verbose_name='挑战者完成题数')
     user_score = models.IntegerField(default=0, verbose_name='用户得分')
     chalenger_score = models.IntegerField(default=0, verbose_name='挑战者得分')
+    user_comp_time = models.IntegerField(default=0, verbose_name="用户完成用时")
+    challenger_comp_time = models.IntegerField(default=0, verbose_name="挑战者完成用时")
 
     class Meta:
         verbose_name = 'pk详情表'
