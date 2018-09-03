@@ -149,6 +149,9 @@ router.register(r'library_search', SearchKnowledgeListViewSet, base_name='librar
 #图书馆通过标签搜索信息页
 router.register(r'library_search_tag', SearchKnowledgeByTagListViewSet, base_name='library_search_tag')
 
+#图书馆通过父标签搜索信息页
+router.register(r'library_search_father_tag', SearchKnowledgeByFatherTagListViewSet, base_name='library_search_father_tag')
+
 #知识点图片页
 router.register(r'know_image', KnowledgeImageViewSet, base_name='knowledge_image')
 

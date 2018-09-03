@@ -81,7 +81,7 @@ class SearchKnowledgeByTagListViewSet(mixins.ListModelMixin, mixins.RetrieveMode
         return Response(serializer.data)
 
 
-class SearchKnowledgeByTagListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
+class SearchKnowledgeByFatherTagListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
                            viewsets.GenericViewSet):
     """
     知识点父标签搜索  通过父标签搜索知识点
