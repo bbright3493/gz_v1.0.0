@@ -97,9 +97,10 @@ class Practice(models.Model):
     练习
     """
     CATEGORY_TYPE = (
-        (1, "限时练习题"),
-        (2, "速度练习题"),
-        (3, "编程练习题"),
+        (1, "选择练习题"),
+        (2, "判断练习题"),
+        (3, "填空练习题"),
+        (4, "编程练习题")
     )
     chapter_name = models.ForeignKey(Chapter, verbose_name='章节', help_text='章节id')
     practice_name = models.CharField(max_length=255, verbose_name='练习名', help_text='练习id')
