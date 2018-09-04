@@ -60,12 +60,14 @@ INSTALLED_APPS = [
     'captcha',
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
 
 ]
 
 AUTH_USER_MODEL = "users.UserProfile"
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -76,6 +78,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'website.urls'
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 TEMPLATES = [
     {
@@ -96,7 +100,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'website.wsgi.application'
 
-use_local_db = 1
+use_local_db = 0
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 if use_local_db:
@@ -105,7 +109,7 @@ if use_local_db:
                 'ENGINE': 'django.db.backends.mysql',
                 'NAME': 'web3',
                 'USER': 'root',
-                'PASSWORD': 'root',
+                'PASSWORD': 'bb12345',
                 'HOST': 'localhost',
                 'PORT': 3306,
             }
@@ -118,10 +122,10 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'web2',
+            'NAME': 'web3',
             'USER': 'root',
             'PASSWORD': 'bb12345',
-            'HOST': '155.94.148.87',
+            'HOST': '47.92.92.207',
             'PORT': 3306,
         }
     }

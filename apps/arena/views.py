@@ -85,8 +85,6 @@ class PassListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets
     pagination_class = PassPagination
 
 
-
-
 class UserPassListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
                           mixins.UpdateModelMixin, viewsets.GenericViewSet):
     """
@@ -143,18 +141,16 @@ class UserPassListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixi
 
         return mixins.UpdateModelMixin.update(self, request, args, kwargs)
 
+"""
+pk页面 前端查询逻辑如下：
+pk首页 首先按照各种挑战模式 查询挑战者表 相关信息显示在首页上部
+如果挑战者表中的挑战状态为 发起挑战 按钮显示迎战 否则显示继续挑战
+再查询被挑战者信息 显示可以接受挑战的人员
+点击迎战按钮后 向后端发起请求 生成pk信息  生成后 利用返回的pk信息构建pk详情页面
+点击继续挑战按钮后  直接获取当前进行的pk信息 并显示pk详情页
+"""
 
 
-
-
-
-
-
-
-
-
-
-#对战模式
 class ChallengerTimeModList(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
     获取挑战者列表信息 竞技场对战模式上方发起挑战者人员数据 时间赛
@@ -211,9 +207,24 @@ class WantChallengeredList(mixins.ListModelMixin, mixins.RetrieveModelMixin, vie
         return UserProfile.objects.filter(want_be_challenged=True)[0:5]
 
 
-class PkDetail(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class LaunchChallenge(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
+                      viewsets.GenericViewSet):
+    """
+    获取用户发起的挑战列表 详情 创建新的挑战
+    """
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+
+    serializer_class = ChallengerSerializer
+
+    def get_queryset(self):
+        return Challenger.objects.filter(challenger=self.request.user)
+
+
+class PkDetail(mixins.RetrieveModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
     """
     pk详情信息
+    bb 实现创建pk详情页的接口
     """
     # throttle_classes = (UserRateThrottle, )
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
@@ -224,6 +235,8 @@ class PkDetail(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     def get_queryset(self):
         return UserPkDetail.objects.get(user=self.request.user)
 
+    def create(self, request, *args, **kwargs):
+        return mixins.CreateModelMixin.create(self, request, args, kwargs)
 
 
 class TeamCompPagination(PageNumberPagination):
@@ -244,4 +257,10 @@ class TeamCompList(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Ge
     serializer_class = TeamCompSerializers
     pagination_class = TeamCompPagination
 
+
+class JoinTeamComp(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    """
+    加入团赛
+    """
+    serializer_class = UserTeamCompSerializers
 

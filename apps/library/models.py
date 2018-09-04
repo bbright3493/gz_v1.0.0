@@ -3,7 +3,7 @@
 
 from django.db import models
 from datetime import datetime
-from apps.major.models import Major
+from apps.major.models import Course
 # Create your models here.
 
 
@@ -34,7 +34,7 @@ class KnowledgeCourse(models.Model):
     """
     知识点课程表
     """
-    course = models.ForeignKey(Major, verbose_name='所属课程')
+    course = models.ForeignKey(Course, verbose_name='所属课程')
     knowledge = models.ForeignKey(Knowledge, verbose_name='知识点')
 
     class Meta:

@@ -81,9 +81,17 @@ class PkDetailSerializers(serializers.ModelSerializer):
 
 class TeamCompSerializers(serializers.ModelSerializer):
     """
-    挑战者信息序列化
+    团赛信息序列化
     """
     class Meta:
         model = TeamComp
         fields = "__all__"
 
+
+class UserTeamCompSerializers(serializers.ModelSerializer):
+    """
+    用户团赛信息序列化
+    """
+    class Meta:
+        model = UserTeamComp
+        fields = "__all__"

@@ -53,22 +53,14 @@ class UserPass(models.Model):
         return self.user_pass.name
 
 
-"""
-pk页面 前端查询逻辑如下：
-pk首页 首先按照各种挑战模式 查询挑战者表 相关信息显示在首页上部
-如果挑战者表中的挑战状态为 发起挑战 按钮显示迎战 否则显示继续挑战
-再查询被挑战者信息 显示可以接受挑战的人员
-点击迎战按钮后 向后端发起请求 生成pk信息  生成后 查询利用返回的pk信息构建pk详情页面
-点击继续挑战按钮后  直接获取当前进行的pk信息 并显示pk详情页
-"""
-
-
 class PkQuestion(models.Model):
     """
-    pk题库
+    pk题目
     """
     name = models.CharField(max_length=50, verbose_name='题目名称')
-    content = models.CharField(max_length=500, verbose_name='题目内容')
+    content = models.CharField(max_length=1000, verbose_name='题目内容')
+    # bb
+    question_refer = models.CharField(max_length=2000, verbose_name='题目参考', default='')
     answer = models.CharField(max_length=500, verbose_name='题目答案')
     complete_time = models.CharField(max_length=30, verbose_name='完成时间')
 
@@ -110,7 +102,7 @@ class Challenger(models.Model):
 
 class UserPkDetail(models.Model):
     """
-    当前参与pk表
+    当前pk详情表
     """
     challenger = models.ForeignKey(Challenger, verbose_name='挑战者信息')
     user = models.ForeignKey(UserProfile, verbose_name="用户信息")
@@ -118,6 +110,8 @@ class UserPkDetail(models.Model):
     challenger_comp_status = models.IntegerField(default=0, verbose_name='挑战者完成题数')
     user_score = models.IntegerField(default=0, verbose_name='用户得分')
     chalenger_score = models.IntegerField(default=0, verbose_name='挑战者得分')
+    user_comp_time = models.IntegerField(default=0, verbose_name="用户完成用时")
+    challenger_comp_time = models.IntegerField(default=0, verbose_name="挑战者完成用时")
 
     class Meta:
         verbose_name = 'pk详情表'
@@ -145,7 +139,6 @@ class UserPkExercise(models.Model):
         return self.name
 
 
-
 #团赛页面
 class TeamComp(models.Model):
     """
@@ -163,8 +156,7 @@ class TeamComp(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.name
-
+        return self.title
 
 
 class UserTeamComp(models.Model):
@@ -179,6 +171,9 @@ class UserTeamComp(models.Model):
     class Meta:
         verbose_name = '用户团赛信息'
         verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return "%s"%(self.team_comp.title)
 
 
 

@@ -31,12 +31,13 @@ class MajorListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewset
     """
     queryset = Major.objects.all()
     serializer_class = MajorSerializers
-    filter_backends = (DjangoFilterBackend,)
-    filter_class = CourseFilter
+    # filter_backends = (DjangoFilterBackend,)
+    # filter_class = CourseFilter
 
     def get_queryset(self):
         print(self.request.user)
-        if self.request.user == 'AnonymousUser':
+        #if self.request.user == 'AnonymousUser': #bug
+        if not self.request.user.is_authenticated(): #bb
             return self.queryset
         try:
             queryset = UserMajor.objects.filter(user=self.request.user)
