@@ -66,6 +66,13 @@ pk_detail
 团赛列表页面
 team_comp
 
+
+
+
+
+
+
+
 图书馆板块
 1 图书馆首页
 library_index
@@ -76,6 +83,12 @@ library_search/?search=关键字
 
 搜索结果详情页 id为搜索到的某个知识点的id
 library_search/id
+
+#ddd#的搜索
+library_search_tag
+
+点击面包屑父标签的搜索
+library_search_father_tag
 
 知识点音频
 know_audio/id
