@@ -129,8 +129,9 @@ class PracticeListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, view
 
     def get_queryset(self):
         chapter = self.request.query_params.get('chapter', None)
-        if chapter is not None:
-            queryset = self.queryset.filter(chapter_name__id=str(chapter))
+        _type = self.request.query_params.get('type', None)
+        if chapter is not None and _type is not None:
+            queryset = self.queryset.filter(chapter_name__id=str(chapter), _type=_type)
             return queryset
         return self.queryset
 
