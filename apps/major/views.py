@@ -77,8 +77,8 @@ class ChapterListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, views
     """
     list:
         需登录
-        请求：http://xxx.xx.xx.xx:xx/course/ 获得所有课程章节
-        请求：http://xxx.xx.xx.xx:xx/course/?id=1 指定课程下的章节 需要指定课程的id
+        请求：http://xxx.xx.xx.xx:xx/chapter/ 获得所有课程章节
+        请求：http://xxx.xx.xx.xx:xx/chapter/?id=1 指定课程下的章节 需要指定课程的id
 
     read:
         请求：http://xxx.xx.xx.xx:xx/chapter/id/ 获得指定章节的详细页面 需要指定章节的id
