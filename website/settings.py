@@ -100,7 +100,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'website.wsgi.application'
 
-use_local_db = 0
+use_local_db = 1
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 if use_local_db:
@@ -109,7 +109,7 @@ if use_local_db:
                 'ENGINE': 'django.db.backends.mysql',
                 'NAME': 'web3',
                 'USER': 'root',
-                'PASSWORD': 'bb12345',
+                'PASSWORD': 'root',
                 'HOST': 'localhost',
                 'PORT': 3306,
             }

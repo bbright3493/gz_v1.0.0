@@ -188,8 +188,6 @@ router.register(r'student_msg', StudentMsgViewSet, base_name='student_msg')
 router.register(r'discuss_msg', DiscussListViewSet, base_name='discuss_msg')
 
 
-
-
 urlpatterns = [
     url(r'^admin/', xadmin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls')),

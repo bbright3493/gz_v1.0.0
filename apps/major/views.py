@@ -117,7 +117,7 @@ class PracticeListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, view
     list:
         需登录
         请求：http://xxx.xx.xx.xx:xx/practice/ 获得所有章节练习列表
-        请求：http://xxx.xx.xx.xx:xx/practice/?chapter=2 指定章节下的练习 chapter为数据库中章节的id
+        请求：http://xxx.xx.xx.xx:xx/practice/?chapter=2&type=1 指定章节下的练习 chapter为数据库中章节的id type为练习题类型
     read:
         请求：http://xxx.xx.xx.xx:xx/practice/1/ 获得指定章节的详细信息  需要指定章节的id
     """
