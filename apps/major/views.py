@@ -117,6 +117,7 @@ class PracticeListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, view
     list:
         需登录
         请求：http://xxx.xx.xx.xx:xx/practice/ 获得所有章节练习列表
+        请求：http://xxx.xx.xx.xx:xx/practice/?chapter=2&type=1 指定章节下的练习 chapter为数据库中章节的id type为练习题类型
         请求：http://xxx.xx.xx.xx:xx/practice/?chapter=2 指定章节下的练习 chapter为数据库中章节的id
         请求：http://100ping.com/practice/?type=1&chapter=1 则查询指定章节下的指定类型题目
         1：选择题
@@ -135,6 +136,8 @@ class PracticeListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, view
     def get_queryset(self):
         chapter = self.request.query_params.get('chapter', None)
         _type = self.request.query_params.get('type', None)
+        if chapter is not None and _type is not None:
+            queryset = self.queryset.filter(chapter_name__id=str(chapter), _type=_type)
         if chapter is not None:
             if _type is not None:
                 queryset = self.queryset.filter(chapter_name__id=str(chapter), _type=_type)

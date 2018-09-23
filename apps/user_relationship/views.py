@@ -54,7 +54,7 @@ class UserPracticeViewSet(viewsets.ModelViewSet):
         需登录
         请求： http://xx.xx.xx.xx:xx/user_practice/ 返回用户完成练习题信息
     create:
-        post请求： http://xx.xx.xx.xx:xx/user_practice/ 用户练习题完成时添加信息接口
+        post请求： http://xx.xx.xx.xx:xx/user_practice/ 用户练习题完成时添加信息接口, 传过来的是json格式
     update:
        put请求： http://xx.xx.xx.xx:xx/user_practice/{id}/  更新指定的完成练习题接口
     delete：
@@ -63,6 +63,7 @@ class UserPracticeViewSet(viewsets.ModelViewSet):
     serializer_class = UserPracticeSerializer
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+
 
     def get_queryset(self):
         return UserPractice.objects.filter(user_id=self.request.user)
@@ -227,9 +228,9 @@ class TeacherEvaluationViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, v
     """
         list:
             需登录
-            请求： http://xxx.xx.xx.xx:xx/user_mission/ 返回老师评价列表
+            请求： http://xxx.xx.xx.xx:xx/evaluation/ 返回老师评价列表
         create:
-            psot请求：http://xxx.xx.xx.xx:xx/user_mission/ 老师评价 创建
+            psot请求：http://xxx.xx.xx.xx:xx/evaluation/ 老师评价 创建
     """
 
     # serializer_class = UserMissionSerializers
@@ -252,9 +253,9 @@ class ReadTeacherEvaluationViewSet(mixins.ListModelMixin, viewsets.GenericViewSe
     """
         list:
             需登录
-            请求： http://xxx.xx.xx.xx:xx/user_mission/ 返回当前用户任务所有的老师评价列表
+            请求： http://xxx.xx.xx.xx:xx/read_evaluation/ 返回当前用户任务所有的老师评价列表
 
-            请求： http://xxx.xx.xx.xx:xx/user_mission/？task=id 返回当前用户指定任务的老师评价
+            请求： http://xxx.xx.xx.xx:xx/read_evaluation/？task=id 返回当前用户指定任务的老师评价
         """
 
     serializer_class = TeacherEvaluationListSerializers

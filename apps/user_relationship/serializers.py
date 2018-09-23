@@ -4,6 +4,7 @@
 # @Author  : Shark
 # @File    : serializers.py
 # @Software: PyCharm
+import json
 
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
@@ -103,24 +104,45 @@ class UserPracticeSerializer(serializers.Serializer):
     practice_info = serializers.CharField(allow_blank=True, label='练习答案', help_text='练习题提交答案')
 
 #  需要修改
-    # def create(self, validated_data):
-    #     user = self.context["request"].user
-    #     chapter = validated_data["chapter"]
-    #     practice = validated_data["practice"]
-    #     types = validated_data["types"]
-    #     practice_info = validated_data["practice_info"]
-    #     # count = validated_data["count"]
-    #
-    #     existed = UserPractice.objects.filter(user=user, practice=practice)
-    #
-    #     if existed:
-    #         existed = existed[0]
-    #         existed.count += 1
-    #         existed.save()
-    #     else:
-    #         existed = UserPractice.objects.create(**validated_data)
-    #
-    #     return existed
+    def create(self, validated_data):
+        chapter_id = validated_data['chapter'].id
+        _type = validated_data['types']
+        practice_answer = Practice.objects.filter(chapter_name=chapter_id, _type=_type).all()
+        answer = dict()
+        return_answer = dict()
+        value = json.loads(validated_data['practice_info'])
+        for practice in practice_answer:
+            answer[practice.id] = practice.standard_answer
+        print(answer)
+        print(value)
+        for k, v in answer.items():
+            if v == value[str(k)]:
+                return_answer[k] = True
+            else:
+                return_answer[k] = False
+        print(return_answer)
+        user = self.context["request"].user
+        chapter = validated_data["chapter"]
+        practice = validated_data["practice"]
+        types = validated_data["types"]
+        practice_info = [value, return_answer]
+
+        validated_data = {"user": user, "chapter": chapter, "practice": practice, "types": types, "practice_info": practice_info}
+        existed = UserPractice.objects.create(**validated_data)
+
+        return existed
+
+        #
+        # existed = UserPractice.objects.filter(user=user, practice=practice)
+        #
+        # if existed:
+        #     existed = existed[0]
+        #     existed.count += 1
+        #     existed.save()
+        # else:
+        #     existed = UserPractice.objects.create(**validated_data)
+        #
+        # return existed
 
     class Meta:
         model = UserPractice
