@@ -77,8 +77,8 @@ class ChapterListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, views
     """
     list:
         需登录
-        请求：http://xxx.xx.xx.xx:xx/course/ 获得所有课程章节
-        请求：http://xxx.xx.xx.xx:xx/course/?id=1 指定课程下的章节 需要指定课程的id
+        请求：http://xxx.xx.xx.xx:xx/chapter/ 获得所有课程章节
+        请求：http://xxx.xx.xx.xx:xx/chapter/?id=1 指定课程下的章节 需要指定课程的id
 
     read:
         请求：http://xxx.xx.xx.xx:xx/chapter/id/ 获得指定章节的详细页面 需要指定章节的id
@@ -118,6 +118,12 @@ class PracticeListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, view
         需登录
         请求：http://xxx.xx.xx.xx:xx/practice/ 获得所有章节练习列表
         请求：http://xxx.xx.xx.xx:xx/practice/?chapter=2&type=1 指定章节下的练习 chapter为数据库中章节的id type为练习题类型
+        请求：http://xxx.xx.xx.xx:xx/practice/?chapter=2 指定章节下的练习 chapter为数据库中章节的id
+        请求：http://100ping.com/practice/?type=1&chapter=1 则查询指定章节下的指定类型题目
+        1：选择题
+        2：判断题
+        3：填空题
+        4：编程题
     read:
         请求：http://xxx.xx.xx.xx:xx/practice/1/ 获得指定章节的详细信息  需要指定章节的id
     """
@@ -132,6 +138,11 @@ class PracticeListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, view
         _type = self.request.query_params.get('type', None)
         if chapter is not None and _type is not None:
             queryset = self.queryset.filter(chapter_name__id=str(chapter), _type=_type)
+        if chapter is not None:
+            if _type is not None:
+                queryset = self.queryset.filter(chapter_name__id=str(chapter), _type=_type)
+            else:
+                queryset = self.queryset.filter(chapter_name__id=str(chapter))
             return queryset
         return self.queryset
 

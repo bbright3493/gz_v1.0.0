@@ -101,6 +101,8 @@ class Practice(models.Model):
         (2, "判断练习题"),
         (3, "填空练习题"),
         (4, "编程练习题")
+        (4, "编程练习题"),
+        (5, "打字练习题"),
     )
     chapter_name = models.ForeignKey(Chapter, verbose_name='章节', help_text='章节id')
     practice_name = models.CharField(max_length=255, verbose_name='练习名', help_text='练习id')
@@ -120,6 +122,7 @@ class Practice(models.Model):
 
     def __str__(self):
         return self.practice_name
+
 
 
 # class TimeLimitPractice(Practice):

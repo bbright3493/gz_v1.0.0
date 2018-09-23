@@ -13,6 +13,7 @@ class TotalRankSerializers(serializers.ModelSerializer):
     class Meta:
         model = UserAchievement
         fields = "__all__"
+        depth = 1
 
 
 class WeekRankSerializers(serializers.ModelSerializer):
@@ -22,6 +23,7 @@ class WeekRankSerializers(serializers.ModelSerializer):
     class Meta:
         model = UserAchievement
         fields = "__all__"
+        depth = 1
 
 
 class ClassRankSerializers(serializers.ModelSerializer):
@@ -31,6 +33,7 @@ class ClassRankSerializers(serializers.ModelSerializer):
     class Meta:
         model = UserAchievement
         fields = "__all__"
+        depth = 1
 
 
 class PassSerializer(serializers.ModelSerializer):
