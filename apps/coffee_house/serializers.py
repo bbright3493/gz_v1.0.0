@@ -23,12 +23,22 @@ class StudentMsgSerializers(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class DiscussReplaySerializers(serializers.ModelSerializer):
+    """
+    论坛帖子回复信息序列化
+    """
+    class Meta:
+        model = DiscussReplay
+        fields = "__all__"
 
 
 class DiscussSerializers(serializers.ModelSerializer):
     """
     论坛帖子信息序列化
     """
+    discuss_replay = DiscussReplaySerializers(many=True)
     class Meta:
         model = DiscussMsg
         fields = "__all__"
+
+

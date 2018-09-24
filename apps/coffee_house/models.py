@@ -75,7 +75,7 @@ class DiscussReplay(models.Model):
     """
     帖子回复
     """
-    discuss = models.ForeignKey(DiscussMsg, verbose_name='被回复的帖子')
+    discuss = models.ForeignKey(DiscussMsg, verbose_name='被回复的帖子', related_name='discuss_replay')
     user = models.ForeignKey(UserProfile, verbose_name='回复人')
     send_time = models.DateTimeField(default=timezone.now, verbose_name=u'发送时间')
     content = models.CharField(max_length=2000, verbose_name='回复内容')

@@ -31,10 +31,16 @@ class DiscussMsgAdmin(object):
     list_filter = ['title', 'content', 'user', 'send_time', 'click_num']
 
 
+class DiscussReplayAdmin(object):
+    list_display = ['discuss', 'user', 'content']
+    search_fields = ['discuss', 'user', 'content']
+    list_filter = ['discuss', 'user', 'content']
+
 
 
 
 xadmin.site.register(TeacherUserMsg, TeacherUserMsgAdmin)
 xadmin.site.register(StudentMsg, StudentMsgAdmin)
 xadmin.site.register(DiscussMsg, DiscussMsgAdmin)
+xadmin.site.register(DiscussReplay, DiscussReplayAdmin)
 

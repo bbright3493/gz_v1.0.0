@@ -130,3 +130,15 @@ class DiscussListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixin
     def get_queryset(self):
         return DiscussMsg.objects.all()
 
+
+class DiscussReplayListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
+                            viewsets.GenericViewSet):
+    """
+    获取论坛帖子回复信息
+    """
+
+    serializer_class = DiscussReplaySerializers
+
+    def get_queryset(self):
+        return DiscussReplay.objects.all()
+
