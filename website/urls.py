@@ -187,8 +187,11 @@ router.register(r'student_msg', StudentMsgViewSet, base_name='student_msg')
 #论坛列表组件
 router.register(r'discuss_msg', DiscussListViewSet, base_name='discuss_msg')
 
-#论坛列表组件
+#论坛列表组件 写入回复信息
 router.register(r'discuss_replay', DiscussReplayListViewSet, base_name='discuss_repaly')
+
+#读取回复信息
+router.register(r'discuss_replay_read', DiscussReplayReadListViewSet, base_name='discuss_repaly_read')
 
 
 

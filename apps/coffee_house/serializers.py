@@ -32,6 +32,16 @@ class DiscussReplaySerializers(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class DiscussReplayReadSerializers(serializers.ModelSerializer):
+    """
+    论坛帖子回复信息序列化
+    """
+    class Meta:
+        model = DiscussReplay
+        fields = "__all__"
+        depth = 1
+
+
 
 class DiscussSerializers(serializers.ModelSerializer):
     """
