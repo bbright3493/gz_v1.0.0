@@ -30,7 +30,7 @@ class DiscussReplaySerializers(serializers.ModelSerializer):
     class Meta:
         model = DiscussReplay
         fields = "__all__"
-        depth = 1
+
 
 
 class DiscussSerializers(serializers.ModelSerializer):
