@@ -47,7 +47,7 @@ class DiscussSerializers(serializers.ModelSerializer):
     """
     论坛帖子信息序列化
     """
-    discuss_replay = DiscussReplaySerializers(many=True)
+    discuss_replay = DiscussReplayReadSerializers(many=True)
     class Meta:
         model = DiscussMsg
         fields = "__all__"
