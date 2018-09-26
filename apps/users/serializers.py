@@ -20,6 +20,7 @@ class UserClassSerializers(serializers.ModelSerializer):
     class Meta:
         model = ClassInfo
         fields = '__all__'
+        depth = 1
 
 
 class UserCitySerializers(serializers.ModelSerializer):
