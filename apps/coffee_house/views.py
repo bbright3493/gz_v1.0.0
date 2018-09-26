@@ -119,7 +119,7 @@ class StudentMsgViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins
         return Response(serializer.data)
 
 
-class DiscussListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
+class DiscussListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
                             viewsets.GenericViewSet):
     """
     获取论坛帖子
@@ -129,6 +129,14 @@ class DiscussListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixin
 
     def get_queryset(self):
         return DiscussMsg.objects.all()
+
+
+class DiscussCreateViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    """
+    创建论坛帖子
+    """
+    serializer_class = DiscussCreateSerializers
+
 
 
 class DiscussReplayListViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):

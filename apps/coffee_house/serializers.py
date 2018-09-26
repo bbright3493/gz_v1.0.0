@@ -54,4 +54,13 @@ class DiscussSerializers(serializers.ModelSerializer):
         depth = 2
 
 
+class DiscussCreateSerializers(serializers.ModelSerializer):
+    """
+    论坛帖子信息序列化
+    """
+    class Meta:
+        model = DiscussMsg
+        fields = "__all__"
+
+
 

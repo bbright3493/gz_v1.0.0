@@ -187,6 +187,10 @@ router.register(r'student_msg', StudentMsgViewSet, base_name='student_msg')
 #论坛列表组件
 router.register(r'discuss_msg', DiscussListViewSet, base_name='discuss_msg')
 
+
+router.register(r'discuss_msg_create', DiscussCreateViewSet, base_name='discuss_msg_create')
+
+
 #论坛列表组件 写入回复信息
 router.register(r'discuss_replay', DiscussReplayListViewSet, base_name='discuss_repaly')
 
