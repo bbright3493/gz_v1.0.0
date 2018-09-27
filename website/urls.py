@@ -62,6 +62,9 @@ router.register(r'chaptertask', ChapterTaskViewSet, base_name='chaptertask')
 # 用户练习提交api
 router.register(r'user_practice', UserPracticeViewSet, base_name='user_practice')
 
+router.register(r'user_practice_create', UserPracticeCreateViewSet, base_name='user_practice_create')
+
+
 # 用户任务提交api
 router.register(r'user_mission', UserMissionViewSite, base_name='user_mission')
 

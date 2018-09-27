@@ -103,28 +103,27 @@ class UserPracticeSerializer(serializers.Serializer):
     practice_info = serializers.CharField(allow_blank=True, label='练习答案', help_text='练习题提交答案')
 
 #  需要修改
-    # def create(self, validated_data):
-    #     user = self.context["request"].user
-    #     chapter = validated_data["chapter"]
-    #     practice = validated_data["practice"]
-    #     types = validated_data["types"]
-    #     practice_info = validated_data["practice_info"]
-    #     # count = validated_data["count"]
-    #
-    #     existed = UserPractice.objects.filter(user=user, practice=practice)
-    #
-    #     if existed:
-    #         existed = existed[0]
-    #         existed.count += 1
-    #         existed.save()
-    #     else:
-    #         existed = UserPractice.objects.create(**validated_data)
-    #
-    #     return existed
+    def create(self, validated_data):
+        user = self.context["request"].user
+        chapter = validated_data["chapter"]
+        practice = validated_data["practice"]
+        types = validated_data["types"]
+        practice_info = validated_data["practice_info"]
+        # count = validated_data["count"]
+
+        existed = UserPractice.objects.filter(user=user, practice=practice)
+
+        if existed:
+            existed = existed[0]
+            existed.save()
+        else:
+            existed = UserPractice.objects.create(**validated_data)
+
+        return existed
 
     class Meta:
         model = UserPractice
-        fields = ('user', 'chapter', 'practice', 'practice_info', 'count')
+        fields = ('user', 'chapter', 'practice', 'practice_info')
 
 
 class A(object):

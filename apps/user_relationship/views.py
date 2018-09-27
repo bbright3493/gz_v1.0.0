@@ -15,10 +15,13 @@ from apps.user_relationship.models import *
 from apps.utils.permissions import *
 from apps.user_relationship.serializers import *
 from apps.utils.results import *
+
+
 # Create your views here.
 
 
-class UserChapterEndViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
+class UserChapterEndViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.UpdateModelMixin,
+                            viewsets.GenericViewSet):
     """
     list:
         需登录
@@ -48,11 +51,24 @@ class UserChapterEndViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixi
         return UserChapter.objects.filter(user_id=self.request.user)
 
 
-class UserPracticeViewSet(viewsets.ModelViewSet):
+class UserPracticeViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     list:
         需登录
         请求： http://xx.xx.xx.xx:xx/user_practice/ 返回用户完成练习题信息
+
+    """
+    serializer_class = UserPracticeSerializer
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+
+    def get_queryset(self):
+        return UserPractice.objects.filter(user_id=self.request.user)
+
+
+class UserPracticeCreateViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin,
+                          viewsets.GenericViewSet):
+    """
     create:
         post请求： http://xx.xx.xx.xx:xx/user_practice/ 用户练习题完成时添加信息接口
     update:
@@ -63,10 +79,6 @@ class UserPracticeViewSet(viewsets.ModelViewSet):
     serializer_class = UserPracticeSerializer
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
-
-    def get_queryset(self):
-        return UserPractice.objects.filter(user_id=self.request.user)
-
 
 
 # class UserPracticeViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
@@ -91,7 +103,7 @@ class UserResultsView(View):
     """
 
     def get(self, request):
-        info_dict =dict()
+        info_dict = dict()
         if request.user.is_authenticated:
             results = UserAchievement.objects.filter(user=self.request.user)
             chapter = UserChapter.objects.filter(user=self.request.user).order_by('-end_time')[0]
@@ -120,8 +132,9 @@ class UserResultsViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewset
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
 
     def get_queryset(self):
-
         return UserAchievement.objects.filter(user=self.request.user)
+
+
 # ----------------------------------------------------------------------------------------------------
 
 
@@ -136,13 +149,12 @@ class UserTaskListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewse
 
     """
     serializer_class = UserTaskSerializers
-    filter_backends = (filters.SearchFilter, )
+    filter_backends = (filters.SearchFilter,)
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
     search_fields = ('task_name',)
 
     def get_queryset(self):
-
         return UserTask.objects.filter(user=self.request.user)
 
 
@@ -196,7 +208,8 @@ class UserClassBlogViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         return class_blogs.order_by('blog_time')
 
 
-class UserMissionViewSite(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class UserMissionViewSite(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.RetrieveModelMixin,
+                          viewsets.GenericViewSet):
     """
     list:
         需登录
@@ -271,4 +284,3 @@ class ReadTeacherEvaluationViewSet(mixins.ListModelMixin, viewsets.GenericViewSe
         else:
             queryset = TeacherEvaluation.objects.filter(user=user).all()
             return queryset
-
