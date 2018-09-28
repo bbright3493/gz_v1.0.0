@@ -47,7 +47,7 @@ class UserProfileSerializers(serializers.ModelSerializer):
 
 
 class UserProfileSerializers2(serializers.ModelSerializer):
-    img = serializers.ImageField(max_length=255, allow_null=True, label='头像')
+    # img = serializers.ImageField(max_length=255, allow_null=True, label='头像')
 
     class Meta:
         model = User

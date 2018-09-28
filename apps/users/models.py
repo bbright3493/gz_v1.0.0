@@ -83,13 +83,15 @@ class UserProfile(AbstractUser):
     name = models.CharField(max_length=255, null=True, blank=True, verbose_name='名字', help_text='名字')
     types = models.IntegerField(choices=TYPE_CHOICES, default=4, verbose_name='用户类型')
     age = models.IntegerField(null=True, blank=True, verbose_name='年龄', help_text='年龄')
-    gender = models.CharField(max_length=255, choices=(('男', '男'), ('女', '女')), default='男', verbose_name='性别', help_text='性别')
+    gender = models.CharField(max_length=255, choices=(('男', '男'), ('女', '女')), default='男', verbose_name='性别',
+                              help_text='性别')
     address = models.CharField(max_length=255, null=True, blank=True, verbose_name='地址', help_text='地址')
     mobile = models.CharField(max_length=255, null=True, blank=True, verbose_name='手机号码', help_text='手机号码')
     email = models.EmailField(null=True, blank=True, verbose_name='邮箱地址', help_text='邮箱地址')
     expected_work = models.CharField(max_length=255, null=True, blank=True, verbose_name='期望工作', help_text='期望工作')
     assessment = models.TextField(null=True, blank=True, verbose_name='自我评价', help_text='自我评价')
-    img = models.ImageField(null=True, upload_to='users/image/%Y/%m', default='users/image/default.jpg', max_length=255,  blank=True, verbose_name='头像', help_text='头像')
+    img = models.ImageField(upload_to='users/image/%Y/%m', default='users/image/default.jpg', max_length=255,
+                            null=True, blank=True, verbose_name='头像', help_text='头像')
 
     # bb
     in_class = models.ForeignKey(ClassInfo, null=True, blank=True, verbose_name='所属班级')
@@ -143,7 +145,8 @@ class UserSkill(models.Model):
     user = models.ForeignKey(UserProfile, verbose_name='用户名', help_text='用户名')
     skill_name = models.CharField(max_length=255, verbose_name='技能名', help_text='技能名')
     skill_level = models.CharField(max_length=255, choices=(('know', '了解'), ('shuxi', '熟悉'), ('skilled', '熟练'),
-                                   ('master', '精通')), default='shuxi', verbose_name='技能等级', help_text='技能等级')
+                                                            ('master', '精通')), default='shuxi', verbose_name='技能等级',
+                                   help_text='技能等级')
     skill_introduce = models.CharField(max_length=255, verbose_name='技能介绍', help_text='技能介绍')
 
     class Meta:
