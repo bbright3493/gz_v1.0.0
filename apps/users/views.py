@@ -60,7 +60,7 @@ class UserResumeViewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, mixins.R
         return UserProfileSerializers
 
 
-class UserEducationViewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
+class UserEducationViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
     """
     list:
         需登录
@@ -68,6 +68,8 @@ class UserEducationViewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, views
 
     update:
         put请求： http://xxx.xxx.xxx.xx:xx/education/{id}/ 用户教育背景修改
+    create:
+        post 创建用户教育背景
     """
     serializer_class = UserResumeSerializers
     permission_classes = (IsAuthenticated,)
@@ -78,7 +80,7 @@ class UserEducationViewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, views
         return UserResume.objects.filter(user=self.request.user)
 
 
-class UserProjectViewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
+class UserProjectViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
     """
     list:
         需登录
@@ -86,6 +88,8 @@ class UserProjectViewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, viewset
 
     update：
         put请求： http://xxx.xxx.xxx.xx:xx/project/{id}/ 用户项目信息修改
+    create:
+        post 创建用户项目信息
     """
 
     serializer_class = UserProjectSerializers

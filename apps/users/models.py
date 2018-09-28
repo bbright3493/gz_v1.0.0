@@ -89,7 +89,7 @@ class UserProfile(AbstractUser):
     email = models.EmailField(null=True, blank=True, verbose_name='邮箱地址', help_text='邮箱地址')
     expected_work = models.CharField(max_length=255, null=True, blank=True, verbose_name='期望工作', help_text='期望工作')
     assessment = models.TextField(null=True, blank=True, verbose_name='自我评价', help_text='自我评价')
-    img = models.ImageField(upload_to='users/image/%Y/%m', default='users/image/default.jpg', max_length=255, verbose_name='头像', help_text='头像')
+    img = models.ImageField(null=True, upload_to='users/image/%Y/%m', default='users/image/default.jpg', max_length=255,  blank=True, verbose_name='头像', help_text='头像')
 
     # bb
     in_class = models.ForeignKey(ClassInfo, null=True, blank=True, verbose_name='所属班级')
