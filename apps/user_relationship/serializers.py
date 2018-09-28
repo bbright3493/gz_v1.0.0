@@ -84,6 +84,33 @@ class UserChapterEndInfoSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class UserPracticeReadSerializer(serializers.Serializer):
+    """
+        用户练习序列化
+        """
+    user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+        , help_text='用户id')
+
+    chapter = serializers.PrimaryKeyRelatedField(required=True, queryset=Chapter.objects.all(), label='章节',
+                                                 help_text='章节id')
+
+    practice = serializers.PrimaryKeyRelatedField(required=True, queryset=Practice.objects.all(), label='练习',
+                                                  help_text='练习题id')
+
+    types = serializers.IntegerField(label='类别', help_text='类别')
+
+    end_time = serializers.DateTimeField(default=timezone.now, label='完成时间', help_text='结束时间')
+
+    practice_info = serializers.CharField(allow_blank=True, label='练习答案', help_text='练习题提交答案')
+
+    count = serializers.IntegerField(label='作业提交次数', help_text='作业提交次数')
+
+    class Meta:
+        model = UserPractice
+        fields = ('user', 'chapter', 'practice', 'practice_info', 'count')
+
+
 class UserPracticeSerializer(serializers.Serializer):
     """
     用户练习序列化
@@ -102,6 +129,8 @@ class UserPracticeSerializer(serializers.Serializer):
 
     practice_info = serializers.CharField(allow_blank=True, label='练习答案', help_text='练习题提交答案')
 
+
+
 #  需要修改
     def create(self, validated_data):
         user = self.context["request"].user
@@ -115,6 +144,8 @@ class UserPracticeSerializer(serializers.Serializer):
 
         if existed:
             existed = existed[0]
+            existed.practice_info = practice_info
+            existed.count += 1
             existed.save()
         else:
             existed = UserPractice.objects.create(**validated_data)

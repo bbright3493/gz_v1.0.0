@@ -58,7 +58,7 @@ class UserPracticeViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         请求： http://xx.xx.xx.xx:xx/user_practice/ 返回用户完成练习题信息
 
     """
-    serializer_class = UserPracticeSerializer
+    serializer_class = UserPracticeReadSerializer
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
 

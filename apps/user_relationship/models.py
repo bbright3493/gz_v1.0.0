@@ -62,7 +62,7 @@ class UserPractice(models.Model):
     practice_info = models.TextField(default='', verbose_name='练习内容', help_text='练习题提交答案')
     # course_end = models.BooleanField(default=False, verbose_name='课程是否完成')
     # chapter_end = models.BooleanField(default=False, verbose_name='章节是否完成')
-    # count = models.IntegerField(default=0, verbose_name='作业提交次数', help_text='练习题提交次数')
+    count = models.IntegerField(default=0, verbose_name='作业提交次数', help_text='作业提交次数')
 
     class Meta:
         verbose_name = '学生练习信息'
