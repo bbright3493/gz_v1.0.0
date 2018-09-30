@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+    <title>格子网塾视频播放</title>
+    <link rel="stylesheet" href="css/reset.css"/>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/willesPlay.css"/>
+    <link rel="stylesheet" href="css/jsmodern-1.1.1.min.css"/>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/willesPlay.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div class="container" id="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="willesPlay">
+                <div class="playContent">
+                    <video width="100%" height="100%" id="playVideo" preload="auto">
+                        <source id="Source" src="../res/video/t.mp4" type="video/mp4"></source>
+                    </video>
+                    <div class="playTip glyphicon glyphicon-play"></div>
+                </div>
+                <div class="playControll">
+                    <div class="playPause playIcon"></div>
+                    <div class="timebar"><span class="currentTime">0:00:00</span>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-danger progress-bar-striped"
+                                 role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                                 style="width: 0%"></div>
+                        </div>
+                        <span class="duration">0:00:00</span></div>
+                    <div class="otherControl">
+                        <span class="volume glyphicon glyphicon-volume-down"></span>
+                        <!--<span id="share_qrcode" class="share_qrcode"></span>-->
+                        <!--<span id="close" ></span>-->
+
+                        <div class="volumeBar">
+                            <div class="volumewrap">
+                                <div class="progress" style="font-weight: bold;color: red;">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar"
+                                         aria-valuemin="0" aria-valuemax="100"
+                                         style="width: 8px;height: 40%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--分享功能-->
+<script type="text/javascript">
+    $(function () {
+
+        /*获取播放影片资源*/
+        $("#playVideo, #Source").attr("src", "../res/video/" + location.search.split("video_id=")[1] + ".mp4");
+
+        /*微信分享*/
+        /*jsModern.share({
+            qrcode: "#share_qrcode"
+        });*/
+
+        /*退出播放*/
+        /*$('#close').on('click', function () {
+            if (confirm("您确定退出吗？")) {
+                window.opener = null;
+                window.open('', '_self');
+                window.close();
+            }
+        })
+        $("#close").click(function () {
+            window.close();
+            self.opener = null;
+            self.close();
+            console.log(11)
+            //	window.location.href = "hide://"
+        })*/
+
+    })
+
+</script>
+</body>
+</html>
