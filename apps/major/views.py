@@ -65,6 +65,8 @@ class CourseListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     filter_backends = (DjangoFilterBackend,)
 
     def get_queryset(self):
+        #每次查询需要重新查询一次 防止数据库做了更改  外键没有更新的情况出现
+        self.queryset = CategoryAndCourse.objects.all()
         name = self.request.query_params.get('category', None)
         if name is not None:
             queryset = CategoryAndCourse.objects.filter(category=name)
