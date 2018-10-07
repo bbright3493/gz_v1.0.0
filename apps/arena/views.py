@@ -107,6 +107,7 @@ class UserPassListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixi
     def update(self, request, *args, **kwargs):
         import os
         from django.utils import timezone
+        import requests
         #获取用户的代码
         #保存代码为xxx.java文件
         #编译代码 os.popen("javac test.java")
@@ -126,6 +127,14 @@ class UserPassListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixi
 
 
         print(code)
+        #利用菜鸟教程的接口进行代码结果返回
+        # url = 'https://m.runoob.com/api/compile.php'
+        # payload = {"code": code, "stdin": None, "language": 8,
+        #            "fileext": "java"}
+        # r = requests.post(url, data=payload)
+        # compile_results = r.json()
+
+
         with open('test.java', 'w+') as f:
             f.write(code)
         ret = os.popen("javac test.java")

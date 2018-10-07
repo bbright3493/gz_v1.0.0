@@ -92,7 +92,7 @@ class UserAchievement(models.Model):
 class UserBlog(models.Model):
     user = models.ForeignKey(UserProfile, verbose_name='用户名')
     blog_name = models.CharField(max_length=255, verbose_name='博客名', help_text='博客名')
-    blog_body = UEditorField(verbose_name='博客正文', imagePath="goods/images/", width=1000, height=300,
+    blog_body = UEditorField(verbose_name='博客正文', imagePath="goods/images/", width=1000, height=800,
                              filePath="goods/files/", default='', help_text='博客正文')
     blog_time = models.DateTimeField(default=timezone.now, verbose_name='创建时间', help_text='创建时间')
 

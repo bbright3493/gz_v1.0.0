@@ -58,7 +58,7 @@ class DiscussMsg(models.Model):
         (1, '站内')
     )
     title = models.CharField(max_length=200, verbose_name='标题')
-    content = models.CharField(max_length=2000, verbose_name='内容')
+    content = models.CharField(max_length=20000, verbose_name='内容')
     user = models.ForeignKey(UserProfile, verbose_name='发帖人')
     send_time = models.DateTimeField(default=timezone.now, verbose_name=u'发送时间')
     click_num = models.IntegerField(default=0, verbose_name='浏览数')
@@ -78,7 +78,7 @@ class DiscussReplay(models.Model):
     discuss = models.ForeignKey(DiscussMsg, verbose_name='被回复的帖子', related_name='discuss_replay')
     user = models.ForeignKey(UserProfile, verbose_name='回复人')
     send_time = models.DateTimeField(default=timezone.now, verbose_name=u'发送时间')
-    content = models.CharField(max_length=2000, verbose_name='回复内容')
+    content = models.CharField(max_length=20000, verbose_name='回复内容')
 
     class Meta:
         verbose_name = '论坛信息回复'
