@@ -2,6 +2,7 @@ from django.db import models
 
 from apps.users.models import UserProfile, Teacher
 from django.utils import timezone
+from apps.users.models import ClassInfo
 
 
 # Create your models here.
@@ -86,6 +87,61 @@ class DiscussReplay(models.Model):
 
     def __str__(self):
         return '帖子回复'
+
+
+class Group(models.Model):
+    """
+    小组
+    """
+    in_class = models.ForeignKey(ClassInfo, verbose_name='小组所在班级')
+    name = models.CharField(max_length=200, verbose_name='小组名称')
+    step_info = models.CharField(max_length=500, verbose_name='小组进度信息', default='编程基础')
+    create_time = models.DateTimeField(default=timezone.now, verbose_name=u'小组创建时间')
+
+    class Meta:
+        verbose_name = '小组'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
+
+class UserGroup(models.Model):
+    """
+    用户小组表
+    """
+    user = models.ForeignKey(UserProfile, verbose_name='小组用户')
+    group = models.ForeignKey(Group, verbose_name='小组')
+    join_time = models.DateTimeField(default=timezone.now, verbose_name=u'加入小组时间')
+
+    class Meta:
+        verbose_name = '用户小组表'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return  '%s-%s'%(self.user.name, self.group.name)
+
+
+class GroupMsg(models.Model):
+    """
+    小组聊天信息
+    """
+    user = models.ForeignKey(UserProfile, verbose_name='发送消息的学生')
+    group = models.ForeignKey(Group, verbose_name='小组')
+    message = models.CharField(max_length=1000, verbose_name='发送的消息')
+    send_time = models.DateTimeField(default=timezone.now, verbose_name=u'发送时间')
+
+    class Meta:
+        verbose_name = '学生小组消息'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return '学生小组消息'
+
+
+
+
+
+
 
 
 

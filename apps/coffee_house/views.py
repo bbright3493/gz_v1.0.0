@@ -161,3 +161,58 @@ class DiscussReplayReadListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMi
     def get_queryset(self):
         return DiscussReplay.objects.all()
 
+
+class GroupListViwSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    list:
+            需登录
+            请求： http://xxx.xx.xx.xx:xx/gruop/ 返回当前用户所在班级的所有小组
+    """
+    serializer_class = GruopSerializers
+
+    def get_queryset(self):
+        return Group.objects.filter(in_class=self.request.user.in_class)
+
+
+class GruopUserListViwSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+        list:
+            请求： http://xxx.xx.xx.xx:xx/gruopuser/？group=id 返回指定小组的所有小组成员信息
+    """
+    serializer_class = GruopUserSerializers
+
+    def get_queryset(self):
+        group = self.request.query_params.get('group', None)
+        if group:
+            return UserGroup.objects.filter(group=group)
+        else:
+            return UserGroup.objects.all()
+
+
+class GroupMsgViewSet(mixins.CreateModelMixin,
+                            viewsets.GenericViewSet):
+    """
+    创建用户小组信息
+    """
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+    serializer_class = GruopCreateMsgSerializers
+
+
+class GroupMsgListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
+                            viewsets.GenericViewSet):
+    """
+    获取用户小组信息
+    list:
+            需登录
+            请求： http://xxx.xx.xx.xx:xx/group_msg/ 返回当前用户所在小组的消息
+    """
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+    serializer_class = GruopMsgSerializers
+
+    def get_queryset(self):
+        group = UserGroup.objects.get(user=self.request.user).group
+        return GroupMsg.objects.filter(group=group)
+
+

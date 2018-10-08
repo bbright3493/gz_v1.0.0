@@ -200,6 +200,17 @@ router.register(r'discuss_replay', DiscussReplayListViewSet, base_name='discuss_
 #读取回复信息
 router.register(r'discuss_replay_read', DiscussReplayReadListViewSet, base_name='discuss_repaly_read')
 
+router.register(r'group', GroupListViwSet, base_name='group')
+
+
+router.register(r'group_user', GruopUserListViwSet, base_name='gruop_user')
+
+
+router.register(r'group_msg', GroupMsgListViewSet, base_name='gruop_msg')
+
+router.register(r'group_msg_create', GroupMsgViewSet, base_name='group_msg_create')
+
+
 
 
 

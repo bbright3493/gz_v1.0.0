@@ -268,7 +268,7 @@ class ReadTeacherEvaluationViewSet(mixins.ListModelMixin, viewsets.GenericViewSe
             请求： http://xxx.xx.xx.xx:xx/user_mission/ 返回当前用户任务所有的老师评价列表
 
             请求： http://xxx.xx.xx.xx:xx/user_mission/？task=id 返回当前用户指定任务的老师评价
-        """
+    """
 
     serializer_class = TeacherEvaluationListSerializers
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)

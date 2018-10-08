@@ -63,4 +63,41 @@ class DiscussCreateSerializers(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class GruopSerializers(serializers.ModelSerializer):
+    """
+    小组信息序列化
+    """
+    class Meta:
+        model = Group
+        fields = "__all__"
+
+
+class GruopUserSerializers(serializers.ModelSerializer):
+    """
+    小组用户信息序列化
+    """
+    class Meta:
+        model = UserGroup
+        fields = "__all__"
+        depth = 1
+
+
+class GruopCreateMsgSerializers(serializers.ModelSerializer):
+    """
+    小组创建消息序列化
+    """
+    class Meta:
+        model = GroupMsg
+        fields = "__all__"
+
+
+class GruopMsgSerializers(serializers.ModelSerializer):
+    """
+    小组消息列表序列化
+    """
+    class Meta:
+        model = GroupMsg
+        fields = "__all__"
+        depth = 1
+
 

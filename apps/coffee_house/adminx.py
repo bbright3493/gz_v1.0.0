@@ -18,7 +18,6 @@ class TeacherUserMsgAdmin(object):
     list_filter = ['student', 'teacher', 'message', 'send_time', 'msg_type']
 
 
-
 class StudentMsgAdmin(object):
     list_display = ['send_student', 'rev_student', 'message', 'send_time']
     search_fields = ['send_student', 'rev_student', 'message', 'send_time']
@@ -37,10 +36,22 @@ class DiscussReplayAdmin(object):
     list_filter = ['discuss', 'user', 'content']
 
 
+class GroupAdmin(object):
+    list_display = ['in_class', 'name', 'step_info']
+    search_fields = ['in_class', 'name', 'step_info']
+    list_filter = ['in_class', 'name', 'step_info']
+
+
+class UserGroupAdmin(object):
+    list_display = ['user', 'group']
+    search_fields = ['user', 'group']
+    list_filter = ['user', 'group']
 
 
 xadmin.site.register(TeacherUserMsg, TeacherUserMsgAdmin)
 xadmin.site.register(StudentMsg, StudentMsgAdmin)
 xadmin.site.register(DiscussMsg, DiscussMsgAdmin)
 xadmin.site.register(DiscussReplay, DiscussReplayAdmin)
+xadmin.site.register(Group, GroupAdmin)
+xadmin.site.register(UserGroup, UserGroupAdmin)
 
