@@ -210,6 +210,8 @@ router.register(r'group_msg', GroupMsgListViewSet, base_name='gruop_msg')
 
 router.register(r'group_msg_create', GroupMsgViewSet, base_name='group_msg_create')
 
+router.register(r'resource', ResourceViewSet, base_name='resource')
+
 
 
 

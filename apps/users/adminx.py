@@ -62,6 +62,12 @@ class UserSkillAdmin(object):
     readonly_filter = ('user', 'skill_name', 'skill_level', 'skill_introduce')
 
 
+class ResourceAdmin(object):
+    list_display = ['image', 'tag']
+    search_fields = ['image', 'tag']
+    list_filter = ['image', 'tag']
+
+
 xadmin.site.register(views.BaseAdminView, BaseSetting)
 xadmin.site.register(Teacher, TeacherAdmin)#bb
 xadmin.site.register(ClassInfo, UserClassAdmin)
@@ -70,3 +76,4 @@ xadmin.site.register(views.CommAdminView, GlobalSetting)
 xadmin.site.register(UserResume, UserResumeAdmin)
 xadmin.site.register(UserProject, UserProjectAdmin)
 xadmin.site.register(UserSkill, UserSkillAdmin)
+xadmin.site.register(Resource, ResourceAdmin)

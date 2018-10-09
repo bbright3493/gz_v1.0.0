@@ -93,3 +93,13 @@ class TeacherSerializers(serializers.ModelSerializer):
     class Meta:
         model = Teacher
         fields = "__all__"
+
+
+class ResourceSerializers(serializers.ModelSerializer):
+    """
+    资源序列化
+    """
+
+    class Meta:
+        model = Resource
+        fields = "__all__"

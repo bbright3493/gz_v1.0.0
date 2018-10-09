@@ -155,3 +155,18 @@ class UserSkill(models.Model):
 
     def __str__(self):
         return self.user.name
+
+
+class Resource(models.Model):
+    image = models.ImageField(upload_to='users/image/%Y/%m', default=None, max_length=255,
+                            verbose_name='资源图片', help_text='资源图片')
+    tag = models.CharField(max_length=255, verbose_name='图片标签', help_text='图片标签')
+
+    class Meta:
+        verbose_name = '资源'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.tag
+
+

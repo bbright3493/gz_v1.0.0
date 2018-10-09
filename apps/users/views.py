@@ -138,3 +138,25 @@ class UserClassMateListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         students = UserProfile.objects.filter(in_class=self.request.user.in_class)
 
         return students
+
+
+class ResourceViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    """
+    list:
+
+        请求： http://xxx.xxx.xxx.xx:xx/resource/  返回所有资源
+
+        请求： http://xxx.xx.xx.xx:xx/resource/?tag=logo 返回当前指定的资源  如logo 则返回tag为logo的资源
+    """
+    # queryset = UserProfile.objects.all()
+    serializer_class = ResourceSerializers
+
+    def get_queryset(self):
+
+        tag = self.request.query_params.get('task', None)
+        if tag:
+            queryset = Resource.objects.filter(tag=tag)
+            return queryset
+        else:
+            queryset = Resource.objects.all()
+            return queryset
