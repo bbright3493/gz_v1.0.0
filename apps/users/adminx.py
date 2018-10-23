@@ -63,10 +63,9 @@ class UserSkillAdmin(object):
 
 
 class ResourceAdmin(object):
-    list_display = ['image', 'tag']
-    search_fields = ['image', 'tag']
-    list_filter = ['image', 'tag']
-
+    list_display = ['name','content','image', 'tag']
+    search_fields = ['name','content','image', 'tag']
+    list_filter = ['name','content','image', 'tag']
 
 xadmin.site.register(views.BaseAdminView, BaseSetting)
 xadmin.site.register(Teacher, TeacherAdmin)#bb

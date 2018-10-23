@@ -80,7 +80,7 @@ class UserProfile(AbstractUser):
         (4, '游客')
     )
 
-    name = models.CharField(max_length=255, null=True, blank=True, verbose_name='名字', help_text='名字')
+    name = models.CharField(max_length=255, default='', verbose_name='名字', help_text='名字')
     types = models.IntegerField(choices=TYPE_CHOICES, default=4, verbose_name='用户类型')
     age = models.IntegerField(null=True, blank=True, verbose_name='年龄', help_text='年龄')
     gender = models.CharField(max_length=255, choices=(('男', '男'), ('女', '女')), default='男', verbose_name='性别',
@@ -158,6 +158,8 @@ class UserSkill(models.Model):
 
 
 class Resource(models.Model):
+    name = models.CharField(max_length=100, verbose_name='资源名称', null=True, blank=True)
+    content = models.CharField(max_length=2000, verbose_name='资源描述', null=True, blank=True)
     image = models.ImageField(upload_to='users/image/%Y/%m', default=None, max_length=255,
                             verbose_name='资源图片', help_text='资源图片')
     tag = models.CharField(max_length=255, verbose_name='图片标签', help_text='图片标签')
@@ -167,6 +169,6 @@ class Resource(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.tag
+        return self.name
 
 
