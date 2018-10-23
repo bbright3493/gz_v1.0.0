@@ -158,8 +158,8 @@ class UserSkill(models.Model):
 
 
 class Resource(models.Model):
-    name = models.CharField(max_length=100, verbose_name='资源名称', null=True, blank=True)
-    content = models.CharField(max_length=2000, verbose_name='资源描述', null=True, blank=True)
+    name = models.CharField(max_length=100, verbose_name='资源名称', null=True, blank=True, default='')
+    content = models.CharField(max_length=2000, verbose_name='资源描述', null=True, blank=True, default='')
     image = models.ImageField(upload_to='users/image/%Y/%m', default=None, max_length=255,
                             verbose_name='资源图片', help_text='资源图片')
     tag = models.CharField(max_length=255, verbose_name='图片标签', help_text='图片标签')
