@@ -222,13 +222,14 @@ urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^login/', obtain_jwt_token),  # jwt认证
     url(r'docs/', include_docs_urls(title='格子网塾api接口说明')),
-#    url(r'^index/', TemplateView.as_view(template_name="index.html"), name="index"),
-    url(r'^', TemplateView.as_view(template_name="index.html"), name="index"),
     url(r'^results/', UserResultsView.as_view(), name='results'),  # 用户成绩api
 
     url(r'logout/', LogoutView.as_view(), name='logout'),  # 退出登录
     url(r'^ueditor/', include('DjangoUeditor.urls')),
     url(r'^media/(?P<path>.*)/$', serve, {'document_root': MEDIA_ROOT}),  # 资源文件加载地址
+#    url(r'^index/', TemplateView.as_view(template_name="index.html"), name="index"),
+    url(r'^', TemplateView.as_view(template_name="index.html"), name="index"),
+
 ]
 
 # if DEBUG:
