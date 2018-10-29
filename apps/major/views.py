@@ -29,13 +29,18 @@ class MajorListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewset
     read:
         请求：http://xxx.xx.xx.xx:xx/major/id/ 获得指定专业的信息，id为专业的数据库中存储的id值
     """
-    queryset = Major.objects.all()
-    serializer_class = MajorSerializers
+
     # filter_backends = (DjangoFilterBackend,)
     # filter_class = CourseFilter
+    serializer_class = MajorSerializers
+    queryset = Major.objects.all()
 
     def get_queryset(self):
+
         print(self.request.user)
+        # 每次查询需要重新查询一次 防止数据库做了更改  外键没有更新的情况出现
+        self.queryset = Major.objects.all()
+
         #if self.request.user == 'AnonymousUser': #bug
         if not self.request.user.is_authenticated(): #bb
             return self.queryset
@@ -92,6 +97,8 @@ class ChapterListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, views
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
 
     def get_queryset(self):
+
+        self.queryset = Chapter.objects.all()
         course = self.request.query_params.get('id', None)
         print(course)
         if course is not None:
@@ -135,6 +142,7 @@ class PracticeListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, view
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
 
     def get_queryset(self):
+        self.queryset = Practice.objects.all()
         chapter = self.request.query_params.get('chapter', None)
         _type = self.request.query_params.get('type', None)
         if chapter is not None:
@@ -233,6 +241,7 @@ class ChapterTaskViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, views
         获取指定章节的任务列表
         :return:
         """
+        self.queryset = ChapterTask.objects.all()
         chapter = self.request.query_params.get('chapter', None)
         if chapter is not None:
             queryset = self.queryset.filter(chapter_name__id=str(chapter))

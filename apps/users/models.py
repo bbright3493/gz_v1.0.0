@@ -24,6 +24,7 @@ class Teacher(models.Model):
     intr = models.CharField(max_length=800, verbose_name='老师介绍')
     img = models.ImageField(upload_to='users/image/%Y/%m', default=None, max_length=255,
                             verbose_name='头像', help_text='头像')
+    password = models.CharField(max_length=10, verbose_name='教师后台密码', default='666666')
 
     class Meta:
         verbose_name = '老师信息表'
