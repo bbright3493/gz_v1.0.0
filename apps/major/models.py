@@ -88,6 +88,30 @@ class Chapter(models.Model):
         return self.chapter_name
 
 
+class ChapterTask(models.Model):
+    """
+    章节任务
+    """
+    chapter_name = models.ForeignKey(Chapter, verbose_name='章节')
+    name = models.CharField(max_length=255, verbose_name='任务名')
+    info = models.TextField(verbose_name='任务介绍')
+    chapter_task = UEditorField(verbose_name='任务说明', imagePath="course/images/", width=1000, height=500,
+                                filePath="course/files/", default='')
+    chapter_video = models.CharField(max_length=255, null=True, blank=True, verbose_name='任务视频', default='')
+    chapter_target = models.CharField(max_length=255, verbose_name='任务目标', default='')
+    # file_data = models.FileField(upload_to='/task/file/', max_length=1000, null=True, blank=True, verbose_name='上传文件')
+    # image = models.ImageField(upload_to="task/images/", null=True, blank=True, verbose_name="任务截图")
+    # hostip = models.URLField(verbose_name='主机地址')
+    add_time = models.DateTimeField(default=timezone.now, verbose_name="添加时间")
+
+    class Meta:
+        verbose_name = '章节任务'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
+
+
 class Practice(models.Model):
     """
     练习
@@ -99,7 +123,7 @@ class Practice(models.Model):
         (4, "编程练习题"),
         (5, "打字练习题"),
     )
-    chapter_name = models.ForeignKey(Chapter, verbose_name='章节', help_text='章节id')
+    chapter_name = models.ForeignKey(ChapterTask, verbose_name='任务', help_text='任务id')
     practice_name = models.CharField(max_length=255, verbose_name='练习名', help_text='练习id')
     _type = models.IntegerField(choices=CATEGORY_TYPE, verbose_name="类别", help_text="类别")
     info = models.CharField(max_length=255, default=None, null=True, blank=True, verbose_name='提示信息', help_text='提示信息')
@@ -141,28 +165,7 @@ class Practice(models.Model):
 #         verbose_name_plural = verbose_name
 
 
-class ChapterTask(models.Model):
-    """
-    章节任务
-    """
-    chapter_name = models.ForeignKey(Chapter, verbose_name='章节')
-    name = models.CharField(max_length=255, verbose_name='任务名')
-    info = models.TextField(verbose_name='任务介绍')
-    chapter_task = UEditorField(verbose_name='任务说明', imagePath="course/images/", width=1000, height=500,
-                                filePath="course/files/", default='')
-    chapter_video = models.CharField(max_length=255, null=True, blank=True, verbose_name='任务视频', default='')
-    chapter_target = models.CharField(max_length=255, verbose_name='任务目标', default='')
-    # file_data = models.FileField(upload_to='/task/file/', max_length=1000, null=True, blank=True, verbose_name='上传文件')
-    # image = models.ImageField(upload_to="task/images/", null=True, blank=True, verbose_name="任务截图")
-    # hostip = models.URLField(verbose_name='主机地址')
-    add_time = models.DateTimeField(default=timezone.now, verbose_name="添加时间")
 
-    class Meta:
-        verbose_name = '章节任务'
-        verbose_name_plural = verbose_name
-
-    def __str__(self):
-        return self.name
 
 
 class TaskImage(models.Model):
