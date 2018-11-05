@@ -35,12 +35,11 @@ class CategoryAndCourseAdmin(object):
 
 
 class ChapterAdmin(object):
-    list_display = ['course_name', 'chapter_name', 'chapter_introduce', 'chapter_task', 'chapter_target']
-    search_fields = ['course_name', 'chapter_name', 'chapter_introduce', 'chapter_task', 'chapter_target']
-    list_filter = ['course_name', 'chapter_name', 'chapter_introduce', 'chapter_task', 'chapter_target']
-    style_fields = {"chapter_task": "ueditor"}
+    list_display = ['course_name', 'chapter_name', 'chapter_introduce']
+    search_fields = ['course_name', 'chapter_name', 'chapter_introduce']
+    list_filter = ['course_name', 'chapter_name', 'chapter_introduce']
 
-    style_fields = {"chapter_task": "ueditor"}  #bb
+
 
 
 class PracticeAdmin(object):
@@ -62,9 +61,11 @@ class PracticeAdmin(object):
 
 
 class ChapterTaskAdmin(object):
-    list_display = ['chapter_name', 'name', 'info', 'add_time']
-    search_fields = ['chapter_name', 'name', 'info']
-    list_filter = ['chapter_name', 'name', 'info', 'add_time']
+    list_display = ['chapter_name', 'name', 'info', 'add_time', 'chapter_task', 'chapter_target', 'chapter_video']
+    search_fields = ['chapter_name', 'name', 'info', 'chapter_task', 'chapter_target', 'chapter_video']
+    list_filter = ['chapter_name', 'name', 'info', 'add_time', 'chapter_task', 'chapter_target', 'chapter_video']
+
+    style_fields = {"chapter_task": "ueditor"}  # bb
 
 
 class TaskImageAdmin(object):
