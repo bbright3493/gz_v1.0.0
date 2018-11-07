@@ -102,7 +102,7 @@ class StudentTaskListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         return user_tasks
 
 
-class TeacherEvaluationViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+class Teache_EvaluationViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     """
     根据学生id，老师id，任务id创建老师点评
     """
