@@ -66,7 +66,7 @@ class ChapterTaskSerializers(serializers.ModelSerializer):
     """
     章节任务序列化
     """
-    chapter_name = ChapterSerializers()
+    #chapter_name = ChapterSerializers()
 
     class Meta:
         model = ChapterTask
