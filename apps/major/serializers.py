@@ -62,10 +62,22 @@ class CategoryAndCourseSerializers(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class ChapterTaskSerializers(serializers.ModelSerializer):
+    """
+    章节任务序列化
+    """
+    chapter_name = ChapterSerializers()
+
+    class Meta:
+        model = ChapterTask
+        fields = "__all__"
+
+
 class ChapterSerializers(serializers.ModelSerializer):
     """
     课程章节序列化
     """
+    tasks = ChapterTaskSerializers(many=True)
     course_name = CourseSerializers()
 
     class Meta:
@@ -116,15 +128,7 @@ class PracticeSerializers(serializers.ModelSerializer):
 #         fields = "__all__"
 
 
-class ChapterTaskSerializers(serializers.ModelSerializer):
-    """
-    章节任务序列化
-    """
-    chapter_name = ChapterSerializers()
 
-    class Meta:
-        model = ChapterTask
-        fields = "__all__"
 
 
 class MyChapterTaskSerializers(serializers.Serializer):
