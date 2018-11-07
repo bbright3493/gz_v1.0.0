@@ -92,7 +92,7 @@ class ChapterTask(models.Model):
     """
     章节任务
     """
-    chapter_name = models.ForeignKey(Chapter, verbose_name='章节')
+    chapter_name = models.ForeignKey(Chapter, verbose_name='章节', related_name='tasks')
     name = models.CharField(max_length=255, verbose_name='任务名')
     info = models.TextField(verbose_name='任务介绍')
     chapter_task = UEditorField(verbose_name='任务说明', imagePath="course/images/", width=1000, height=500,
