@@ -236,51 +236,51 @@ class UserMissionViewSite(mixins.ListModelMixin, mixins.CreateModelMixin, mixins
         return UserMission.objects.filter(user=self.request.user)
 
 
-# class TeacherEvaluationViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
-#     """
-#         list:
-#             需登录
-#             请求： http://xxx.xx.xx.xx:xx/user_mission/ 返回老师评价列表
-#         create:
-#             psot请求：http://xxx.xx.xx.xx:xx/user_mission/ 老师评价 创建
-#     """
-#
-#     # serializer_class = UserMissionSerializers
-#     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
-#     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
-#
-#     def get_serializer_class(self):
-#         if self.action == "list":
-#             return TeacherEvaluationListSerializers
-#         elif self.action == "create":
-#             return TeacherEvaluationSerializers
-#
-#         return TeacherEvaluationListSerializers
-#
-#     def get_queryset(self):
-#         return TeacherEvaluation.objects.all()
-#
-#
-# class ReadTeacherEvaluationViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-#     """
-#         list:
-#             需登录
-#             请求： http://xxx.xx.xx.xx:xx/user_mission/ 返回当前用户任务所有的老师评价列表
-#
-#             请求： http://xxx.xx.xx.xx:xx/user_mission/？task=id 返回当前用户指定任务的老师评价
-#     """
-#
-#     serializer_class = TeacherEvaluationListSerializers
-#     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
-#     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
-#
-#     def get_queryset(self):
-#         user = self.request.user
-#         task = self.request.query_params.get('task', None)
-#         if task:
-#             queryset = TeacherEvaluation.objects.filter(user=user, mission=task)
-#             return queryset
-#
-#         else:
-#             queryset = TeacherEvaluation.objects.filter(user=user).all()
-#             return queryset
+class TeacherEvaluationViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
+    """
+        list:
+            需登录
+            请求： http://xxx.xx.xx.xx:xx/user_mission/ 返回老师评价列表
+        create:
+            psot请求：http://xxx.xx.xx.xx:xx/user_mission/ 老师评价 创建
+    """
+
+    # serializer_class = UserMissionSerializers
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return TeacherEvaluationListSerializers
+        elif self.action == "create":
+            return TeacherEvaluationSerializers
+
+        return TeacherEvaluationListSerializers
+
+    def get_queryset(self):
+        return TeacherEvaluation.objects.all()
+
+
+class ReadTeacherEvaluationViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+        list:
+            需登录
+            请求： http://xxx.xx.xx.xx:xx/user_mission/ 返回当前用户任务所有的老师评价列表
+
+            请求： http://xxx.xx.xx.xx:xx/user_mission/？task=id 返回当前用户指定任务的老师评价
+    """
+
+    serializer_class = TeacherEvaluationListSerializers
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+
+    def get_queryset(self):
+        user = self.request.user
+        task = self.request.query_params.get('task', None)
+        if task:
+            queryset = TeacherEvaluation.objects.filter(user=user, mission=task)
+            return queryset
+
+        else:
+            queryset = TeacherEvaluation.objects.filter(user=user).all()
+            return queryset
