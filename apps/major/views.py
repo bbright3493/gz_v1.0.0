@@ -223,18 +223,18 @@ class ChapterTaskViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, views
             info.append(serializers.data)
         return Response(info)
 
-    def retrieve(self, request, *args, **kwargs):
-        """
-        获取某个任务的详细信息
-        :param request:
-        :param args:
-        :param kwargs:
-        :return:
-        """
-        instance = self.get_object()
-        print(instance)
-        serializer = MyChapterTaskSerializers(value_format(queryset, self.request.META['HTTP_HOST']))
-        return Response(serializer.data)
+    # def retrieve(self, request, *args, **kwargs):
+    #     """
+    #     获取某个任务的详细信息
+    #     :param request:
+    #     :param args:
+    #     :param kwargs:
+    #     :return:
+    #     """
+    #     instance = self.get_object()
+    #     print(instance)
+    #     serializer = MyChapterTaskSerializers(value_format(self.queryset, self.request.META['HTTP_HOST']))
+    #     return Response(serializer.data)
 
     def get_queryset(self):
         """
