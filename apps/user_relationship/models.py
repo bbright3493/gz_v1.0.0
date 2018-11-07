@@ -139,7 +139,7 @@ class UserMission(models.Model):
 
 class TeacherEvaluation(models.Model):
     teacher = models.ForeignKey(Teacher, verbose_name='老师id', help_text='老师id')
-    mission = models.ForeignKey(ChapterTask, verbose_name='任务id', help_text='任务id')
+    mission = models.ForeignKey(ChapterTask, verbose_name='任务id', help_text='任务id', related_name='task_evaluation')
     user = models.ForeignKey(UserProfile, verbose_name='用户名', help_text='用户名')
     data = models.TextField(verbose_name='评价内容', help_text='评价内容')
     evaluation_time = models.DateTimeField(default=timezone.now, verbose_name='评价时间', help_text='评价时间')

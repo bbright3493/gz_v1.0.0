@@ -30,6 +30,8 @@ from apps.users.views import *
 from apps.arena.views import *
 from apps.library.views import *
 from apps.coffee_house.views import *
+from apps.teacher.views import *
+
 
 router = DefaultRouter()
 # 专业列表api
@@ -69,10 +71,10 @@ router.register(r'user_practice_create', UserPracticeCreateViewSet, base_name='u
 router.register(r'user_mission', UserMissionViewSite, base_name='user_mission')
 
 # 老师评价api
-router.register(r'evaluation', TeacherEvaluationViewSet, base_name='evaluation')
+# router.register(r'evaluation', TeacherEvaluationViewSet, base_name='evaluation')
 
 # 查看老师评价api
-router.register(r'read_evaluation', ReadTeacherEvaluationViewSet, base_name='read_evaluation')
+# router.register(r'read_evaluation', ReadTeacherEvaluationViewSet, base_name='read_evaluation')
 
 # 用户成绩信息api  未用到此api
 # router.register(r'results', UserResultsViewSet, base_name='results')
@@ -212,7 +214,13 @@ router.register(r'group_msg_create', GroupMsgViewSet, base_name='group_msg_creat
 
 router.register(r'resource', ResourceViewSet, base_name='resource')
 
+#学生管理接口
+router.register(r'class', ClassListViewSet, base_name='calss')
+router.register(r'student', StudentListViewSet, base_name='student')
+# 老师评价api
+router.register(r'evaluation', TeacherEvaluationViewSet, base_name='evaluation')
 
+router.register(r'teacher_student_msg', StudentMsgListView, base_name='teacher_student_msg')
 
 
 
@@ -220,6 +228,7 @@ urlpatterns = [
     url(r'^admin/', xadmin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls')),
     url(r'^api/', include(router.urls)),
+    url(r'^api/teacher_login/', TeacherLogin.as_view(), name='teacher_login'),
     url(r'^login/', obtain_jwt_token),  # jwt认证
     url(r'docs/', include_docs_urls(title='格子网塾api接口说明')),
     url(r'^results/', UserResultsView.as_view(), name='results'),  # 用户成绩api

@@ -219,19 +219,6 @@ class UserMissionSerializers(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class UserMissionListSerializers(serializers.ModelSerializer):
-    """
-    用户任务完成列表序列化
-    """
-    user = UserProfileSerializers()
-    chapter = ChapterSerializers()
-    mission = ChapterTaskSerializers()
-
-    class Meta:
-        model = UserMission
-        fields = "__all__"
-
-
 class TeacherEvaluationListSerializers(serializers.ModelSerializer):
     """
     老师评价列表序列化
@@ -240,6 +227,20 @@ class TeacherEvaluationListSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = TeacherEvaluation
+        fields = "__all__"
+
+
+class UserMissionListSerializers(serializers.ModelSerializer):
+    """
+    用户任务完成列表序列化
+    """
+    user = UserProfileSerializers()
+    chapter = ChapterSerializers()
+    mission = ChapterTaskSerializers()
+    task_evaluation = TeacherEvaluationListSerializers
+
+    class Meta:
+        model = UserMission
         fields = "__all__"
 
 

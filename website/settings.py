@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'apps.arena',
     'apps.coffee_house',
     'apps.library',
+    'apps.teacher',
     'extra_apps.xadmin',
     'crispy_forms',
     'reversion',
