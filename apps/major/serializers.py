@@ -71,6 +71,7 @@ class ChapterSerializers(serializers.ModelSerializer):
     class Meta:
         model = Chapter
         fields = "__all__"
+        depth = 1
 
 
 class PracticeSerializers(serializers.ModelSerializer):
