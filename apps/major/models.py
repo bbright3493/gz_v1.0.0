@@ -169,7 +169,7 @@ class Practice(models.Model):
 
 
 class TaskImage(models.Model):
-    ChapterTask_name = models.ForeignKey(ChapterTask, verbose_name='任务')
+    ChapterTask_name = models.ForeignKey(ChapterTask, verbose_name='任务', related_name='task_image')
     name = models.CharField(max_length=100, verbose_name='截图名')
     image = models.ImageField(upload_to="task/images/", null=True, blank=True, verbose_name="任务截图")
     add_time = models.DateTimeField(null=True, blank=True, verbose_name='上传时间')

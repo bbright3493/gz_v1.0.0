@@ -118,6 +118,7 @@ class Teache_EvaluationViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet)
 class StudentMsgListView(mixins.ListModelMixin, viewsets.GenericViewSet, mixins.CreateModelMixin):
     """
     获取某个学生的留言信息以及老师的回复信息
+    创建留言
     list:
         请求：http://xxx.xx.xx.xx:xx/student_msg/?student=id
         请求指定学生的留言列表

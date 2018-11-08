@@ -62,12 +62,23 @@ class CategoryAndCourseSerializers(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class ChapterTaskImageSerializers(serializers.ModelSerializer):
+    """
+    任务图片序列化
+    """
+    #ChapterTask_name = ChapterTaskSerializers()
+
+    class Meta:
+        model = TaskImage
+        fields = "__all__"
+
+
 class ChapterTaskSerializers(serializers.ModelSerializer):
     """
     章节任务序列化
     """
     #chapter_name = ChapterSerializers()
-
+    task_image = ChapterTaskImageSerializers(many=True)
     class Meta:
         model = ChapterTask
         fields = "__all__"
@@ -140,15 +151,7 @@ class MyChapterTaskSerializers(serializers.Serializer):
     add_time = serializers.DateTimeField()
 
 
-class ChapterTaskImageSerializers(serializers.ModelSerializer):
-    """
-    任务图片序列化
-    """
-    ChapterTask_name = ChapterTaskSerializers()
 
-    class Meta:
-        model = TaskImage
-        fields = "__all__"
 
 
 

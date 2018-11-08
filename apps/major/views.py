@@ -208,20 +208,20 @@ class ChapterTaskViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, views
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
 
-    def list(self, request, *args, **kwargs):
-        """
-        获取所有章节任务列表
-        :param request: 内置全局属性
-        :param args:
-        :param kwargs:
-        :return:
-        """
-        info = []
-        print(self.request.META['HTTP_HOST'])
-        for queryset in self.queryset:
-            serializers = MyChapterTaskSerializers(value_format(queryset, self.request.META['HTTP_HOST']))
-            info.append(serializers.data)
-        return Response(info)
+    # def list(self, request, *args, **kwargs):
+    #     """
+    #     获取所有章节任务列表
+    #     :param request: 内置全局属性
+    #     :param args:
+    #     :param kwargs:
+    #     :return:
+    #     """
+    #     info = []
+    #     print(self.request.META['HTTP_HOST'])
+    #     for queryset in self.queryset:
+    #         serializers = MyChapterTaskSerializers(value_format(queryset, self.request.META['HTTP_HOST']))
+    #         info.append(serializers.data)
+    #     return Response(info)
 
     # def retrieve(self, request, *args, **kwargs):
     #     """
