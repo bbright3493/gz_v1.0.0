@@ -42,6 +42,7 @@ class UserChapter(models.Model):
     course_end = models.BooleanField(default=False, verbose_name='课程是否完成', help_text='课程是否完成，True或False')
     chapter_end = models.BooleanField(default=False, verbose_name='章节是否完成', help_text='章节是否完成，True或False')
     end_time = models.DateTimeField(default=timezone.now, verbose_name='完成时间', help_text='完成时间')
+    start_time = models.DateTimeField(default=timezone.now, verbose_name='开始时间', help_text='开始时间')
 
     class Meta:
         verbose_name = '用户章节信息'

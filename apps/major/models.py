@@ -78,6 +78,7 @@ class Chapter(models.Model):
     chapter_number = models.IntegerField(verbose_name='章节序号')
     chapter_introduce = models.CharField(max_length=255, verbose_name='章节介绍')
     add_time = models.DateTimeField(default=timezone.now, verbose_name="添加时间")
+    complete_time = models.IntegerField(default=3, verbose_name='参考完成时间', blank=True, null=True)
 
     class Meta:
         verbose_name = '章节'

@@ -101,8 +101,8 @@ class PracticeSerializers(serializers.ModelSerializer):
     """
     章节练习序列化
     """
-    chapter_name = ChapterSerializers()
-    submit_num = 2
+    #chapter_name = ChapterSerializers()
+    #submit_num = 2
 
     class Meta:
         model = Practice
