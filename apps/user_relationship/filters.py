@@ -26,3 +26,13 @@ class UserBlogFilter(django_filters.rest_framework.FilterSet):
 
     class Meta:
         fields = ['blog_name']
+
+
+class UserMissionFilter(django_filters.rest_framework.FilterSet):
+    """
+    任务搜索
+    """
+    mission__name = django_filters.CharFilter(mission__name='name')
+
+    class Meta:
+        fields = ['mission__name']

@@ -135,7 +135,7 @@ class UserMission(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.mission.name
+        return '%s-%s'%(self.user.name, self.mission.name)
 
 
 class TeacherEvaluation(models.Model):

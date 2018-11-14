@@ -222,8 +222,11 @@ class UserMissionViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.
     """
 
     # serializer_class = UserMissionSerializers
+
+    filter_backends = (filters.SearchFilter,)
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+    search_fields = ('mission__name',)
 
     def get_serializer_class(self):
         if self.action == "list":
