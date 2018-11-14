@@ -155,7 +155,8 @@ class UserTaskListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewse
     search_fields = ('task_name',)
 
     def get_queryset(self):
-        return UserTask.objects.filter(user=self.request.user)
+        user_task = UserTask.objects.filter(user=self.request.user)
+        return user_task
 
 
 class UserBlogViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
@@ -208,16 +209,16 @@ class UserClassBlogViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         return class_blogs.order_by('blog_time')
 
 
-class UserMissionViewSite(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.RetrieveModelMixin,
+class UserMissionViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.RetrieveModelMixin,
                           viewsets.GenericViewSet):
     """
     list:
         需登录
-        请求： http://xxx.xx.xx.xx:xx/user_mission/ 返回用户所有任务完成情况
+        请求： http://xxx.xx.xx.xx:xx/task/ 返回用户所有任务完成情况
     read:
-         请求： http://xxx.xx.xx.xx:xx/user_mission/{id} 返回指定任务完成情况
+         请求： http://xxx.xx.xx.xx:xx/task/{id} 返回指定任务完成情况
     create:
-        psot请求：http://xxx.xx.xx.xx:xx/user_mission/ 用户任务完成 创建
+        psot请求：http://xxx.xx.xx.xx:xx/task/ 用户任务完成 创建
     """
 
     # serializer_class = UserMissionSerializers

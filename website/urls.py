@@ -68,7 +68,7 @@ router.register(r'user_practice_create', UserPracticeCreateViewSet, base_name='u
 
 
 # 用户任务提交api
-router.register(r'user_mission', UserMissionViewSite, base_name='user_mission')
+router.register(r'user_mission', UserMissionViewSet, base_name='user_mission')
 
 # 老师评价api
 router.register(r'evaluation', TeacherEvaluationViewSet, base_name='evaluation')
@@ -80,7 +80,7 @@ router.register(r'read_evaluation', ReadTeacherEvaluationViewSet, base_name='rea
 # router.register(r'results', UserResultsViewSet, base_name='results')
 
 # # 用户作业信息api
-router.register(r'task', UserTaskListViewSet, base_name='task')
+router.register(r'task', UserMissionViewSet, base_name='task')
 
 # 用户blog api
 router.register(r'blog', UserBlogViewSet, base_name='blog')
