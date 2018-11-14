@@ -81,7 +81,7 @@ class UserProfile(AbstractUser):
         (4, '游客')
     )
 
-    name = models.CharField(max_length=255, default='', verbose_name='名字', help_text='名字')
+    name = models.CharField(max_length=255, default='', verbose_name='名字', help_text='必填名字')
     types = models.IntegerField(choices=TYPE_CHOICES, default=4, verbose_name='用户类型')
     age = models.IntegerField(null=True, blank=True, verbose_name='年龄', help_text='年龄')
     gender = models.CharField(max_length=255, choices=(('男', '男'), ('女', '女')), default='男', verbose_name='性别',
