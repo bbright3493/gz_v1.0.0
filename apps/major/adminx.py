@@ -61,9 +61,9 @@ class PracticeAdmin(object):
 
 
 class ChapterTaskAdmin(object):
-    list_display = ['chapter_name', 'name', 'info', 'add_time', 'chapter_task', 'chapter_target', 'chapter_video']
-    search_fields = ['chapter_name', 'name', 'info', 'chapter_task', 'chapter_target', 'chapter_video']
-    list_filter = ['chapter_name', 'name', 'info', 'add_time', 'chapter_task', 'chapter_target', 'chapter_video']
+    list_display = ['chapter_name', 'name', 'info', 'add_time', 'chapter_task', 'chapter_target', 'chapter_video', 'task_file']
+    search_fields = ['chapter_name', 'name', 'info', 'chapter_task', 'chapter_target', 'chapter_video', 'task_file']
+    list_filter = ['chapter_name', 'name', 'info', 'add_time', 'chapter_task', 'chapter_target', 'chapter_video', 'task_file']
 
     style_fields = {"chapter_task": "ueditor"}  # bb
 

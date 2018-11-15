@@ -104,6 +104,8 @@ class ChapterTask(models.Model):
     # image = models.ImageField(upload_to="task/images/", null=True, blank=True, verbose_name="任务截图")
     # hostip = models.URLField(verbose_name='主机地址')
     add_time = models.DateTimeField(default=timezone.now, verbose_name="添加时间")
+    task_file = models.FileField(upload_to='course/%Y/%m/%d/', max_length=1000, null=True, blank=True, verbose_name='任务附件',
+                            help_text='任务附件')
 
     class Meta:
         verbose_name = '章节任务'

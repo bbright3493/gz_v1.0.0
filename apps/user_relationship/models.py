@@ -127,6 +127,9 @@ class UserMission(models.Model):
     task_end = models.BooleanField(default=False, verbose_name='任务是否完成', help_text='任务是否完成')
     file = models.FileField(upload_to='mission/%Y/%m/%d/', max_length=1000, null=True, blank=True, verbose_name='上传文件',
                             help_text='上传文件')
+    video_file = models.FileField(upload_to='mission/%Y/%m/%d/', max_length=1000, null=True, blank=True, verbose_name='上传视频文件',
+                            help_text='上传视频文件')
+    image = models.ImageField(upload_to="mission/%Y/%m/%d/", null=True, blank=True, verbose_name="上传图片文件")
     submit_time = models.DateTimeField(default=timezone.now, verbose_name='提交时间', help_text='提交时间')
     complete_time = models.DateTimeField(null=True, blank=True, verbose_name='完成时间', help_text='完成时间')
 
