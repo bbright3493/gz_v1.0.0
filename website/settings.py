@@ -201,6 +201,13 @@ REST_FRAMEWORK = {
 
 
 
+import datetime
+JWT_AUTH={
+    #Token失效时间
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
+}
+
+
 #每天23：59分运行
 CRONJOBS = [
     ('59 23 * * *', 'apps.arena.cron.my_scheduled_job', '>>/tmp/test.log')
