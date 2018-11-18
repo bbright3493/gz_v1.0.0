@@ -220,6 +220,7 @@ class AllUserMissionViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
     search_fields = ('mission__name',)
+    serializer_class = UserMissionListSerializers
 
     def get_queryset(self):
         return UserMission.objects.all().order_by('user')
