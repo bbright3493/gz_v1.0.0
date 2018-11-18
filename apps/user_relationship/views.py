@@ -209,6 +209,22 @@ class UserClassBlogViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         return class_blogs.order_by('blog_time')
 
 
+class AllUserMissionViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+       list:
+           需登录
+           请求： http://xxx.xx.xx.xx:xx/task_all/ 返回所有用户的任务 临时用 班主任看
+    """
+
+    filter_backends = (filters.SearchFilter,)
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+    search_fields = ('mission__name',)
+
+    def get_queryset(self):
+        return UserMission.objects.all().order_by('user')
+
+
 class UserMissionViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.RetrieveModelMixin,
                           viewsets.GenericViewSet):
     """

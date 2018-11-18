@@ -82,6 +82,10 @@ router.register(r'read_evaluation', ReadTeacherEvaluationViewSet, base_name='rea
 # # 用户作业信息api
 router.register(r'task', UserMissionViewSet, base_name='task')
 
+#所有用户提交的任务信息 班主任查看  临时用
+router.register(r'task_all', AllUserMissionViewSet, base_name='task_all')
+
+
 # 用户blog api
 router.register(r'blog', UserBlogViewSet, base_name='blog')
 
