@@ -213,7 +213,9 @@ def UploadFile(request):
     # 返回数据
     return_info = {
         # 保存后的文件名称
-        'url': urljoin(USettings.gSettings.MEDIA_URL, OutputPathFormat),
+        # 'url': urljoin(USettings.gSettings.MEDIA_URL, OutputPathFormat),
+        #bb 修改 调整文件 图片的显示路径
+        'url': urljoin('http://geziwangshu.com' + USettings.gSettings.MEDIA_URL, OutputPathFormat),
         # 原始文件名
         'original': upload_file_name,
         'type': upload_original_ext,
