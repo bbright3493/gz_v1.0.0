@@ -11,9 +11,11 @@ from .models import *
 
 
 class KnowledgeAdmin(object):
-    list_display = ['name', 'intr', 'tag', 'father_tag', 'level']
-    search_fields = ['name', 'intr', 'tag', 'father_tag', 'level']
-    list_filter = ['name', 'intr', 'tag', 'father_tag', 'level']
+    list_display = ['name', 'intr', 'tag', 'father_tag', 'level', 'intr_text_pic']
+    search_fields = ['name', 'intr', 'tag', 'father_tag', 'level', 'intr_text_pic']
+    list_filter = ['name', 'intr', 'tag', 'father_tag', 'level', 'intr_text_pic']
+
+    style_fields = {"intr_text_pic": "ueditor"}  # bb
 
 
 class KnowledegImageAdmin(object):
@@ -29,15 +31,21 @@ class KnowVideoAdmin(object):
 
 
 class KnowMindAdmin(object):
-    list_display = ['knowledge', 'name', 'video_url', 'intr', 'mind_image']
-    search_fields = ['knowledge', 'name', 'video_url', 'intr', 'mind_image']
-    list_filter = ['knowledge', 'name', 'video_url', 'intr', 'mind_image']
+    list_display = ['knowledge', 'name', 'file', 'intr', 'mind_image']
+    search_fields = ['knowledge', 'name', 'file', 'intr', 'mind_image']
+    list_filter = ['knowledge', 'name', 'file', 'intr', 'mind_image']
 
 
 class KnowAudioAdmin(object):
-    list_display = ['knowledge', 'name', 'Audio_url', 'intr']
-    search_fields = ['knowledge', 'name', 'Audio_url', 'intr']
-    list_filter = ['knowledge', 'name', 'Audio_url', 'intr']
+    list_display = ['knowledge', 'name', 'file', 'intr']
+    search_fields = ['knowledge', 'name', 'file', 'intr']
+    list_filter = ['knowledge', 'name', 'file', 'intr']
+
+
+class KnowSoftAdmin(object):
+    list_display = ['knowledge', 'name', 'file', 'intr']
+    search_fields = ['knowledge', 'name', 'file', 'intr']
+    list_filter = ['knowledge', 'name', 'file', 'intr']
 
 
 class KnowledgeCourseAdmin(object):
@@ -50,5 +58,7 @@ xadmin.site.register(Knowledge, KnowledgeAdmin)
 xadmin.site.register(KnowImage, KnowledegImageAdmin)
 xadmin.site.register(KnowVideo, KnowVideoAdmin)
 xadmin.site.register(KnowMind, KnowMindAdmin)
+xadmin.site.register(KnowAudio, KnowAudioAdmin)
+xadmin.site.register(KnowSoft, KnowSoftAdmin)
 xadmin.site.register(KnowledgeCourse, KnowledgeCourseAdmin)
 

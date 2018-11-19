@@ -47,6 +47,16 @@ class KnowAudioSerializers(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class KnowSoftSerializers(serializers.ModelSerializer):
+    """
+    知识点软件信息序列化
+    """
+
+    class Meta:
+        model = KnowSoft
+        fields = "__all__"
+
+
 
 class KnowledgeSerializers(serializers.ModelSerializer):
     """
@@ -56,6 +66,7 @@ class KnowledgeSerializers(serializers.ModelSerializer):
     videos = KnowledgeVideoSerializers(many=True)
     minds = KnowMindSerializers(many=True)
     audios = KnowAudioSerializers(many=True)
+    softs = KnowSoftSerializers(many=True)
     class Meta:
         model = Knowledge
         fields = "__all__"
