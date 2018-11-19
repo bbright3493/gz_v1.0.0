@@ -89,7 +89,7 @@ class KnowMind(models.Model):
     name = models.CharField(max_length=100, verbose_name='导图名称')
     # video_url = models.URLField(verbose_name='知识点导图下载路径')
     intr = models.CharField(max_length=2000, verbose_name='导图介绍')
-    mind_image = models.ImageField(verbose_name='导图展示图片')
+    mind_image = models.ImageField(verbose_name='导图展示图片', null=True, blank=True)
     file = models.FileField(upload_to='library/%Y/%m/%d/', max_length=1000, null=True, blank=True, verbose_name='导图文件',
                             help_text='导图文件')
 
