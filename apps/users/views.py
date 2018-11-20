@@ -11,12 +11,12 @@ from django.contrib.auth import logout
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-
 # Create your views here.
 
 from apps.users.serializers import *
 from apps.utils.permissions import *
 from apps.users.filters import *
+
 
 # class Index(View):
 #     def get(self, request):
@@ -28,12 +28,14 @@ class LogoutView(View):
     用户退出
 
     """
+
     def get(self, request):
         logout(request)
         return HttpResponseRedirect(reverse('index'))
 
 
-class UserResumeViewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class UserResumeViewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, mixins.RetrieveModelMixin,
+                        viewsets.GenericViewSet):
     """
     list:
         需登录
@@ -60,7 +62,9 @@ class UserResumeViewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, mixins.R
         return UserProfileSerializers
 
 
-class UserEducationViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
+class UserEducationViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin,
+                           mixins.UpdateModelMixin,
+                           viewsets.GenericViewSet):
     """
     list:
         需登录
@@ -76,11 +80,12 @@ class UserEducationViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixin
     authentication_classes = (JSONWebTokenAuthentication, authentication.SessionAuthentication)
 
     def get_queryset(self):
-
         return UserResume.objects.filter(user=self.request.user)
 
 
-class UserProjectViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
+class UserProjectViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin,
+                         mixins.UpdateModelMixin,
+                         viewsets.GenericViewSet):
     """
     list:
         需登录
@@ -100,7 +105,9 @@ class UserProjectViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.
         return UserProject.objects.filter(user=self.request.user)
 
 
-class UserSkillViewSet(mixins.ListModelMixin, mixins.UpdateModelMixin, viewsets.GenericViewSet):
+class UserSkillViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.DestroyModelMixin,
+                       mixins.UpdateModelMixin,
+                       viewsets.GenericViewSet):
     """
     list:
         需登录
