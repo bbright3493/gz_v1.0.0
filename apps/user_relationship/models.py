@@ -144,6 +144,7 @@ class UserMission(models.Model):
 class TeacherEvaluation(models.Model):
     teacher = models.ForeignKey(Teacher, verbose_name='老师id', help_text='老师id')
     mission = models.ForeignKey(ChapterTask, verbose_name='任务id', help_text='任务id', related_name='task_evaluation')
+    #user_submit_mission = models.ForeignKey(UserMission, verbose_name='用户提交任务', help_text='用户提交任务', related_name='user_mission_evaluation', default=None)
     user = models.ForeignKey(UserProfile, verbose_name='用户名', help_text='用户名')
     data = models.TextField(verbose_name='评价内容', help_text='评价内容')
     evaluation_time = models.DateTimeField(default=timezone.now, verbose_name='评价时间', help_text='评价时间')
@@ -152,7 +153,7 @@ class TeacherEvaluation(models.Model):
         (2, "通过"),
         #     (3, "三级类目"),
     )
-    category_type = models.IntegerField(choices=pass_type, verbose_name="是否通过", help_text="是否通过", default=1)
+    is_pass = models.IntegerField(choices=pass_type, verbose_name="是否通过", help_text="是否通过", default=1)
 
     class Meta:
         verbose_name = '老师评价'
