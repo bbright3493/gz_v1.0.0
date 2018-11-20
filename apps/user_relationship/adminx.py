@@ -66,9 +66,9 @@ class UserMissionAdmin(object):
 
 
 class TeacherEvaluationAdmin(object):
-    list_display = ['teacher', 'mission', 'user', 'data', 'evaluation_time']
-    search_fields = ['teacher', 'mission', 'user', 'data']
-    list_filter = ['teacher', 'mission', 'user', 'data', 'evaluation_time']
+    list_display = ['teacher', 'mission', 'user', 'data', 'evaluation_time', 'category_type']
+    search_fields = ['teacher', 'mission', 'user', 'data', 'category_type']
+    list_filter = ['teacher', 'mission', 'user', 'data', 'evaluation_time', 'category_type']
 
 
 xadmin.site.register(TeacherEvaluation, TeacherEvaluationAdmin)
@@ -77,7 +77,7 @@ xadmin.site.register(UserCourse, UserCourseAdmin)
 xadmin.site.register(UserChapter, UserChapterAdmin)
 xadmin.site.register(UserPractice, UserPracticeAdmin)
 xadmin.site.register(UserAchievement, UserAchievementAdmin)
-xadmin.site.register(UserTask, UserTaskAdmin)
+# xadmin.site.register(UserTask, UserTaskAdmin)
 xadmin.site.register(UserBlog, UserBlogAdmin)
 xadmin.site.register(UserMission, UserMissionAdmin)
 

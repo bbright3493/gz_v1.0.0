@@ -147,6 +147,12 @@ class TeacherEvaluation(models.Model):
     user = models.ForeignKey(UserProfile, verbose_name='用户名', help_text='用户名')
     data = models.TextField(verbose_name='评价内容', help_text='评价内容')
     evaluation_time = models.DateTimeField(default=timezone.now, verbose_name='评价时间', help_text='评价时间')
+    pass_type = (
+        (1, "未通过"),
+        (2, "通过"),
+        #     (3, "三级类目"),
+    )
+    category_type = models.IntegerField(choices=pass_type, verbose_name="是否通过", help_text="是否通过", default=1)
 
     class Meta:
         verbose_name = '老师评价'
