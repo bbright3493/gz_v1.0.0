@@ -66,9 +66,9 @@ class UserMissionAdmin(object):
 
 
 class TeacherEvaluationAdmin(object):
-    list_display = ['teacher', 'mission', 'user', 'data', 'evaluation_time', 'category_type']
+    list_display = ['teacher', 'mission', 'user', 'data', 'evaluation_time', 'is_pass']
     search_fields = ['teacher', 'mission', 'user', 'data', 'category_type']
-    list_filter = ['teacher', 'mission', 'user', 'data', 'evaluation_time', 'category_type']
+    list_filter = ['teacher', 'mission', 'user', 'data', 'evaluation_time', 'is_pass']
 
 
 xadmin.site.register(TeacherEvaluation, TeacherEvaluationAdmin)
