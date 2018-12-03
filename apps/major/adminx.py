@@ -9,7 +9,13 @@ from extra_apps import xadmin
 from apps.major.models import *
 
 
+class CategoryAndCourseInline(object):
+    model = CategoryAndCourse
+    extra = 0
+
+
 class MajorAdmin(object):
+    inlines = [CategoryAndCourseInline]
     list_display = ['name', 'category_type', 'parent_category', 'add_time']
     search_fields = ['name', 'category_type', 'parent_category']
     list_filter = ['name', 'category_type', 'parent_category', 'add_time']
@@ -22,16 +28,19 @@ class MajorAdmin(object):
 #     list_filter = ['name', 'major_name', 'add_time']
 
 
+
+
 class CourseAdmin(object):
+    inlines = [CategoryAndCourseInline]
     list_display = ['name', 'course_task', 'add_time']
     search_fields = ['name', 'course_task']
     list_filter = ['name', 'course_task', 'add_time']
 
 
-class CategoryAndCourseAdmin(object):
-    list_display = ['category', 'course']
-    search_fields = ['category', 'course']
-    list_filter = ['category', 'course']
+# class CategoryAndCourseAdmin(object):
+#     list_display = ['category', 'course']
+#     search_fields = ['category', 'course']
+#     list_filter = ['category', 'course']
 
 
 class ChapterAdmin(object):
@@ -77,7 +86,7 @@ class TaskImageAdmin(object):
 xadmin.site.register(Major, MajorAdmin)
 # xadmin.site.register(Category, CategoryAdmin)
 xadmin.site.register(Course, CourseAdmin)
-xadmin.site.register(CategoryAndCourse, CategoryAndCourseAdmin)
+# xadmin.site.register(CategoryAndCourse, CategoryAndCourseAdmin)
 xadmin.site.register(Chapter, ChapterAdmin)
 # xadmin.site.register(TimeLimitPractice, TimeLimitPracticeAdmin)
 # xadmin.site.register(SpeedPractice, SpeedPracticeAdmin)
