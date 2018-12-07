@@ -221,10 +221,16 @@ router.register(r'resource', ResourceViewSet, base_name='resource')
 #学生管理接口
 router.register(r'class', ClassListViewSet, base_name='calss')
 router.register(r'student', StudentListViewSet, base_name='student')
+
+router.register(r'teacher_practice_all', TeacherPracticeListViewSet, base_name='teacher_practice_all')
+
+
 # 老师评价api
 router.register(r'teacher_evaluation', Teache_EvaluationViewSet, base_name='teacher_evaluation')
 
 router.register(r'teacher_student_msg', StudentMsgListView, base_name='teacher_student_msg')
+
+
 
 
 

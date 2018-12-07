@@ -94,17 +94,28 @@ class ClassViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Ge
         return Response(serializer.data)
 
 
+class StudentMsgPagination(PageNumberPagination):
+    """
+    学生消息分页器
+    """
+    page_size = 20
+    page_size_query_param = 'page_size'
+    page_query_param = "page"
+    max_page_size = 30
+
+
 class StudentMsgViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
                             viewsets.GenericViewSet):
     """
-    获取用户的班级信息
+    获取学生消息
     """
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
     serializer_class = StudentMsgSerializers
+    pagination_class = StudentMsgPagination
 
     def get_queryset(self):
-        return StudentMsg.objects.filter(rev_student=self.request.user)
+        return StudentMsg.objects.filter(rev_student=self.request.user).order_by("send_time")
 
     def list(self, request, *args, **kwargs):
         """

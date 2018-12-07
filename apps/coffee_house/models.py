@@ -30,7 +30,7 @@ class TeacherUserMsg(models.Model):
 
 class StudentMsg(models.Model):
     """
-    学生消息
+    学生消息 需改成富文本
     """
     TYPE_CHOICES = (
         (0, '未读'),

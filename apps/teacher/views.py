@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import mixins
 from rest_framework import viewsets
 
-
+from rest_framework.pagination import PageNumberPagination
 from django.views.generic.base import View
 from django.http import HttpResponse
 import json
@@ -31,24 +31,69 @@ class TeacherLogin(View):
         return HttpResponse(json_data, content_type='application/json')
 
 
-
-
-
-class ClassListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+class TeacherPracticePagination(PageNumberPagination):
     """
-    获取某个老师的所有班级
+    学生消息分页器
+    """
+    page_size = 20
+    page_size_query_param = 'page_size'
+    page_query_param = "page"
+    max_page_size = 30
+
+
+
+class TeacherPracticeListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    获取某个老师的所有学生的作业
     list:
-        请求：http://xxx.xx.xx.xx:xx/class/?teacher=id
+        请求：http://xxx.xx.xx.xx:xx/teacher_practice_all/?teacher=id
         请求指定老师下的所有班级列表
     """
 
     # filter_backends = (DjangoFilterBackend,)
     # filter_class = CourseFilter
-    serializer_class = UserClassSerializers
+    pagination_class = TeacherPracticePagination
+    serializer_class = UserMissionListSerializers
 
     def get_queryset(self):
         #获取老师信息
-        #根据老师信息查询该老师下所有学生
+        #根据老师信息查询该老师下的班级
+        #根据班级查询学生
+        #根据学生查询任务
+
+        teacher_id = self.request.query_params.get('teacher', None)
+        teacher = Teacher.objects.get(id=teacher_id)
+        teacher_type = teacher.types
+        # teacher_tutor
+        if teacher_type == 1:
+            classes = ClassInfo.objects.filter(teacher_tutor=teacher)
+        elif teacher_type == 2:
+            classes = ClassInfo.objects.filter(teacher_lector=teacher)
+        else:
+            classes = ClassInfo.objects.filter(teacher_head=teacher)
+
+        all_tasks = UserMission.objects.filter(user=1)
+        #获取班级的学生
+        for stu_class in classes:
+            students = UserProfile.objects.filter(in_class=stu_class)
+            for stu in students:
+                user_tasks = UserMission.objects.filter(user=stu)
+
+                if user_tasks:
+                    all_tasks = all_tasks | user_tasks
+
+        return all_tasks
+
+
+class ClassListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    获取某个老师的所有班级
+    """
+    serializer_class = UserClassSerializers
+
+    def get_queryset(self):
+        # 获取老师信息
+        # 根据老师信息查询该老师下所有学生
         teacher_id = self.request.query_params.get('teacher', None)
         teacher = Teacher.objects.get(id=teacher_id)
         teacher_type = teacher.types
@@ -63,6 +108,7 @@ class ClassListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         return classes
 
 
+
 class StudentListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     获取某个班级下的所有学生
@@ -75,8 +121,8 @@ class StudentListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     def get_queryset(self):
         #获取班级信息
         #根据班级信息查询该班级下所有学生
-        calss_id = self.request.query_params.get('class', None)
-        my_class = ClassInfo.objects.get(id=calss_id)
+        class_id = self.request.query_params.get('class', None)
+        my_class = ClassInfo.objects.get(id=class_id)
 
         students = UserProfile.objects.filter(in_class=my_class)
 
