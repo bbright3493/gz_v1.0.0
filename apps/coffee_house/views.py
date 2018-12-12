@@ -71,6 +71,11 @@ class TeacherMsgListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mi
         return Response(serializer.data)
 
 
+class TeacherMsgStatusViewSet(mixins.UpdateModelMixin, viewsets.GenericViewSet):
+    serializer_class = TeacherMsgStatusSerializers
+    queryset = TeacherUserMsg.objects.all()
+
+
 class ClassViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
     获取用户的班级信息
@@ -107,6 +112,7 @@ class StudentMsgPagination(PageNumberPagination):
 
 class StudentMsgStatusViewSet(mixins.UpdateModelMixin, viewsets.GenericViewSet):
     serializer_class = StudentMsgStatusSerializers
+    queryset = StudentMsg.objects.all()
 
 class StudentMsgViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
                             viewsets.GenericViewSet):

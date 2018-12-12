@@ -13,6 +13,16 @@ class TeacherMsgSerializers(serializers.ModelSerializer):
         model = TeacherUserMsg
         fields = "__all__"
 
+class TeacherMsgStatusSerializers(serializers.ModelSerializer):
+    """
+    老师消息状态信息序列化
+    """
+
+    class Meta:
+        model = TeacherUserMsg
+        fields = ('msg_status',)
+
+
 
 class StudentMsgSerializers(serializers.ModelSerializer):
     """

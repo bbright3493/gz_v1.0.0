@@ -13,9 +13,11 @@ from .models import *
 
 
 class TeacherUserMsgAdmin(object):
-    list_display = ['student', 'teacher', 'message', 'send_time', 'msg_type']
-    search_fields = ['student', 'teacher', 'message', 'send_time', 'msg_type']
-    list_filter = ['student', 'teacher', 'message', 'send_time', 'msg_type']
+    list_display = ['student', 'teacher', 'message', 'send_time', 'msg_type', 'rich_message', 'msg_status']
+    search_fields = ['student', 'teacher', 'message', 'send_time', 'msg_type', 'rich_message', 'msg_status']
+    list_filter = ['student', 'teacher', 'message', 'send_time', 'msg_type', 'rich_message', 'msg_status']
+
+    style_fields = {"rich_message": "ueditor"}  # bb
 
 
 class StudentMsgAdmin(object):

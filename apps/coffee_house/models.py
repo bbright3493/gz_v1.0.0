@@ -15,11 +15,20 @@ class TeacherUserMsg(models.Model):
         (0, '学生消息'),
         (1, '讲师消息')
     )
+
+    STATUS_CHOICES = (
+        (0, '未读'),
+        (1, '已读')
+    )
     student = models.ForeignKey(UserProfile, verbose_name='学生信息')
     teacher = models.ForeignKey(Teacher, verbose_name='老师信息')
     message = models.CharField(max_length=1000, verbose_name='发送的消息')
+    rich_message = UEditorField(verbose_name='富文本消息', imagePath="course/images/", width=1000, height=500,
+                                filePath="course/files/", default='', null=True, blank=True)
     send_time = models.DateTimeField(default=timezone.now, verbose_name=u'发送时间')
     msg_type = models.IntegerField(choices=TYPE_CHOICES, default=0, verbose_name='消息类型')
+
+    msg_status = models.IntegerField(choices=STATUS_CHOICES, default=0, verbose_name='消息状态')
 
     class Meta:
         verbose_name = '老师学生消息'

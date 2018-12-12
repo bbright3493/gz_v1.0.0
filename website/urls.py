@@ -195,6 +195,7 @@ router.register(r'student_msg', StudentMsgViewSet, base_name='student_msg')
 
 router.register(r'student_msg_status', StudentMsgStatusViewSet, base_name='student_msg_status')
 
+router.register(r'teacher_msg_status', TeacherMsgStatusViewSet, base_name='teacher_msg_status')
 
 
 # router.register(r'msg_img', MsgImgCreateViewSet, base_name='msg_img')
