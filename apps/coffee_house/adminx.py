@@ -19,9 +19,11 @@ class TeacherUserMsgAdmin(object):
 
 
 class StudentMsgAdmin(object):
-    list_display = ['send_student', 'rev_student', 'message', 'send_time']
-    search_fields = ['send_student', 'rev_student', 'message', 'send_time']
-    list_filter = ['send_student', 'rev_student', 'message', 'send_time']
+    list_display = ['send_student', 'rev_student', 'message', 'send_time', 'rich_message']
+    search_fields = ['send_student', 'rev_student', 'message', 'send_time', 'rich_message']
+    list_filter = ['send_student', 'rev_student', 'message', 'send_time', 'rich_message']
+
+    style_fields = {"rich_message": "ueditor"}  # bb
 
 
 class DiscussMsgAdmin(object):

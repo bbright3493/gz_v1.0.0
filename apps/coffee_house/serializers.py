@@ -101,3 +101,11 @@ class GruopMsgSerializers(serializers.ModelSerializer):
         depth = 1
 
 
+class MsgImgSerializers(serializers.ModelSerializer):
+    """
+    消息图片
+    """
+    class Meta:
+        model = MsgImg
+        fields = "__all__"
+

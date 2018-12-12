@@ -192,6 +192,8 @@ router.register(r'classmate', UserClassMateListViewSet, base_name='classmate')
 #消息组件
 router.register(r'student_msg', StudentMsgViewSet, base_name='student_msg')
 
+router.register(r'msg_img', MsgImgCreateViewSet, base_name='msg_img')
+
 
 #论坛列表组件
 router.register(r'discuss_msg', DiscussListViewSet, base_name='discuss_msg')
@@ -239,6 +241,9 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls')),
     url(r'^api/', include(router.urls)),
     url(r'^api/teacher_login/', TeacherLogin.as_view(), name='teacher_login'),
+
+    url(r'^api/upload_img/', UploadImg.as_view(), name='upload_img'),
+
     url(r'^login/', obtain_jwt_token),  # jwt认证
     url(r'docs/', include_docs_urls(title='格子网塾api接口说明')),
     url(r'^results/', UserResultsView.as_view(), name='results'),  # 用户成绩api

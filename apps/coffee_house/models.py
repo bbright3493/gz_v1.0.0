@@ -3,6 +3,7 @@ from django.db import models
 from apps.users.models import UserProfile, Teacher
 from django.utils import timezone
 from apps.users.models import ClassInfo
+from DjangoUeditor.models import UEditorField
 
 
 # Create your models here.
@@ -28,6 +29,20 @@ class TeacherUserMsg(models.Model):
         return '老师学生消息'
 
 
+class MsgImg(models.Model):
+    """
+    消息图片
+    """
+    image = models.ImageField(upload_to="coffee_house/images/", null=True, blank=True, verbose_name="消息图")
+
+    class Meta:
+        verbose_name = '消息图片'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return '消息图片'
+
+
 class StudentMsg(models.Model):
     """
     学生消息 需改成富文本
@@ -38,7 +53,10 @@ class StudentMsg(models.Model):
     )
     send_student = models.ForeignKey(UserProfile, verbose_name='发送消息的学生', related_name='send_stu')
     rev_student = models.ForeignKey(UserProfile, verbose_name='接收消息的学生', related_name='rev_stu')
-    message = models.CharField(max_length=1000, verbose_name='发送的消息')
+    message = models.CharField(max_length=1000, verbose_name='发送的消息', default='', null=True, blank=True)
+    rich_message = UEditorField(verbose_name='富文本消息', imagePath="course/images/", width=1000, height=500,
+                                filePath="course/files/", default='', null=True, blank=True)
+
     send_time = models.DateTimeField(default=timezone.now, verbose_name=u'发送时间')
     msg_status = models.IntegerField(choices=TYPE_CHOICES, default=0, verbose_name='消息状态')
 
