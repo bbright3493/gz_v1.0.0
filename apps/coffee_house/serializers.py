@@ -29,7 +29,7 @@ class StudentMsgStatusSerializers(serializers.ModelSerializer):
     """
     class Meta:
         model = StudentMsg
-        fields = ("msg_status")
+        fields = ('msg_status',)
 
 
 class DiscussReplaySerializers(serializers.ModelSerializer):
