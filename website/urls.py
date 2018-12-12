@@ -192,6 +192,11 @@ router.register(r'classmate', UserClassMateListViewSet, base_name='classmate')
 #消息组件
 router.register(r'student_msg', StudentMsgViewSet, base_name='student_msg')
 
+
+router.register(r'student_msg_status', StudentMsgStatusViewSet, base_name='student_msg_status')
+
+
+
 # router.register(r'msg_img', MsgImgCreateViewSet, base_name='msg_img')
 
 

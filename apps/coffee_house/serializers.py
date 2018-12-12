@@ -23,6 +23,15 @@ class StudentMsgSerializers(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class StudentMsgStatusSerializers(serializers.ModelSerializer):
+    """
+    学生消息状态信息序列化
+    """
+    class Meta:
+        model = StudentMsg
+        fields = ("msg_status")
+
+
 class DiscussReplaySerializers(serializers.ModelSerializer):
     """
     论坛帖子回复信息序列化

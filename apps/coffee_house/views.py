@@ -105,6 +105,9 @@ class StudentMsgPagination(PageNumberPagination):
     max_page_size = 30
 
 
+class StudentMsgStatusViewSet(mixins.UpdateModelMixin, viewsets.GenericViewSet):
+    serializer_class = StudentMsgStatusSerializers
+
 class StudentMsgViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateModelMixin,
                             viewsets.GenericViewSet):
     """
