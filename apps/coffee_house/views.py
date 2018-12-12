@@ -11,6 +11,7 @@ from rest_framework import viewsets
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 from apps.utils.tools import format_time
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.authentication import SessionAuthentication
@@ -115,7 +116,7 @@ class StudentMsgViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins
     pagination_class = StudentMsgPagination
 
     def get_queryset(self):
-        return StudentMsg.objects.filter(rev_student=self.request.user).order_by("send_time")
+        return StudentMsg.objects.filter(Q(rev_student=self.request.user)|Q(send_student=self.request.user)).order_by("send_time")
 
     def list(self, request, *args, **kwargs):
         """
@@ -147,6 +148,44 @@ class DiscussCreateViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     创建论坛帖子
     """
     serializer_class = DiscussCreateSerializers
+
+
+class MsgImgCreateViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    """
+    创建消息图片
+    """
+    serializer_class = MsgImgSerializers
+
+
+from django.views.generic.base import View
+import json
+class UploadImg(View):
+    def post(self, request):
+        #post  api/upload_img/
+
+
+        img_url = {}
+        image = request.FILES.get('img')
+        if image:
+            img = MsgImg(image=image)
+            img.save()
+
+            print(img.image.url)
+
+            img_url['url'] = img.image.url
+
+            json_data = json.dumps(img_url)
+        else:
+            img_url['url'] = 'invalid url'
+
+        print(json_data)
+
+        return HttpResponse(json_data, content_type='application/json')
+
+    def get(self, request):
+        return render(request, 'img_upload.html')
+
+
 
 
 

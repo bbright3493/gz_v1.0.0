@@ -192,7 +192,7 @@ router.register(r'classmate', UserClassMateListViewSet, base_name='classmate')
 #消息组件
 router.register(r'student_msg', StudentMsgViewSet, base_name='student_msg')
 
-router.register(r'msg_img', MsgImgCreateViewSet, base_name='msg_img')
+# router.register(r'msg_img', MsgImgCreateViewSet, base_name='msg_img')
 
 
 #论坛列表组件
