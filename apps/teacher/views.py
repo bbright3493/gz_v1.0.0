@@ -23,7 +23,11 @@ class TeacherLogin(View):
         try:
             teacher = Teacher.objects.get(name=name, password=password)
             data_dict['status'] = 'success'
-
+            data_dict['id'] = teacher.id
+            data_dict['name'] = teacher.name
+            data_dict['types'] = teacher.types
+            data_dict['intr'] = teacher.intr
+            data_dict['img'] = teacher.img.url
 
         except:
             data_dict['status'] = 'fail'
