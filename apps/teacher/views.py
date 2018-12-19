@@ -14,9 +14,15 @@ from apps.user_relationship.serializers import UserMissionListSerializers, Teach
 from apps.coffee_house.serializers import TeacherMsgSerializers
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
-@csrf_exempt
+
 class TeacherLogin(View):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(TeacherLogin, self).dispatch(request, *args, **kwargs)
+
+
     def post(self, request):
         data_dict = {}
         name = request.POST.get('name', 0)
@@ -29,7 +35,6 @@ class TeacherLogin(View):
             data_dict['types'] = teacher.types
             data_dict['intr'] = teacher.intr
             data_dict['img'] = teacher.img.url
-
         except:
             data_dict['status'] = 'fail'
 
