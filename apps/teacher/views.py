@@ -23,10 +23,12 @@ class TeacherLogin(View):
         try:
             teacher = Teacher.objects.get(name=name, password=password)
             data_dict['status'] = 'success'
-            json_data = json.dumps(data_dict)
+
 
         except:
             data_dict['status'] = 'fail'
+
+        json_data = json.dumps(data_dict)
 
         return HttpResponse(json_data, content_type='application/json')
 
