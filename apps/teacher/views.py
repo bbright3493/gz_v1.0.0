@@ -13,8 +13,9 @@ from apps.user_relationship.models import UserMission, TeacherEvaluation
 from apps.user_relationship.serializers import UserMissionListSerializers, TeacherEvaluationSerializers
 from apps.coffee_house.serializers import TeacherMsgSerializers
 # Create your views here.
+from django.views.decorators.csrf import csrf_exempt
 
-
+@csrf_exempt
 class TeacherLogin(View):
     def post(self, request):
         data_dict = {}
