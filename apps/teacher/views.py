@@ -97,6 +97,58 @@ class TeacherPracticeListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet)
         return all_tasks
 
 
+class TeacherPracticeCorrectedListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    获取某个老师已批改的所有学生的作业
+    list:
+        请求：http://xxx.xx.xx.xx:xx/teacher_practice_correct/?teacher=id
+    """
+
+    # filter_backends = (DjangoFilterBackend,)
+    # filter_class = CourseFilter
+    pagination_class = TeacherPracticePagination
+    serializer_class = UserMissionListSerializers
+
+    def get_queryset(self):
+        #获取老师信息
+        #根据老师信息查询该老师下的班级
+        #根据班级查询学生
+        #根据学生查询任务
+        #筛选已批改任务
+
+        teacher_id = self.request.query_params.get('teacher', None)
+        teacher = Teacher.objects.get(id=teacher_id)
+        teacher_type = teacher.types
+        # teacher_tutor
+        if teacher_type == 1:
+            classes = ClassInfo.objects.filter(teacher_tutor=teacher)
+        elif teacher_type == 2:
+            classes = ClassInfo.objects.filter(teacher_lector=teacher)
+        else:
+            classes = ClassInfo.objects.filter(teacher_head=teacher)
+
+        all_tasks = UserMission.objects.filter(user=1)
+        all_taskss = UserMission.objects.filter(user=1)
+        #获取班级的学生
+        for stu_class in classes:
+            students = UserProfile.objects.filter(in_class=stu_class)
+            for stu in students:
+
+                user_tasks = UserMission.objects.filter(user=stu)
+
+                if user_tasks:
+                    all_taskss = all_taskss | user_tasks
+
+                teacher_evalutions = TeacherEvaluation.objects.filter(user=stu)
+
+                for teacher_evalution in teacher_evalutions:
+                    user_task_mission = user_tasks.filter(mission=teacher_evalution.mission)
+                    if user_task_mission:
+                        all_tasks = all_tasks | user_tasks
+
+        return all_tasks.distinct()
+
+
 class ClassListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     获取某个老师的所有班级

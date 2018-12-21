@@ -232,6 +232,12 @@ router.register(r'student', StudentListViewSet, base_name='student')
 
 router.register(r'teacher_practice_all', TeacherPracticeListViewSet, base_name='teacher_practice_all')
 
+router.register(r'teacher_practice_correct', TeacherPracticeCorrectedListViewSet, base_name='teacher_practice_correct')
+
+router.register(r'user_mission_status', UserMissionStautsViewSet, base_name='user_mission_status')
+
+
+
 
 # 老师评价api
 router.register(r'teacher_evaluation', Teache_EvaluationViewSet, base_name='teacher_evaluation')

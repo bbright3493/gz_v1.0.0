@@ -257,6 +257,15 @@ class UserMissionViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.
         return UserMission.objects.filter(user=self.request.user)
 
 
+class UserMissionStautsViewSet(mixins.UpdateModelMixin, viewsets.GenericViewSet):
+    """
+    update:
+        psot请求：http://xxx.xx.xx.xx:xx/user_mission_status/ 用户任务完成 创建
+    """
+    serializer_class = UserMissionStatusSerializers
+
+
+
 class TeacherEvaluationViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
     """
         list:

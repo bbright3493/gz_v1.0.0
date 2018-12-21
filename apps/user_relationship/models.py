@@ -124,6 +124,14 @@ class UserMission(models.Model):
     chapter = models.ForeignKey(Chapter, verbose_name='章节id', help_text='章节id')
     mission = models.ForeignKey(ChapterTask, verbose_name='任务id', help_text='任务id')
     data_info = models.TextField(verbose_name='任务完成说明', help_text='任务完成说明')
+
+    status = (
+        (1, "未批改"),
+        (2, "已批改"),
+        #     (3, "三级类目"),
+    )
+    task_status = models.IntegerField(choices=status, verbose_name="用户任务状态", default=1)
+
     task_end = models.BooleanField(default=False, verbose_name='任务是否完成', help_text='任务是否完成')
     file = models.FileField(upload_to='mission/%Y/%m/%d/', max_length=1000, null=True, blank=True, verbose_name='上传文件',
                             help_text='上传文件')
@@ -139,6 +147,26 @@ class UserMission(models.Model):
 
     def __str__(self):
         return '%s-%s'%(self.user.name, self.mission.name)
+
+
+# class TeacherEvaluationNew(models.Model):
+#     teacher = models.ForeignKey(Teacher, verbose_name='老师id', help_text='老师id')
+#     user_mission = models.ForeignKey(UserMission, verbose_name='用户提交任务', related_name='user_task_evalution')
+#     content = models.TextField(verbose_name='评价内容', help_text='评价内容')
+#     evaluation_time = models.DateTimeField(default=timezone.now, verbose_name='评价时间', help_text='评价时间')
+#     pass_type = (
+#         (1, "未通过"),
+#         (2, "通过"),
+#         #     (3, "三级类目"),
+#     )
+#     is_pass = models.IntegerField(choices=pass_type, verbose_name="是否通过", help_text="是否通过", default=1)
+#
+#     class Meta:
+#         verbose_name = '老师评价新'
+#         verbose_name_plural = verbose_name
+#
+#     def __str__(self):
+#         return self.teacher.name
 
 
 class TeacherEvaluation(models.Model):

@@ -218,6 +218,15 @@ class UserMissionSerializers(serializers.ModelSerializer):
         model = UserMission
         fields = "__all__"
 
+class UserMissionStatusSerializers(serializers.ModelSerializer):
+    """
+    用户任务完成信息序创建列化
+    """
+
+    class Meta:
+        model = UserMission
+        fields = ('task_status',)
+
 
 class TeacherEvaluationListSerializers(serializers.ModelSerializer):
     """
