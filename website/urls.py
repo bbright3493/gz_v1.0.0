@@ -236,15 +236,16 @@ router.register(r'teacher_practice_correct', TeacherPracticeCorrectedListViewSet
 
 router.register(r'user_mission_status', UserMissionStautsViewSet, base_name='user_mission_status')
 
-
+router.register(r'user_mission_end', UserMissionTaskEndViewSet, base_name='user_mission_end')
 
 
 # 老师评价api
+#创建老师评价
 router.register(r'teacher_evaluation', Teache_EvaluationViewSet, base_name='teacher_evaluation')
-
+#查询消息
 router.register(r'teacher_student_msg', StudentMsgListView, base_name='teacher_student_msg')
-
-
+#根据用户任务id查询老师评价
+router.register(r'teacher_evaluation_user_task', TeacherEvaluationByTaskIdViewSet, base_name='teacher_evaluation_user_task')
 
 
 

@@ -198,7 +198,7 @@ class StudentListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 """
 class StudentTaskListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    获取某个学生提交的任务信息列表 如果有教师评语 会同时获取
+    获取某个学生提交的任务信息列表
     list:
         请求：http://xxx.xx.xx.xx:xx/student_task/?student=id
         请求指定学生的任务列表
@@ -220,6 +220,23 @@ class Teache_EvaluationViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet)
 
     def get_queryset(self):
         return TeacherEvaluation.objects.all()
+
+
+class TeacherEvaluationByTaskIdViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    根据学生任务id，查询任务id对应的老师点评
+    请求： http://xxx.xx.xx.xx:xx/teacher_evaluation_user_task/？user_task=id 返回当前用户指定任务的老师评价
+    """
+    serializer_class = TeacherEvaluationSerializers
+
+    def get_queryset(self):
+        user_task = self.request.query_params.get('user_task', None)
+        if user_task:
+            queryset = TeacherEvaluation.objects.filter(user_mission_id=user_task)
+            return queryset
+        else:
+            queryset = TeacherEvaluation.objects.all()
+            return queryset
 
 
 """
