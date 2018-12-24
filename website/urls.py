@@ -265,7 +265,9 @@ urlpatterns = [
     url(r'^ueditor/', include('DjangoUeditor.urls')),
     url(r'^media/(?P<path>.*)/$', serve, {'document_root': MEDIA_ROOT}),  # 资源文件加载地址
 #    url(r'^index/', TemplateView.as_view(template_name="index.html"), name="index"),
+    url(r'teacher', TemplateView.as_view(template_name="index_teacher.html"), name="index_teacher"),
     url(r'^', TemplateView.as_view(template_name="index.html"), name="index"),
+
 
 ]
 
