@@ -251,7 +251,7 @@ class GruopUserListViwSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 class GroupMsgViewSet(mixins.CreateModelMixin,
                             viewsets.GenericViewSet):
     """
-    创建用户小组信息
+    创建用户小组消息
     """
     permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
     authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
@@ -261,7 +261,7 @@ class GroupMsgViewSet(mixins.CreateModelMixin,
 class GroupMsgListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
                             viewsets.GenericViewSet):
     """
-    获取用户小组信息
+    获取用户小组消息
     list:
             需登录
             请求： http://xxx.xx.xx.xx:xx/group_msg/ 返回当前用户所在小组的消息

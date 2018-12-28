@@ -12,6 +12,7 @@ from apps.users.serializers import UserClassSerializers, UserProfileSerializers
 from apps.user_relationship.models import UserMission, TeacherEvaluation
 from apps.user_relationship.serializers import UserMissionListSerializers, TeacherEvaluationSerializers
 from apps.coffee_house.serializers import TeacherMsgSerializers
+from apps.coffee_house.models import TeacherUserMsg
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -152,6 +153,9 @@ class TeacherPracticeCorrectedListViewSet(mixins.ListModelMixin, viewsets.Generi
 class ClassListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     获取某个老师的所有班级
+    list:
+        请求：http://xxx.xx.xx.xx:xx/class/?teacher=id
+        请求某个老师下的所有班级
     """
     serializer_class = UserClassSerializers
 
@@ -178,7 +182,7 @@ class StudentListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     获取某个班级下的所有学生
     list:
         请求：http://xxx.xx.xx.xx:xx/student/?class=id
-        请求指定老师下的所有班级列表
+        请求指定班级下的学生
     """
     serializer_class = UserProfileSerializers
 
@@ -257,7 +261,7 @@ class StudentMsgListView(mixins.ListModelMixin, viewsets.GenericViewSet, mixins.
     def get_queryset(self):
         student_id = self.request.query_params.get('student', None)
         student = UserProfile.objects.get(id=student_id)
-        return TeacherEvaluation.objects.filter(user=student)
+        return TeacherUserMsg.objects.filter(student=student)
 
 
 
