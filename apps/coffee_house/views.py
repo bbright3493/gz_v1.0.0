@@ -233,6 +233,24 @@ class GroupListViwSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         return Group.objects.filter(in_class=self.request.user.in_class)
 
 
+class GroupClassListViwSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    list:
+            需登录
+            请求： http://xxx.xx.xx.xx:xx/group_class/?class=id
+            返回某个班级的所有小组
+            配合教师端接口
+            http://xxx.xx.xx.xx:xx/class/?teacher=id
+            请求某个老师下的所有班级
+            可以获取教师下面的所有小组
+    """
+    serializer_class = GruopSerializers
+
+    def get_queryset(self):
+        in_class = self.request.query_params.get('class', None)
+        return Group.objects.filter(in_class=int(in_class))
+
+
 class GruopUserListViwSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
         list:
@@ -273,5 +291,32 @@ class GroupMsgListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
     def get_queryset(self):
         group = UserGroup.objects.get(user=self.request.user).group
         return GroupMsg.objects.filter(group=group)
+
+
+class GroupTeacherMsgViewSet(mixins.CreateModelMixin,
+                            viewsets.GenericViewSet):
+    """
+    创建讲师小组消息
+    group_teacher_msg_create
+    """
+    serializer_class = GruopTeacherCreateMsgSerializers
+
+
+
+class GroupTeacherMsgListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
+                            viewsets.GenericViewSet):
+    """
+    获取讲师小组消息
+    list:
+            需登录
+            请求： http://xxx.xx.xx.xx:xx/group_teacher_msg/?teacher=id 返回教师所有小组的消息
+    """
+
+    serializer_class = GruopTeacherMsgSerializers
+
+    def get_queryset(self):
+        teacher = self.request.query_params.get('teacher', None)
+        return GroupMsgTeacher.objects.filter(teacher=teacher)
+
 
 

@@ -247,7 +247,13 @@ router.register(r'teacher_student_msg', StudentMsgListView, base_name='teacher_s
 #根据用户任务id查询老师评价
 router.register(r'teacher_evaluation_user_task', TeacherEvaluationByTaskIdViewSet, base_name='teacher_evaluation_user_task')
 
+#根据班级查询小组
+router.register(r'group_class', GroupClassListViwSet, base_name='group_class')
 
+
+router.register(r'group_teacher_msg', GroupTeacherMsgListViewSet, base_name='group_teacher_msg')
+
+router.register(r'group_teacher_msg_create', GroupTeacherMsgViewSet, base_name='group_teacher_msg_create')
 
 urlpatterns = [
     url(r'^admin/', xadmin.site.urls),

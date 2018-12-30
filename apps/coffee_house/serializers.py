@@ -110,12 +110,34 @@ class GruopCreateMsgSerializers(serializers.ModelSerializer):
         fields = "__all__"
 
 
+
+
+
 class GruopMsgSerializers(serializers.ModelSerializer):
     """
     小组消息列表序列化
     """
     class Meta:
         model = GroupMsg
+        fields = "__all__"
+        depth = 1
+
+
+class GruopTeacherCreateMsgSerializers(serializers.ModelSerializer):
+    """
+    小组创建老师消息序列化
+    """
+    class Meta:
+        model = GroupMsgTeacher
+        fields = "__all__"
+
+
+class GruopTeacherMsgSerializers(serializers.ModelSerializer):
+    """
+    小组老师消息列表序列化
+    """
+    class Meta:
+        model = GroupMsgTeacher
         fields = "__all__"
         depth = 1
 

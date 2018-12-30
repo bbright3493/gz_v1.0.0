@@ -148,6 +148,7 @@ class UserGroup(models.Model):
         return  '%s-%s'%(self.user.name, self.group.name)
 
 
+
 class GroupMsg(models.Model):
     """
     小组聊天信息
@@ -163,6 +164,23 @@ class GroupMsg(models.Model):
 
     def __str__(self):
         return '学生小组消息'
+
+
+class GroupMsgTeacher(models.Model):
+    """
+    老师小组聊天信息
+    """
+    teacher = models.ForeignKey(Teacher, verbose_name='发送消息的老师')
+    group = models.ForeignKey(Group, verbose_name='小组')
+    message = models.CharField(max_length=1000, verbose_name='发送的消息')
+    send_time = models.DateTimeField(default=timezone.now, verbose_name=u'发送时间')
+
+    class Meta:
+        verbose_name = '老师小组消息'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return '老师小组消息'
 
 
 

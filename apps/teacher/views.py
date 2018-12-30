@@ -161,7 +161,7 @@ class ClassListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
     def get_queryset(self):
         # 获取老师信息
-        # 根据老师信息查询该老师下所有学生
+        # 根据老师信息查询该老师下所有班级
         teacher_id = self.request.query_params.get('teacher', None)
         teacher = Teacher.objects.get(id=teacher_id)
         teacher_type = teacher.types
