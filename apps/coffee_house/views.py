@@ -228,9 +228,31 @@ class GroupListViwSet(mixins.ListModelMixin, viewsets.GenericViewSet):
             请求： http://xxx.xx.xx.xx:xx/gruop/ 返回当前用户所在班级的所有小组
     """
     serializer_class = GruopSerializers
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
 
     def get_queryset(self):
         return Group.objects.filter(in_class=self.request.user.in_class)
+
+
+class GroupUserInfoViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
+                            viewsets.GenericViewSet):
+    """
+    获取学生所在的用户-小组信息
+    list:
+            需登录
+            请求： http://xxx.xx.xx.xx:xx/group_user_info/
+    """
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+
+    serializer_class = GruopUserSerializers
+
+    def get_queryset(self):
+        user_groups = UserGroup.objects.filter(user=self.request.user)
+
+        return user_groups
+
 
 
 class GroupClassListViwSet(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -300,6 +322,10 @@ class GroupTeacherMsgViewSet(mixins.CreateModelMixin,
     group_teacher_msg_create
     """
     serializer_class = GruopTeacherCreateMsgSerializers
+
+
+
+
 
 
 

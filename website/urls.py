@@ -253,6 +253,9 @@ router.register(r'group_class', GroupClassListViwSet, base_name='group_class')
 
 router.register(r'group_teacher_msg', GroupTeacherMsgListViewSet, base_name='group_teacher_msg')
 
+
+router.register(r'group_user_info', GroupUserInfoViewSet, base_name='group_user_info')
+
 router.register(r'group_teacher_msg_create', GroupTeacherMsgViewSet, base_name='group_teacher_msg_create')
 
 urlpatterns = [
