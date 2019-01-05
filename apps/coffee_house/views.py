@@ -315,6 +315,23 @@ class GroupMsgListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
         return GroupMsg.objects.filter(group=group)
 
 
+class GroupTeacherMsgListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
+                            viewsets.GenericViewSet):
+    """
+    获取用户小组的讲师消息
+    list:
+            需登录
+            请求： http://xxx.xx.xx.xx:xx/group_stu_teacher_msg/ 返回当前用户所在小组的老师消息
+    """
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+    serializer_class = GruopTeacherMsgSerializers
+
+    def get_queryset(self):
+        group = UserGroup.objects.get(user=self.request.user).group
+        return GroupMsgTeacher.objects.filter(group=group)
+
+
 class GroupTeacherMsgViewSet(mixins.CreateModelMixin,
                             viewsets.GenericViewSet):
     """
