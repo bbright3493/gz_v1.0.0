@@ -252,7 +252,7 @@ router.register(r'group_class', GroupClassListViwSet, base_name='group_class')
 
 
 
-router.register(r'group_stu_teacher_msg', GroupTeacherMsgListViewSet, base_name='group_stu_teacher_msg')
+router.register(r'group_stu_teacher_msg', GroupStuTeacherMsgListViewSet, base_name='group_stu_teacher_msg')
 
 router.register(r'group_teacher_msg', GroupTeacherMsgListViewSet, base_name='group_teacher_msg')
 

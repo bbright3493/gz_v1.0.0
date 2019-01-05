@@ -315,7 +315,7 @@ class GroupMsgListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
         return GroupMsg.objects.filter(group=group)
 
 
-class GroupTeacherMsgListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
+class GroupStuTeacherMsgListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
                             viewsets.GenericViewSet):
     """
     获取用户小组的讲师消息
