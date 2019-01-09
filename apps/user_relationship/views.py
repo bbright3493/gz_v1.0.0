@@ -159,6 +159,9 @@ class UserTaskListViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewse
         return user_task
 
 
+
+
+
 class UserBlogViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
     """
     list:
@@ -325,3 +328,19 @@ class ReadTeacherEvaluationViewSet(mixins.ListModelMixin, viewsets.GenericViewSe
         else:
             queryset = TeacherEvaluation.objects.filter(user=user).all()
             return queryset
+
+
+class UserMajorViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    """
+    list:
+            需登录
+            请求： http://xxx.xx.xx.xx:xx/user_major/ 根据当前登陆用户查询用户专业信息
+    """
+    serializer_class = StudentMajorSerializers
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication)
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = UserMajor.objects.filter(user=user)
+        return queryset

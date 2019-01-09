@@ -67,6 +67,9 @@ router.register(r'user_practice', UserPracticeViewSet, base_name='user_practice'
 router.register(r'user_practice_create', UserPracticeCreateViewSet, base_name='user_practice_create')
 
 
+router.register(r'user_major', UserMajorViewSet, base_name='user_major')
+
+
 # 用户任务提交api
 router.register(r'user_mission', UserMissionViewSet, base_name='user_mission')
 

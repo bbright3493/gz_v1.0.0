@@ -270,3 +270,12 @@ class TeacherEvaluationSerializers(serializers.ModelSerializer):
     class Meta:
         model = TeacherEvaluation
         fields = "__all__"
+
+
+class StudentMajorSerializers(serializers.ModelSerializer):
+    """
+    学生专业序列化
+    """
+    class Meta:
+        model = UserMajor
+        fields = "__all__"
