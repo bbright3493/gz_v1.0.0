@@ -96,7 +96,7 @@ class ChapterTask(models.Model):
     chapter_name = models.ForeignKey(Chapter, verbose_name='章节', related_name='tasks')
     name = models.CharField(max_length=255, verbose_name='任务名')
     info = models.TextField(verbose_name='任务介绍')
-    chapter_task = UEditorField(verbose_name='任务说明', imagePath="course/images/", width=1000, height=500,
+    chapter_task = UEditorField(verbose_name='任务说明', imagePath="course/images/", width=2500, height=2000,
                                 filePath="course/files/", default='')
     chapter_video = models.CharField(max_length=255, null=True, blank=True, verbose_name='任务视频', default='')
     chapter_target = models.CharField(max_length=255, verbose_name='任务目标', default='')
