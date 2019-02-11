@@ -24,6 +24,7 @@ class Major(models.Model):
     # course_task = models.CharField(max_length=255, null=True, blank=True, verbose_name='内容介绍')
     # image = models.ImageField(upload_to="course/images/", null=True, blank=True, verbose_name="封面图")
     add_time = models.DateTimeField(default=timezone.now, verbose_name="添加时间")
+    number = models.IntegerField(verbose_name='类目序号', null=True, blank=True)
 
     class Meta:
         verbose_name = "专业类别"
@@ -44,6 +45,7 @@ class Course(models.Model):
     course_task = models.CharField(max_length=255, null=True, blank=True, verbose_name='内容介绍')
     image = models.ImageField(upload_to="course/images/", null=True, blank=True, verbose_name="封面图")
     add_time = models.DateTimeField(default=timezone.now, verbose_name="添加时间")
+    number = models.IntegerField(verbose_name='课程序号', null=True, blank=True)
 
     class Meta:
         verbose_name = "课程"

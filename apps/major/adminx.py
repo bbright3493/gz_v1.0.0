@@ -16,9 +16,9 @@ class CategoryAndCourseInline(object):
 
 class MajorAdmin(object):
     inlines = [CategoryAndCourseInline]
-    list_display = ['name', 'category_type', 'parent_category', 'add_time']
-    search_fields = ['name', 'category_type', 'parent_category']
-    list_filter = ['name', 'category_type', 'parent_category', 'add_time']
+    list_display = ['name', 'category_type', 'parent_category', 'add_time', 'number']
+    search_fields = ['name', 'category_type', 'parent_category', 'number']
+    list_filter = ['name', 'category_type', 'parent_category', 'add_time', 'number']
 
 
 
@@ -32,9 +32,9 @@ class MajorAdmin(object):
 
 class CourseAdmin(object):
     inlines = [CategoryAndCourseInline]
-    list_display = ['name', 'course_task', 'add_time']
-    search_fields = ['name', 'course_task']
-    list_filter = ['name', 'course_task', 'add_time']
+    list_display = ['name', 'course_task', 'add_time', 'number']
+    search_fields = ['name', 'course_task', 'number']
+    list_filter = ['name', 'course_task', 'add_time', 'number']
 
 
 # class CategoryAndCourseAdmin(object):
